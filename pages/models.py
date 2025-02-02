@@ -2,6 +2,12 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils import timezone
 from django.urls import reverse
+from imagekit.models import ProcessedImageField
+from imagekit.models.fields import ImageSpecField
+from imagekit.processors import ResizeToFill, Thumbnail
+from decouple import config
+
+from pages.utils import add_watermark
 
 
 class PageManager(models.Manager):
@@ -33,6 +39,21 @@ class Page(models.Model):
         choices=Status,
         default=Status.DRAFT
     )
+    image = ProcessedImageField(
+        upload_to="images/",
+        processors=[ResizeToFill(800, 600)],
+        format="WEBP",
+        options={"quality": 90},
+        blank=True,
+        null=True,
+        spec_id="pages:page:image",
+    )
+    image_thumbnail = ImageSpecField(
+        source="image",
+        processors=[Thumbnail(100, 100)],
+        format="WEBP",
+        options={"quality": 70}
+    )
 
     objects = PageManager()
 
@@ -40,6 +61,9 @@ class Page(models.Model):
         if self.is_home:
             Page.objects.exclude(pk=self.pk).update(is_home=False)
         super().save(*args, **kwargs)
+
+        if self.image:
+            add_watermark(self.image.path, config("SITE_DOMAIN"))
 
     class Meta:
         ordering = ["-publish"]
