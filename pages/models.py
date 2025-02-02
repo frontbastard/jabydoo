@@ -1,13 +1,16 @@
+import json
+
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.utils import timezone
 from django.urls import reverse
+from django.utils.safestring import mark_safe
 from imagekit.models import ProcessedImageField
 from imagekit.models.fields import ImageSpecField
 from imagekit.processors import ResizeToFill, Thumbnail
 from decouple import config
 
-from pages.utils import add_watermark
+from core.utils import add_watermark
 
 
 class PageManager(models.Manager):
@@ -73,3 +76,22 @@ class Page(models.Model):
 
     def get_absolute_url(self):
         return reverse("pages:page", kwargs={"slug": self.slug})
+
+    def get_json_ld(self):
+        data = {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": self.title,
+            "description": self.content[:150],
+            "datePublished": self.publish.isoformat(),
+            "dateModified": self.updated.isoformat(),
+            "url": f"https://{config('SITE_DOMAIN')}{self.get_absolute_url()}",
+        }
+
+        if self.image:
+            data["image"] = f"https://{config('SITE_DOMAIN')}{self.image.url}"
+
+        json_ld = json.dumps(data, ensure_ascii=False)
+        return mark_safe(
+            f"<script type='application/ld+json'>{json_ld}</script>"
+        )
