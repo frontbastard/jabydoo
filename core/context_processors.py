@@ -1,4 +1,4 @@
-from .models import Page
+from pages.models import Page
 
 
 def all_pages(request):
