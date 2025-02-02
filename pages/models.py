@@ -1,21 +1,30 @@
 import json
 
-from django.db import models
 from ckeditor.fields import RichTextField
-from django.utils import timezone
+from decouple import config
+from django.db import models
 from django.urls import reverse
+from django.utils import timezone
 from django.utils.safestring import mark_safe
 from imagekit.models import ProcessedImageField
 from imagekit.models.fields import ImageSpecField
 from imagekit.processors import ResizeToFill, Thumbnail
-from decouple import config
+from parler.managers import TranslatableQuerySet
+from parler.models import TranslatableModel, TranslatedFields
 
 from core.utils import add_watermark
+
+
+class PageQuerySet(TranslatableQuerySet):
+    pass
 
 
 class PageManager(models.Manager):
     def get_home_page(self):
         return self.filter(is_home=True).first()
+
+    def get_queryset(self):
+        return PageQuerySet(self.model, using=self._db)
 
 
 class PuglishedManager(models.Manager):
@@ -25,14 +34,16 @@ class PuglishedManager(models.Manager):
         )
 
 
-class Page(models.Model):
+class Page(TranslatableModel):
     class Status(models.TextChoices):
         DRAFT = "DF", "Draft"
         PUBLISHED = "PB", "Published"
 
-    title = models.CharField(max_length=250)
-    content = RichTextField()
-    slug = models.SlugField(max_length=250, unique=True)
+    translations = TranslatedFields(
+        title=models.CharField(max_length=250),
+        content=RichTextField(),
+        slug=models.SlugField(max_length=250, unique=True),
+    )
     is_home = models.BooleanField(default=False)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)

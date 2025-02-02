@@ -22,9 +22,11 @@ def home_page(request):
 
 
 def other_page(request, slug):
+    language = request.LANGUAGE_CODE
     home = get_object_or_404(
         Page,
-        slug=slug,
+        translations__language_code=language,
+        translations__slug=slug,
         status=Page.Status.PUBLISHED,
     )
     return render(
