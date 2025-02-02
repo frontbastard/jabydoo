@@ -14,7 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
@@ -29,9 +29,9 @@ sitemaps = {
     "pages": PageSitemap,
 }
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     path("admin/", admin.site.urls),
-    path("", include("pages.urls"), name="pages"),
+    path("rosetta/", include("rosetta.urls")),
     path(
         "robots.txt", TemplateView.as_view(
             template_name="robots.txt", content_type="text/plain"
@@ -41,8 +41,8 @@ urlpatterns = [
         "sitemap.xml", sitemap, {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap"
     ),
-    path("rosetta/", include("rosetta.urls")),
-]
+    path("", include("pages.urls"), name="pages"),
+)
 
 if settings.DEBUG:
     urlpatterns += static(
