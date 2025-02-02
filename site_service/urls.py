@@ -41,6 +41,7 @@ urlpatterns = [
         "sitemap.xml", sitemap, {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap"
     ),
+    path("rosetta/", include("rosetta.urls")),
 ]
 
 if settings.DEBUG:

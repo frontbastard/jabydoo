@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "imagekit",
     "ckeditor",
     "meta",
+    "rosetta",
     "core",
     "pages",
     "seo",
