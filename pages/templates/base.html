@@ -1,10 +1,26 @@
+{% load seo_tags %}
+{% if object %}
+    {% get_seo object as seo %}
+{% endif %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>{% block title %}Jabydoo{% endblock %}</title>
+    <title>
+        {% block title %}
+            {% if seo.title %}
+                {{ seo.title }}
+            {% else %}
+                {{ object.title }}
+            {% endif %}
+        {% endblock %}
+    </title>
+    {% if seo %}
+        <meta name="description" content="{{ seo.description }}">
+        <meta name="keywords" content="{{ seo.keywords }}">
+    {% endif %}
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
 </head>
 <body>

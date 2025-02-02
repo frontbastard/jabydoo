@@ -17,7 +17,7 @@ def home_page(request):
     return render(
         request,
         "pages/home.html",
-        {"page": home}
+        {"object": home}
     )
 
 
@@ -30,5 +30,5 @@ def other_page(request, slug):
     return render(
         request,
         "pages/page.html",
-        {"page": home}
+        {"object": home}
     )

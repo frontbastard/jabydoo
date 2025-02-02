@@ -1,3 +1,8 @@
-from django.contrib import admin
+from django.contrib.contenttypes.admin import GenericStackedInline
+from .models import SEO
 
-# Register your models here.
+
+class SEOInline(GenericStackedInline):
+    model = SEO
+    extra = 1
+    max_num = 1
