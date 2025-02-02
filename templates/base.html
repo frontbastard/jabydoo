@@ -1,4 +1,5 @@
 {% load seo_tags %}
+{% load i18n static %}
 {% if object %}
     {% get_seo object as seo %}
 {% endif %}
@@ -36,6 +37,23 @@
             {% endfor %}
         </ul>
     </nav>
+    {% get_current_language as LANGUAGE_CODE %}
+    {% get_available_languages as LANGUAGES %}
+    {% get_language_info_list for LANGUAGES as languages %}
+    <div class="languages">
+        <p>{% translate "Language" %}:</p>
+        <ul class="languages">
+            {% for language in languages %}
+                <li>
+                    <a href="/{{ language.code }}/"
+                            {% if language.code == LANGUAGE_CODE %}
+                       class="selected"{% endif %}>
+                        {{ language.name_local }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 </header>
 
 <main>
