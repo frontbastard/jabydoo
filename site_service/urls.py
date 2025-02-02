@@ -29,7 +29,7 @@ sitemaps = {
     "pages": PageSitemap,
 }
 
-urlpatterns = i18n_patterns(
+urlpatterns = [
     path("admin/", admin.site.urls),
     path("rosetta/", include("rosetta.urls")),
     path(
@@ -41,7 +41,11 @@ urlpatterns = i18n_patterns(
         "sitemap.xml", sitemap, {"sitemaps": sitemaps},
         name="django.contrib.sitemaps.views.sitemap"
     ),
-    path("", include("pages.urls"), name="pages"),
+]
+
+urlpatterns += i18n_patterns(
+    path("", include("pages.urls", namespace="pages")),
+    prefix_default_language=False
 )
 
 if settings.DEBUG:

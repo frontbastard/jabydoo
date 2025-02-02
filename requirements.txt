@@ -5,3 +5,4 @@ django-imagekit==5.0.0
 python-decouple==3.8
 django-robots==6.1
 django-rosetta==0.10.1
+django-parler==2.3

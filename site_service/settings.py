@@ -38,10 +38,13 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.sites",
     "django.contrib.sitemaps",
+
     "imagekit",
     "ckeditor",
     "meta",
     "rosetta",
+    "parler",
+
     "core",
     "pages",
     "seo",
@@ -74,6 +77,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "core.context_processors.all_pages",
+                "core.context_processors.current_url_name",
             ],
         },
     },
@@ -113,8 +117,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = "en"
-# USE_I18N = True
-# USE_L10N = True
 LANGUAGES = [
     ("en", _("English")),
     ("fr", _("French")),
@@ -122,6 +124,16 @@ LANGUAGES = [
 LOCALE_PATHS = [
     BASE_DIR / "locale",
 ]
+PARLER_LANGUAGES = {
+    None: (
+        {"code": "en"},
+        {"code": "fr"},
+    ),
+    "default": {
+        "fallback": "en",
+        "hide_untranslated": False,
+    }
+}
 
 TIME_ZONE = "UTC"
 
