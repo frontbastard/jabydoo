@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Jabydoo{% endblock %}</title>
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+</head>
+<body>
+<header>
+    <a href="{% url "pages:home" %}">LOGO</a>
+    <nav>
+        <ul>
+            {% for page in all_pages %}
+                <li>
+                    <a href="{{ page.get_absolute_url }}">{{ page.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </nav>
+</header>
+
+<main>
+    {% block content %}
+    {% endblock %}
+</main>
+
+<footer>
+    Footer
+</footer>
+</body>
+</html>

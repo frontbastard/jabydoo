@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}Головна - {{ page.title }}{% endblock %}
+
+{% block content %}
+    <h1>Ласкаво просимо на {{ page.title }}</h1>
+    {{ page.content|safe }}
+    <!-- Додайте тут специфічні елементи для головної сторінки -->
+{% endblock %}
