@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "ckeditor",
     "meta",
     "pages",
+    "seo",
 ]
 
 MIDDLEWARE = [
