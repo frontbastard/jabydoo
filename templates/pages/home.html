@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load i18n static %}
 
 {% block content %}
     <h1>Welcome to homepage {{ object.title }}</h1>
@@ -7,3 +8,26 @@
     {% endif %}
     {{ page.content|safe }}
 {% endblock %}
+
+{% translate "Get a bonus" %}
+{% translate "Learn more" %}
+{% translate "Get this" %}
+{% translate "Get started safely" %}
+{% translate "Use it now" %}
+{% translate "Play now" %}
+{% translate "Sign in now" %}
+{% translate "Sign in" %}
+{% translate "Sign up" %}
+{% translate "Join now" %}
+{% translate "View offers" %}
+{% translate "Check codes" %}
+{% translate "Download now" %}
+{% translate "Check requirements" %}
+{% translate "Install now" %}
+{% translate "Try it now" %}
+{% translate "Start the game" %}
+{% translate "Get started now" %}
+{% translate "Try the games" %}
+{% translate "Open" %}
+{% translate "Open page" %}
+{% translate "Set up now" %}
