@@ -2,16 +2,13 @@
 
 {% get_current_language as LANGUAGE_CODE %}
 {% get_available_languages as LANGUAGES %}
+{% load i18n parler_tags %}
 
 <div class="languages">
     <p>{% translate "Language" %}:</p>
     <ul class="languages">
         {% for lang_code, lang_name in LANGUAGES %}
-            {% if lang_code != LANGUAGE_CODE %}
-                <a href="{% change_lang_url lang_code %}">{{ lang_name }}</a>
-            {% else %}
-                <span>{{ lang_name }}</span>
-            {% endif %}
+            <a href="{% change_lang_url lang_code %}">{{ lang_name }}</a>
         {% endfor %}
     </ul>
 </div>

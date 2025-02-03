@@ -86,6 +86,8 @@ class Page(TranslatableModel):
         return self.title
 
     def get_absolute_url(self):
+        if self.is_home:
+            return reverse("pages:home")
         return reverse("pages:page", kwargs={"slug": self.slug})
 
     def get_json_ld(self):

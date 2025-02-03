@@ -22,10 +22,11 @@ from django.urls import path
 from django.urls.conf import include
 from django.views.generic import TemplateView
 
-from seo.sitemaps import PageSitemap
+from seo.sitemaps import PageSitemap, HomepageSitemap
 from site_service import settings
 
 sitemaps = {
+    "home": HomepageSitemap,
     "pages": PageSitemap,
 }
 
