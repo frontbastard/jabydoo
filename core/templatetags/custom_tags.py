@@ -1,34 +1,34 @@
 from django import template
+from django.urls import resolve, reverse
+from django.utils.translation import activate, get_language
+from parler.utils.context import switch_language
+
+from site_service import settings
 
 register = template.Library()
-
-from django.conf import settings
-from django.urls import resolve, reverse
-from django.utils.translation import get_language
 
 
 @register.simple_tag(takes_context=True)
 def change_lang_url(context, lang):
     request = context["request"]
-    current_lang = get_language()
-    resolved_url = resolve(request.path_info)
-    url_name = resolved_url.url_name
-    args = resolved_url.args
-    kwargs = resolved_url.kwargs
+    path = request.path
+    url_parts = resolve(path)
 
-    # Add the namespace, if it exists
-    if resolved_url.namespace:
-        url_name = f"{resolved_url.namespace}:{url_name}"
+    # Check if the current page is the home page
+    is_home = path == "/" or path == f"/{get_language()}/"
 
-    # Generate a new URL
-    new_url = reverse(url_name, args=args, kwargs=kwargs)
-
-    # Remove the current language prefix, if any
-    if current_lang != settings.LANGUAGE_CODE:
-        new_url = new_url.replace(f"/{current_lang}", "", 1)
-
-    # Add a new language prefix only if it is not the default language
-    if lang != settings.LANGUAGE_CODE:
-        return f"/{lang}{new_url}"
+    if is_home:
+        # If this is the main page, just change the language prefix
+        if lang == settings.LANGUAGE_CODE:
+            return "/"
+        else:
+            return f"/{lang}/"
     else:
-        return new_url
+        # For other pages, use the previous logic
+        obj = context.get("object")
+        if obj and hasattr(obj, "get_absolute_url"):
+            with switch_language(obj, lang):
+                return obj.get_absolute_url()
+        else:
+            with activate(lang):
+                return reverse(url_parts.view_name, kwargs=url_parts.kwargs)

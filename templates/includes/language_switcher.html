@@ -7,7 +7,11 @@
     <p>{% translate "Language" %}:</p>
     <ul class="languages">
         {% for lang_code, lang_name in LANGUAGES %}
-            <a href="{% change_lang_url lang_code %}">{{ lang_name }}</a>
+            {% if lang_code != LANGUAGE_CODE %}
+                <a href="{% change_lang_url lang_code %}">{{ lang_name }}</a>
+            {% else %}
+                <span>{{ lang_name }}</span>
+            {% endif %}
         {% endfor %}
     </ul>
 </div>

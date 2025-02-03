@@ -125,7 +125,7 @@ LOCALE_PATHS = [
     BASE_DIR / "locale",
 ]
 PARLER_LANGUAGES = {
-    None: (
+    1: (
         {"code": "en"},
         {"code": "fr"},
     ),
