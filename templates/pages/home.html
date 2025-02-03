@@ -6,7 +6,7 @@
     {% if object.image %}
         <img src="{{ object.image.url }}" alt="{{ object.title }}">
     {% endif %}
-    {{ page.content|safe }}
+    {{ object.content|safe }}
 
 
 
