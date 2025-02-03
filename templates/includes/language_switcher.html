@@ -4,11 +4,13 @@
 {% get_available_languages as LANGUAGES %}
 {% load i18n parler_tags %}
 
-<div class="languages">
-    <p>{% translate "Language" %}:</p>
-    <ul class="languages">
-        {% for lang_code, lang_name in LANGUAGES %}
-            <a href="{% change_lang_url lang_code %}">{{ lang_name }}</a>
-        {% endfor %}
-    </ul>
-</div>
+{% if LANGUAGES|length > 2 %}
+    <div class="languages">
+        <p>{% translate "Language" %}:</p>
+        <ul class="languages">
+            {% for lang_code, lang_name in LANGUAGES %}
+                <a href="{% change_lang_url lang_code %}">{{ lang_name }}</a>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
