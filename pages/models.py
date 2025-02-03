@@ -1,6 +1,5 @@
 import json
 
-from ckeditor.fields import RichTextField
 from decouple import config
 from django.db import models
 from django.urls import reverse
@@ -8,13 +7,8 @@ from django.utils import timezone
 from django.utils.safestring import mark_safe
 from django_ckeditor_5.fields import CKEditor5Field
 from filer.fields.image import FilerImageField
-from imagekit.models import ProcessedImageField
-from imagekit.models.fields import ImageSpecField
-from imagekit.processors import ResizeToFill, Thumbnail
 from parler.managers import TranslatableQuerySet
 from parler.models import TranslatableModel, TranslatedFields
-
-from core.utils import add_watermark
 
 
 class PageQuerySet(TranslatableQuerySet):
