@@ -19,3 +19,6 @@ class SEOModel(models.Model):
 class SEO(SEOModel):
     class Meta:
         unique_together = ["content_type", "object_id"]
+
+    def __str__(self):
+        return f"SEO for {self.content_type.model} (ID: {self.object_id}): {self.title[:50]}"
