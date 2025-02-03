@@ -68,8 +68,8 @@ class Page(TranslatableModel):
             Page.objects.exclude(pk=self.pk).update(is_home=False)
         super().save(*args, **kwargs)
 
-        if self.image:
-            add_watermark(self.image.path, config("SITE_DOMAIN"))
+        # if self.image:
+        #     add_watermark(self.image.path, config("SITE_DOMAIN"))
 
     class Meta:
         ordering = ["-publish"]

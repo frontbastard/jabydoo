@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load schema_tags %}
+{% load schema_tags thumbnail %}
 
 {% block page_json_ld %}
     {% page_json_ld object %}
@@ -8,7 +8,7 @@
 {% block content %}
     <h1>{{ object.title }}</h1>
     {% if object.image %}
-        <img src="{{ object.image.url }}" alt="{{ object.title }}">
+        <img src="{% thumbnail object.image 800x600 %}" alt="{{ object.title }}">
     {% endif %}
     {{ object.content|safe }}
 {% endblock %}

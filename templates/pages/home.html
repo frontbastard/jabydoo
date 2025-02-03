@@ -1,10 +1,13 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static thumbnail %}
 
 {% block content %}
     <h1>Welcome to homepage {{ object.title }}</h1>
     {% if object.image %}
         <img src="{{ object.image.url }}" alt="{{ object.title }}">
+        <img src="{% thumbnail object.image 1920x1800 %}" alt="{{ object.title }}">
+        <img src="{% thumbnail object.image 800x600 %}" alt="{{ object.title }}">
+        <img src="{% thumbnail object.image 250x250 %}" alt="{{ object.title }}">
     {% endif %}
     {{ object.content|safe }}
 
