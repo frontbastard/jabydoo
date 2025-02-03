@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     "meta",
     "rosetta",
     "parler",
+    "easy_thumbnails",
+    "filer",
 
     "core",
     "pages",
@@ -151,6 +153,18 @@ STATICFILES_DIRS = [BASE_DIR / "templates/static"]
 # Media
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+FILER_STORAGES = {
+    "public": {
+        "main": {
+            "ENGINE": "filer.storage.PublicFileSystemStorage",
+            "OPTIONS": {
+                "location": os.path.join(MEDIA_ROOT, "filer"),
+                "base_url": "/media/filer/",
+            },
+        },
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

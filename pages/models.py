@@ -6,6 +6,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
+from filer.fields.image import FilerImageField
 from imagekit.models import ProcessedImageField
 from imagekit.models.fields import ImageSpecField
 from imagekit.processors import ResizeToFill, Thumbnail
@@ -53,20 +54,11 @@ class Page(TranslatableModel):
         choices=Status,
         default=Status.DRAFT
     )
-    image = ProcessedImageField(
-        upload_to="images/",
-        processors=[ResizeToFill(800, 600)],
-        format="WEBP",
-        options={"quality": 90},
-        blank=True,
+    image = FilerImageField(
         null=True,
-        spec_id="pages:page:image",
-    )
-    image_thumbnail = ImageSpecField(
-        source="image",
-        processors=[Thumbnail(100, 100)],
-        format="WEBP",
-        options={"quality": 70}
+        blank=True,
+        related_name="product_image",
+        on_delete=models.SET_NULL
     )
 
     objects = PageManager()
