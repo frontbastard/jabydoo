@@ -28,3 +28,10 @@ def change_lang_url(context, lang):
             return reverse(url_parts.view_name, kwargs=url_parts.kwargs)
     except Exception:
         return path  # Return the original path in case of any error
+
+
+@register.filter
+def get_item(dictionary, key):
+    if isinstance(dictionary, dict):
+        return dictionary.get(key, key)
+    return key
