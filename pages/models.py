@@ -6,6 +6,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
+from django_ckeditor_5.fields import CKEditor5Field
 from filer.fields.image import FilerImageField
 from imagekit.models import ProcessedImageField
 from imagekit.models.fields import ImageSpecField
@@ -42,7 +43,7 @@ class Page(TranslatableModel):
 
     translations = TranslatedFields(
         title=models.CharField(max_length=250),
-        content=RichTextField(),
+        content=CKEditor5Field("Content", config_name="extends"),
         slug=models.SlugField(max_length=250, unique=True),
     )
     is_home = models.BooleanField(default=False)
