@@ -38,8 +38,8 @@ class Page(TranslatableModel):
     translations = TranslatedFields(
         title=models.CharField(max_length=250),
         content=CKEditor5Field("Content", config_name="extends"),
-        slug=models.SlugField(max_length=250, unique=True),
     )
+    slug = models.SlugField(max_length=250, unique=True)
     is_home = models.BooleanField(default=False)
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
