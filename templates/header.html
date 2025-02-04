@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n menu_tags %}
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark-transparent">
   <div class="container">
@@ -8,15 +8,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-      <ul class="navbar-nav">
-        {% for page in all_pages %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ page.get_absolute_url }}">{{ page.title }}</a>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
+    {% render_menu %}
 
 {#    <div class="d-flex align-items-center me-4">#}
 {#      <a href="#" class="default-button login"><i class="icofont-user"></i> <span>{% translate "Log in" %}</span> </a>#}

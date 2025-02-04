@@ -26,7 +26,7 @@ def other_page(request, slug):
     home = get_object_or_404(
         Page,
         translations__language_code=language,
-        translations__slug=slug,
+        slug=slug,
         status=Page.Status.PUBLISHED,
     )
     return render(

@@ -1,8 +1,12 @@
+from urllib.parse import urljoin
+
 from django.db import models
-from parler.managers import TranslatableManager
-from parler.models import TranslatableModel, TranslatedFields
+from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
+from parler.models import TranslatableModel, TranslatedFields
+
 from menu.managers import MenuItemManager
+from site_service import settings
 
 
 class MenuItem(MPTTModel, TranslatableModel):
@@ -17,6 +21,9 @@ class MenuItem(MPTTModel, TranslatableModel):
     order = models.IntegerField(default=0)
 
     objects = MenuItemManager()
+
+    def get_absolute_url(self):
+        return reverse(self.url)
 
     class MPTTMeta:
         order_insertion_by = ["order"]

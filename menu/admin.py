@@ -1,20 +1,22 @@
-from django.contrib import admin
-from mptt.admin import MPTTModelAdmin
 from mptt.forms import MPTTAdminForm
-from parler.admin import TranslatableAdmin, TranslatableModelForm
-
-from .models import MenuItem
+from parler.admin import TranslatableModelForm
 
 
 class MenuItemAdminForm(MPTTAdminForm, TranslatableModelForm):
     pass
 
 
-class MenuItemAdmin(TranslatableAdmin, MPTTModelAdmin):
-    form = MenuItemAdminForm
+from django.contrib import admin
+from parler.admin import TranslatableAdmin
+from mptt.admin import DraggableMPTTAdmin
+from .models import MenuItem
 
-    def get_prepopulated_fields(self, request, obj=None):
-        return {"url": ("name",)}  # needed for translated fields
+
+class MenuItemAdmin(TranslatableAdmin, DraggableMPTTAdmin):
+    list_display = ['tree_actions', 'indented_title', 'url', 'order']
+    list_display_links = ['indented_title']
+    list_editable = ['order']
+    mptt_level_indent = 20
 
 
 admin.site.register(MenuItem, MenuItemAdmin)
