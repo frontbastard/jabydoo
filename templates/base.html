@@ -1,4 +1,4 @@
-{% load seo_tags sass_tags bootstrap5 %}
+{% load i18n seo_tags sass_tags parler_tags custom_tags bootstrap5 %}
 {% if object %}
   {% get_seo object as seo %}
 {% endif %}
@@ -7,7 +7,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="{% sass_src 'scss/main.scss' %}" rel="stylesheet"type="text/css"/>
+  <link href="{% sass_src 'scss/main.scss' %}" rel="stylesheet"
+        type="text/css"/>
+  {% get_current_language as LANGUAGE_CODE %}
+  {% get_available_languages as LANGUAGES %}
+  {% get_language_info_list for LANGUAGES as languages %}
+
+  {% for lang in languages %}
+    {% get_translated_url lang.code as trans_url %}
+    {% if trans_url %}
+      <link rel="alternate" hreflang="{{ lang.code }}"
+            href="{{ request.scheme }}://{{ request.get_host }}{{ trans_url }}">
+    {% endif %}
+  {% endfor %}
+  {% get_translated_url LANGUAGE_CODE as default_url %}
+  {% get_parler_fallback_language as FALLBACK_LANG %}
+
+  <link rel="alternate" hreflang="x-default"
+        href="{{ request.scheme }}://{{ request.get_host }}{% get_translated_url FALLBACK_LANG %}">
   <title>
     {% block title %}
       {% if seo.title %}
@@ -37,8 +54,7 @@
 </main>
 
 <footer>
-  {% include "footer.html" %}
-  {% bootstrap_javascript %}
+  {% include "footer.html" %} {% bootstrap_javascript %}
 </footer>
 </body>
 </html>
