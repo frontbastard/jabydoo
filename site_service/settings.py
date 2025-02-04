@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     "easy_thumbnails",
     "filer",
     "bootstrap5",
+    "sass_processor",
+    "compressor",
+    "django_browser_reload",
 
     "core",
     "pages",
@@ -64,6 +67,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "site_service.urls"
@@ -155,7 +159,23 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "static"
-STATICFILES_DIRS = [BASE_DIR / "templates/static"]
+STATICFILES_DIRS = [
+    BASE_DIR / "templates/static",
+    BASE_DIR / "node_modules",
+]
+
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "sass_processor.finders.CssFinder",
+]
+
+SASS_PROCESSOR_ROOT = BASE_DIR / "templates/static"
+SASS_PROCESSOR_INCLUDE_DIRS = [
+    BASE_DIR / "node_modules",
+]
+SASS_PROCESSOR_ENABLED = True
+SASS_PROCESSOR_AUTO_INCLUDE = False
 
 # Media
 MEDIA_URL = "/media/"

@@ -1,4 +1,4 @@
-{% load seo_tags bootstrap5 %}
+{% load seo_tags sass_tags bootstrap5 %}
 {% if object %}
   {% get_seo object as seo %}
 {% endif %}
@@ -7,7 +7,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% bootstrap_css %}
+  <link href="{% sass_src 'scss/main.scss' %}" rel="stylesheet"type="text/css"/>
   <title>
     {% block title %}
       {% if seo.title %}
@@ -22,7 +22,8 @@
     <meta name="keywords" content="{{ seo.keywords }}">
   {% endif %}
   <link rel="canonical" href="{{ request.build_absolute_uri }}">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
   {% block page_json_ld %}{% endblock %}
 </head>
 <body>

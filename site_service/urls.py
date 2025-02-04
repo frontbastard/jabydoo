@@ -43,6 +43,7 @@ urlpatterns = [
         name="django.contrib.sitemaps.views.sitemap"
     ),
     path("ckeditor5/", include("django_ckeditor_5.urls")),
+    path("__reload__/", include("django_browser_reload.urls")),
 ]
 
 urlpatterns += i18n_patterns(
