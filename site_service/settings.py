@@ -50,10 +50,12 @@ INSTALLED_APPS = [
     "sass_processor",
     "compressor",
     "django_browser_reload",
+    "mptt",
 
     "core",
     "pages",
     "seo",
+    "menu",
 ]
 
 SITE_ID = 1

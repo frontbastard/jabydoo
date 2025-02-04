@@ -12,3 +12,4 @@ django-compressor==4.5.1
 django-sass-processor==1.4.1
 libsass==0.23.0
 django-browser-reload==1.17.0
+django-mptt==0.16.0
