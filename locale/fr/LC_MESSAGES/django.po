@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-02 21:28+0100\n"
-"PO-Revision-Date: 2025-02-02 20:42+0000\n"
-"Last-Translator:   <admin@mail.com>\n"
+"POT-Creation-Date: 2025-02-04 11:38+0100\n"
+"PO-Revision-Date: 2025-02-04 10:36+0000\n"
+"Last-Translator:   <pavelxsokolov@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -19,98 +19,34 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
-#: site_service/settings.py:116
+#: site_service/settings.py:129
 msgid "English"
 msgstr "Anglaise"
 
-#: site_service/settings.py:117
+#: site_service/settings.py:130
 msgid "French"
 msgstr "Français"
 
-#: templates/pages/home.html:12
-msgid "Get a bonus"
-msgstr "Obtenir un bonus"
+#~ msgid "Log in"
+#~ msgstr "Se connecter"
 
-#: templates/pages/home.html:13
-msgid "Learn more"
-msgstr ""
+#~ msgid "Sign up"
+#~ msgstr "S'inscrire"
 
-#: templates/pages/home.html:14
-msgid "Get this"
-msgstr ""
+#~ msgid "Get a bonus"
+#~ msgstr "Obtenir un bonus"
 
-#: templates/pages/home.html:15
-msgid "Get started safely"
-msgstr ""
+#~ msgid "Learn more"
+#~ msgstr "En savoir plus"
 
-#: templates/pages/home.html:16
-msgid "Use it now"
-msgstr ""
+#~ msgid "Get this"
+#~ msgstr "Obtenir ceci"
 
-#: templates/pages/home.html:17
-msgid "Play now"
-msgstr ""
+#~ msgid "Get started safely"
+#~ msgstr "Commencer en toute sécurité"
 
-#: templates/pages/home.html:18
-msgid "Sign in now"
-msgstr ""
+#~ msgid "Use it now"
+#~ msgstr "Utilisez-le maintenant"
 
-#: templates/pages/home.html:19
-msgid "Sign in"
-msgstr ""
-
-#: templates/pages/home.html:20
-msgid "Sign up"
-msgstr ""
-
-#: templates/pages/home.html:21
-msgid "Join now"
-msgstr ""
-
-#: templates/pages/home.html:22
-msgid "View offers"
-msgstr ""
-
-#: templates/pages/home.html:23
-msgid "Check codes"
-msgstr ""
-
-#: templates/pages/home.html:24
-msgid "Download now"
-msgstr ""
-
-#: templates/pages/home.html:25
-msgid "Check requirements"
-msgstr ""
-
-#: templates/pages/home.html:26
-msgid "Install now"
-msgstr ""
-
-#: templates/pages/home.html:27
-msgid "Try it now"
-msgstr ""
-
-#: templates/pages/home.html:28
-msgid "Start the game"
-msgstr ""
-
-#: templates/pages/home.html:29
-msgid "Get started now"
-msgstr ""
-
-#: templates/pages/home.html:30
-msgid "Try the games"
-msgstr ""
-
-#: templates/pages/home.html:31
-msgid "Open"
-msgstr ""
-
-#: templates/pages/home.html:32
-msgid "Open page"
-msgstr ""
-
-#: templates/pages/home.html:33
-msgid "Set up now"
-msgstr ""
+#~ msgid "Play now"
+#~ msgstr "Jouer maintenant"
