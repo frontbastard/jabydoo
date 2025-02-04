@@ -22,9 +22,6 @@ class MenuItem(MPTTModel, TranslatableModel):
 
     objects = MenuItemManager()
 
-    def get_absolute_url(self):
-        return reverse(self.url)
-
     class MPTTMeta:
         order_insertion_by = ["order"]
 
