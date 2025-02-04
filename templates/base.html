@@ -26,9 +26,9 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
   {% block page_json_ld %}{% endblock %}
 </head>
-<body>
+<body class="theme-dark">
 <header>
-  {% include "includes/header.html" %}
+  {% include "header.html" %}
 </header>
 
 <main>
@@ -37,7 +37,7 @@
 </main>
 
 <footer>
-  Footer
+  {% include "footer.html" %}
   {% bootstrap_javascript %}
 </footer>
 </body>

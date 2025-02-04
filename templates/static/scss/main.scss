@@ -1,43 +1,7 @@
-@import "bootstrap/scss/functions";
-@import "bootstrap/scss/variables";
-
-$primary: #1e3799;
-$secondary: #e74c3c;
-$success: #2ecc71;
-$info: #3498db;
-$warning: #f39c12;
-$danger: #c0392b;
-
-$gray-100: #f8f9fa;
-$gray-200: #e9ecef;
-$gray-300: #dee2e6;
-$gray-400: #ced4da;
-$gray-500: #adb5bd;
-$gray-600: #6c757d;
-$gray-700: #495057;
-$gray-800: #343a40;
-$gray-900: #212529;
-
-$font-family-base: 'Roboto', sans-serif;
-$font-size-base: 1rem;
-$line-height-base: 1.5;
-
-$btn-padding-y: 0.5rem;
-$btn-padding-x: 1rem;
-$btn-font-weight: 600;
-$btn-border-radius: 0.25rem;
-
-$navbar-dark-color: rgba($white, .8);
-$navbar-dark-hover-color: $white;
-$navbar-padding-y: 1rem;
-
-$card-border-radius: 0.5rem;
-$card-border-color: rgba($primary, .2);
-$card-cap-bg: rgba($primary, .03);
-
-$input-btn-focus-box-shadow: 0 0 0 0.2rem rgba($primary, .25);
-$form-label-font-weight: 500;
-
-@import "./common";
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Oswald:wght@200..700&display=swap');
+@import "variables";
+@import "custom-elements";
 @import "bootstrap/scss/bootstrap";
+@import "themes";
+@import "pages/home";
 

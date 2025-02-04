@@ -1,0 +1,8 @@
+.theme-dark {
+  color: $white;
+  background: $black;
+  
+  .dropdown-toggle::after {
+    border-top-color: $gray-600
+  }
+}

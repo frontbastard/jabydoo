@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark-transparent">
   <div class="container">
     <a class="navbar-brand" href="{% url 'pages:home' %}">LOGO</a>
@@ -16,10 +18,10 @@
       </ul>
     </div>
 
-    <div class="d-flex align-items-center">
-      <a href="#" class="btn btn-outline-light me-2">Вход</a>
-      <a href="#" class="btn btn-primary me-3">Регистрация</a>
-    </div>
+{#    <div class="d-flex align-items-center me-4">#}
+{#      <a href="#" class="default-button login"><i class="icofont-user"></i> <span>{% translate "Log in" %}</span> </a>#}
+{#      <a href="#" class="default-button signup"><i class="icofont-users"></i> <span>{% translate "Sign up" %}</span></a>#}
+{#    </div>#}
 
       {% include "includes/language_switcher.html" %}
   </div>

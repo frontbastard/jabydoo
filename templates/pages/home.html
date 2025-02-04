@@ -2,37 +2,14 @@
 {% load i18n static thumbnail %}
 
 {% block content %}
-    <h1>Welcome to homepage {{ object.title }}</h1>
-    {% if object.image %}
-        <img src="{{ object.image.url }}" alt="{{ object.title }}">
-        <img src="{% thumbnail object.image 1920x1800 %}" alt="{{ object.title }}">
-        <img src="{% thumbnail object.image 800x600 %}" alt="{{ object.title }}">
-        <img src="{% thumbnail object.image 250x250 %}" alt="{{ object.title }}">
-    {% endif %}
-    {{ object.content|safe }}
-
-
-
-    {% translate "Get a bonus" %}
-    {% translate "Learn more" %}
-    {% translate "Get this" %}
-    {% translate "Get started safely" %}
-    {% translate "Use it now" %}
-    {% translate "Play now" %}
-    {% translate "Sign in now" %}
-    {% translate "Sign in" %}
-    {% translate "Sign up" %}
-    {% translate "Join now" %}
-    {% translate "View offers" %}
-    {% translate "Check codes" %}
-    {% translate "Download now" %}
-    {% translate "Check requirements" %}
-    {% translate "Install now" %}
-    {% translate "Try it now" %}
-    {% translate "Start the game" %}
-    {% translate "Get started now" %}
-    {% translate "Try the games" %}
-    {% translate "Open" %}
-    {% translate "Open page" %}
-    {% translate "Set up now" %}
+  <div class="container">
+    <section
+      class="home-header full-screen"
+      style="{% if object.image %}background: url('{% thumbnail object.image 1920x1800 %}'){% endif %}"
+    ></section>
+    <section class="content">
+      <h1>Welcome to homepage {{ object.title }}</h1>
+      {{ object.content|safe }}
+    </section>
+  </div>
 {% endblock %}

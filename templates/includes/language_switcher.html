@@ -6,8 +6,8 @@
 
 {% if LANGUAGES|length > 1 %}
 <div class="dropdown">
-  <button class="btn btn-dark dropdown-toggle d-flex align-items-center" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-    <span class="flag-icon flag-icon-{{ LANGUAGE_FLAG_MAP|get_item:LANGUAGE_CODE|default:LANGUAGE_CODE }} me-1  border-white-opacity"></span>
+  <button class="btn dropdown-toggle d-flex align-items-center" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="flag-icon flag-icon-{{ LANGUAGE_FLAG_MAP|get_item:LANGUAGE_CODE|default:LANGUAGE_CODE }} me-1  border-white-opacity" style="margin: 0.2em 0;"></span>
   </button>
   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
     {% for lang_code, lang_name in LANGUAGES %}
