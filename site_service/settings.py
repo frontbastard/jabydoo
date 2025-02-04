@@ -195,6 +195,10 @@ FILER_STORAGES = {
     },
 }
 
+THUMBNAIL_EXTENSION = "webp"
+THUMBNAIL_TRANSPARENCY_EXTENSION = "webp"
+THUMBNAIL_PRESERVE_EXTENSIONS = ["webp"]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
