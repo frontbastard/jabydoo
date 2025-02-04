@@ -2,14 +2,17 @@
 {% load i18n static thumbnail %}
 
 {% block content %}
-  <div class="container">
-    <section
-      class="home-header full-screen"
-      style="{% if object.image %}background: url('{% thumbnail object.image 1920x1800 %}'){% endif %}"
-    ></section>
-    <section class="content">
-      <h1>Welcome to homepage {{ object.title }}</h1>
+  <section
+    class="home-header"
+    style="{% if object.image %}background-image: url('{% thumbnail object.image 1920x1800 %}'){% endif %}"
+  >
+    <div class="container">
+      <h1 class="title">{{ object.title }}</h1>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container">
       {{ object.content|safe }}
-    </section>
-  </div>
+    </div>
+  </section>
 {% endblock %}

@@ -1,10 +1,25 @@
 .home-header {
-  &.full-screen {
+  position: relative;
+  display: flex;
+  background-position: center;
+  background-size: cover;
+
+  &:after {
+    content: "";
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
-    z-index: -1;
+    height: 20%;
+    background: linear-gradient(0, #060b31, transparent);
+  }
+
+  .title {
+    padding: 150px 0;
+    font-family: "Oswald", sans-serif;
+    font-weight: 500;
+    font-size: 5em;
+    max-width: 600px;
+    text-shadow: 2px 2px 2px $danger;
   }
 }
