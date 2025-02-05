@@ -1,29 +1,44 @@
-.content ul {
-  list-style-type: none;
-  padding-left: 0;
+@mixin gradient-line($color: white, $deg: 20deg, $offset: 20px, $direction: 0) {
+  content: '';
+  position: absolute;
+  left: #{$direction};
+  top: -#{$offset};
+  bottom: -#{$offset};
+  width: 1px;
+  background: linear-gradient(0deg, transparent, rgba($color, .3), transparent);
+  transform: rotate($deg);
+}
 
-  li {
-    position: relative;
-    padding-left: 20px;
-    font-size: 16px;
-    font-family: 'Arial', sans-serif;
-    color: #fff;
-
-    &::before {
-      content: '\2022';
-      font-size: 17px;
-      color: $secondary;
-      position: absolute;
-      left: 0;
-      top: 0;
-      font-weight: bold;
+.content {
+  ol {
+    li {
+      &::marker {
+        font-family: "Oswald", sans-serif;
+        font-weight: 600;
+      }
     }
+  }
 
-    &:hover {
-      background-color: rgba(255, 215, 0, 0.1); /* Легкий фон при наведенні */
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      position: relative;
+      padding-left: 20px;
+      font-size: 16px;
+      font-family: 'Arial', sans-serif;
+      color: #fff;
+
+      &::before {
+        content: '\2022';
+        font-size: 17px;
+        color: $secondary;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-weight: bold;
+      }
     }
   }
 }
@@ -103,24 +118,23 @@
     line-height: 60px;
     text-transform: uppercase;
     font-weight: 500;
-    font-family: "Oswald", sans-serif;
-    font-size: 1.2em;
-    text-shadow: -5px -2px 10px #0800ff, 4px 2px 10px #d900bc;
+    //font-family: "Oswald", sans-serif;
+    font-size: 1.1em;
+    text-shadow: -10px 15px 20px #0800ff, -3px 5px 10px #d900bc;
     margin: 0 0.5em;
   }
 
-  .nav-item + .nav-item {
+  .nav-item {
     position: relative;
 
     &:before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: -20px;
-      bottom: -20px;
-      width: 1px;
-      background: linear-gradient(0deg, transparent, rgba($white, .2), transparent);
-      transform: rotate(20deg);
+      @include gradient-line($color: white, $deg: 20deg, $offset: 20px, $direction: 0);
+    }
+
+    &:last-child {
+      &:after {
+        @include gradient-line($color: white, $deg: 20deg, $offset: 20px, $direction: 100%);
+      }
     }
   }
 }
