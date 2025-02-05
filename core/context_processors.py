@@ -1,9 +1,10 @@
 from django.urls import resolve
 
 
-def current_url_name(request):
-    resolved_url = resolve(request.path_info)
-    return {"current_url_name": resolved_url.url_name}
+
+def site_options(request):
+    options = SiteOptions.get_options()
+    return {"site_options": options}
 
 
 def language_flag_map(request):
