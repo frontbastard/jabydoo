@@ -85,8 +85,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "core.context_processors.current_url_name",
                 "core.context_processors.language_flag_map",
+                "core.context_processors.site_options",
             ],
         },
     },
@@ -277,7 +277,3 @@ CKEDITOR_5_UPLOAD_PATH = "media/"
 
 # Make sure CKEDITOR_5_UPLOAD_PATH is inside MEDIA_ROOT
 CKEDITOR_5_MEDIA_PREFIX = f"{MEDIA_URL}{CKEDITOR_5_UPLOAD_PATH}"
-
-# Shortcodes
-SPONSOR_URL = "https://sponsor.url"
-SPONSOR_NAME = "SPONSOR INC."
