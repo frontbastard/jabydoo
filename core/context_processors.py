@@ -1,5 +1,4 @@
-from django.urls import resolve
-
+from core.models import SiteOptions
 
 
 def site_options(request):
