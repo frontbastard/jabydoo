@@ -1,0 +1,11 @@
+@mixin gradient-diagonal-line($color: white, $deg: 20deg, $offset: 20px, $direction: 0) {
+  content: '';
+  position: absolute;
+  left: #{$direction};
+  top: -#{$offset};
+  bottom: -#{$offset};
+  width: 1px;
+  background: linear-gradient(0deg, transparent, rgba($color, .3), transparent);
+  transform: rotate($deg);
+}
+

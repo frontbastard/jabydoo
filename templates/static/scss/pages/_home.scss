@@ -4,6 +4,8 @@
   background-position: center;
   background-size: cover;
 
+  mix-blend-mode: lighten;
+
   &:after {
     content: "";
     position: absolute;
