@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  django:
+    build: .
+    container_name: django
+    env_file:
+      - .env.sample
+    networks:
+      - app-network
+    expose:
+      - "8000"
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx/nginx.template:/etc/nginx/nginx.conf.template
+      - ./ssl:/etc/nginx/ssl
+    environment:
+      - NGINX_SERVER_NAME=${NGINX_SERVER_NAME}
+      - NGINX_SSL_CERT=${NGINX_SSL_CERT}
+      - NGINX_SSL_KEY=${NGINX_SSL_KEY}
+    entrypoint: [ "/bin/sh", "-c", "envsubst '$$NGINX_SERVER_NAME $$NGINX_SSL_CERT $$NGINX_SSL_KEY' < /etc/nginx/nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'" ]
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - django
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

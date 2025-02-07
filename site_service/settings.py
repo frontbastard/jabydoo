@@ -11,7 +11,11 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import os
 from pathlib import Path
+
+from decouple import config
 from django.utils.translation import gettext_lazy as _
+
+ENVIRONMENT = config("ENVIRONMENT", default="development")
 
 # Build paths inside the project like this: BASE_DIR / "subdir".
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-@=@bleu_xok@@#ow5cmzrq4nie(7toadnv$o&ctp)d*+cn%6&!"
+SECRET_KEY = config("DJANGO_SECRET_KEY", default="django-insecure-@=@bleu_xok@@#ow5cmzrq4nie(7toadnv$o&ctp)d*+cn%6&!")
 
 # SECURITY WARNING: don"t run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DJANGO_DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", "127.0.0.1").split(",")
 
 # Application definition
 
@@ -97,12 +101,24 @@ WSGI_APPLICATION = "site_service.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if ENVIRONMENT == "production":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("POSTGRESS_USER"),
+            "USER": config("POSTGRESS_USER"),
+            "PASSWORD": config("POSTGRESS_PASS"),
+            "HOST": config("POSTGRESS_HOST", default="db"),  # можна задати дефолтне значення
+            "PORT": config("POSTGRESS_PORT", default="5432"),
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
