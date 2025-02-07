@@ -1,8 +1,8 @@
 #!/bin/bash
 
 SCRIPT_DIR="$(dirname "$0")"
-ENV_FILE="$SCRIPT_DIR/../.env"
-SAMPLE_FILE="$SCRIPT_DIR/../.env.sample"
+ENV_FILE="$SCRIPT_DIR/.env"
+SAMPLE_FILE="$SCRIPT_DIR/.env.sample"
 CREDENTIALS_FILE="$HOME/.password_credentials"
 
 # 1. If .env does not already exist, create it from passwords
