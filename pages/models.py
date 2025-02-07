@@ -63,9 +63,6 @@ class Page(TranslatableModel):
             Page.objects.exclude(pk=self.pk).update(is_home=False)
         super().save(*args, **kwargs)
 
-        # if self.image:
-        #     add_watermark(self.image.path, config("SITE_DOMAIN"))
-
     class Meta:
         ordering = ["-publish"]
 
@@ -85,11 +82,11 @@ class Page(TranslatableModel):
             "description": self.content[:150],
             "datePublished": self.publish.isoformat(),
             "dateModified": self.updated.isoformat(),
-            "url": f"https://{config('SITE_DOMAIN')}{self.get_absolute_url()}",
+            "url": f"https://{config('SITE_DOMAIN', default='site-domain.com')}{self.get_absolute_url()}",
         }
 
         if self.image:
-            data["image"] = f"https://{config('SITE_DOMAIN')}{self.image.url}"
+            data["image"] = f"https://{config('SITE_DOMAIN', default='site-domain.com')}{self.image.url}"
 
         json_ld = json.dumps(data, ensure_ascii=False)
         return mark_safe(

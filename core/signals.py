@@ -7,4 +7,4 @@ from core.utils import add_watermark
 
 @receiver(thumbnail_created)
 def thumbnail_callback(sender, **kwargs):
-    add_watermark(sender.path, config("SITE_DOMAIN"))
+    add_watermark(sender.path, config("SITE_DOMAIN", default="site-domain.com"))
