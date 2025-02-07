@@ -45,12 +45,10 @@ INSTALLED_APPS = [
 
     "imagekit",
     "django_ckeditor_5",
-    "meta",
     "rosetta",
     "parler",
     "easy_thumbnails",
     "filer",
-    "bootstrap5",
     "sass_processor",
     "compressor",
     "django_browser_reload",
