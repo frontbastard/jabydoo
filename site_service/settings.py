@@ -103,11 +103,11 @@ if ENVIRONMENT == "production":
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": config("POSTGRESS_USER"),
-            "USER": config("POSTGRESS_USER"),
-            "PASSWORD": config("POSTGRESS_PASS"),
-            "HOST": config("POSTGRESS_HOST", default="db"),  # можна задати дефолтне значення
-            "PORT": config("POSTGRESS_PORT", default="5432"),
+            "NAME": config("POSTGRES_USER"),
+            "USER": config("POSTGRES_USER"),
+            "PASSWORD": config("POSTGRES_PASSWORD"),
+            "HOST": config("POSTGRES_HOST", default="db"),  # можна задати дефолтне значення
+            "PORT": config("POSTGRES_PORT", default="5432"),
         }
     }
 else:
