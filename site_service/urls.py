@@ -14,6 +14,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -22,8 +23,8 @@ from django.urls import path
 from django.urls.conf import include
 from django.views.generic import TemplateView
 
+from core.enums import Environment
 from core.sitemaps import PageSitemap, HomepageSitemap
-from site_service import settings
 
 sitemaps = {
     "home": HomepageSitemap,
@@ -43,7 +44,6 @@ urlpatterns = [
         name="django.contrib.sitemaps.views.sitemap"
     ),
     path("ckeditor5/", include("django_ckeditor_5.urls")),
-    path("__reload__/", include("django_browser_reload.urls")),
 ]
 
 urlpatterns += i18n_patterns(
@@ -55,3 +55,9 @@ if settings.DEBUG:
     urlpatterns += static(
         settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
     )
+
+if settings.ENVIRONMENT == Environment.DEV.value:
+    urlpatterns += [
+        path("__reload__/", include("django_browser_reload.urls")),
+    ]
+

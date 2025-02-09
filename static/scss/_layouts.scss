@@ -13,7 +13,7 @@
     font-weight: 500;
     //font-family: "Oswald", sans-serif;
     font-size: 1.1em;
-    text-shadow: -10px 15px 20px #0800ff, -3px 5px 10px #d900bc;
+    text-shadow: -10px 15px 20px rgba(#0800ff, .5), -3px 5px 10px rgba(#d900bc, .5);
     margin: 0 0.5em;
   }
 
@@ -27,6 +27,21 @@
     &:last-child {
       &:after {
         @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 20px, $direction: 100%);
+      }
+    }
+
+    &:hover {
+      .nav-link {
+        &:before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba($white, .05);
+          transform: skewX(-20deg);
+        }
       }
     }
   }

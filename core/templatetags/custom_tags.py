@@ -3,7 +3,7 @@ from django.urls import resolve, reverse, Resolver404
 from django.utils.translation import activate
 from parler.utils.context import switch_language
 
-from site_service import settings
+from django.conf import settings
 
 register = template.Library()
 
@@ -53,6 +53,6 @@ def language_url(request, lang_code):
 
 @register.simple_tag
 def get_parler_fallback_language():
-    parler_languages = getattr(settings, 'PARLER_LANGUAGES', {})
-    default_config = parler_languages.get('default', {})
-    return default_config.get('fallback', settings.LANGUAGE_CODE)
+    parler_languages = getattr(settings, "PARLER_LANGUAGES", {})
+    default_config = parler_languages.get("default", {})
+    return default_config.get("fallback", settings.LANGUAGE_CODE)

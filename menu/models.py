@@ -1,12 +1,8 @@
-from urllib.parse import urljoin
-
 from django.db import models
-from django.urls import reverse
 from mptt.models import MPTTModel, TreeForeignKey
 from parler.models import TranslatableModel, TranslatedFields
 
 from menu.managers import MenuItemManager
-from site_service import settings
 
 
 class MenuItem(MPTTModel, TranslatableModel):

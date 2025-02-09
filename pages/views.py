@@ -12,7 +12,7 @@ def home_page(request):
         home = Page.objects.filter(status=Page.Status.PUBLISHED).first()
 
     if not home:
-        return render(request, "pages/404.html", status=404)
+        return render(request, "/pages/404.html", status=404)
 
     return render(
         request,
