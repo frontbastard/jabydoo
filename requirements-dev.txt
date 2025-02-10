@@ -7,5 +7,7 @@ django-robots==6.1
 django-rosetta==0.10.1
 django-parler==2.3
 django-filer==3.3.1
+django-sass-processor==1.4.1
+libsass==0.23.0
+django-browser-reload==1.17.0
 django-mptt==0.16.0
-psycopg2-binary==2.9.10

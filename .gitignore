@@ -14,4 +14,4 @@ media/
 .coverage
 htmlcov/
 node_modules/
-/static/
+/staticfiles/
