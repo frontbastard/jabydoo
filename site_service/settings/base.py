@@ -63,7 +63,6 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
                 "core.context_processors.language_flag_map",
                 "core.context_processors.site_options",
-                "core.context_processors.environment_processor",
             ],
         },
     },

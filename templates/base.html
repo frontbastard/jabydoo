@@ -7,12 +7,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% if ENVIRONMENT == "development" %}
-    {% load sass_tags %}
-    <link rel="stylesheet" href="{% sass_src 'scss/main.scss' %}">
+  {% if is_dev_environment %}
+    {% include 'includes/styles_dev.html' %}
   {% else %}
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% include 'includes/styles_prod.html' %}
   {% endif %}
   {% get_current_language as LANGUAGE_CODE %}
   {% get_available_languages as LANGUAGES %}

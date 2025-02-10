@@ -1,9 +1,10 @@
 from django import template
+from django.conf import settings
 from django.urls import resolve, reverse, Resolver404
 from django.utils.translation import activate
 from parler.utils.context import switch_language
 
-from django.conf import settings
+from core.enums import Environment
 
 register = template.Library()
 
@@ -56,3 +57,8 @@ def get_parler_fallback_language():
     parler_languages = getattr(settings, "PARLER_LANGUAGES", {})
     default_config = parler_languages.get("default", {})
     return default_config.get("fallback", settings.LANGUAGE_CODE)
+
+
+@register.simple_tag
+def is_dev_env():
+    return settings.ENVIRONMENT == Environment.DEV.value
