@@ -1,10 +1,10 @@
-from decouple import config
 from .base import *
 
 SECRET_KEY = config("DJANGO_SECRET_KEY")
 
 ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="127.0.0.1").split(",")
 
+# Database
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
@@ -15,3 +15,6 @@ DATABASES = {
         "PORT": config("POSTGRES_PORT", default="5432"),
     }
 }
+
+# Staticfiles
+STATIC_ROOT = BASE_DIR / "staticfiles"
