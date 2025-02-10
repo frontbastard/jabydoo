@@ -6,9 +6,13 @@ services:
              python manage.py migrate &&
              python manage.py create_superuser &&
              python manage.py collectstatic --noinput &&
-             gunicorn --bind 0.0.0.0:8000 site_service.wsgi:application --workers 3"
+             gunicorn --bind unix:/app/app.sock site_service.wsgi:application --workers 3"
     volumes:
       - .:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+      - /var/www/jabydoo/app/:/app
+
     ports:
       - "8000:8000"
     env_file:
@@ -25,3 +29,6 @@ services:
 
 volumes:
   postgres_data:
+  static_volume:
+  media_volume:
+  app_socket:
