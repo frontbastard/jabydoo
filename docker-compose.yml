@@ -6,7 +6,7 @@ services:
              python manage.py migrate &&
              python manage.py create_superuser &&
              python manage.py collectstatic --noinput &&
-             gunicorn --bind unix:/app/app.sock site_service.wsgi:application --workers 3"
+             gunicorn --bind unix:/app/app.sock app.site_service.wsgi:application --workers 3"
     volumes:
       - .:/app
       - app_socket:/app
