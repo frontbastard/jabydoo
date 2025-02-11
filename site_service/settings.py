@@ -14,6 +14,7 @@ DEBUG = config("DJANGO_DEBUG", "True") == "True"
 
 SECRET_KEY = config("DJANGO_SECRET_KEY")
 ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="127.0.0.1").split(",")
+CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
 
 # General settings
 INSTALLED_APPS = [
@@ -162,7 +163,7 @@ if ENVIRONMENT == Environment.DEV.value:
 
 # Media files
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = BASE_DIR / "mediafiles"
 
 FILER_STORAGES = {
     "public": {
@@ -170,7 +171,7 @@ FILER_STORAGES = {
             "ENGINE": "filer.storage.PublicFileSystemStorage",
             "OPTIONS": {
                 "location": os.path.join(MEDIA_ROOT, "filer"),
-                "base_url": "/media/filer/",
+                "base_url": "/mediafiles/filer/",
             },
         },
     },
