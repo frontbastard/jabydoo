@@ -8,7 +8,8 @@ services:
              python manage.py collectstatic --noinput &&
              gunicorn --bind unix:/app/app.sock site_service.wsgi:application --workers 3"
     volumes:
-      - .:/app
+      - .app:/app
+      - app_socket:/app
       - static_volume:/staticfiles
       - media_volume:/media
 
@@ -16,8 +17,27 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    expose:
+      - "8000"
+    networks:
+      - app_network
     depends_on:
       - db
+
+  nginx:
+    image: nginx:latest
+    entrypoint: /bin/sh -c "envsubst < /etc/nginx/nginx.conf > /etc/nginx/nginx.conf && nginx -g 'daemon off;'"
+    volumes:
+      - static_volume:/staticfiles
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - web
+    networks:
+      - app_network
+
 
   db:
     image: postgres:13
@@ -25,6 +45,12 @@ services:
       - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
 
 volumes:
   postgres_data:
