@@ -8,7 +8,7 @@ services:
              python manage.py collectstatic --noinput &&
              gunicorn --bind unix:/app/app.sock site_service.wsgi:application --workers 3"
     volumes:
-      - .app:/app
+      - .:/app
       - app_socket:/app
       - static_volume:/staticfiles
       - media_volume:/media
