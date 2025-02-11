@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from core.enums import Environment
 
 SITE_ID = 1
-BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 ENVIRONMENT = config("ENVIRONMENT", default=Environment.PROD.value)
 DEBUG = config("DJANGO_DEBUG", "True") == "True"
@@ -53,7 +53,7 @@ ROOT_URLCONF = "site_service.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "app/templates"],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -118,6 +118,7 @@ USE_TZ = True
 
 # Static files
 STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Media files
 MEDIA_URL = "/media/"

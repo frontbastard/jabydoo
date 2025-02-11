@@ -15,6 +15,3 @@ DATABASES = {
         "PORT": config("POSTGRES_PORT", default="5432"),
     }
 }
-
-# Staticfiles
-STATIC_ROOT = BASE_DIR / "staticfiles"
