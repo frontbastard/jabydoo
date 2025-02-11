@@ -9,9 +9,8 @@ services:
              gunicorn --bind unix:/app/app.sock site_service.wsgi:application --workers 3"
     volumes:
       - .:/app
-      - static_volume:/app/staticfiles
-      - media_volume:/app/media
-      - /var/www/jabydoo/app/:/app
+      - static_volume:/staticfiles
+      - media_volume:/media
 
     ports:
       - "8000:8000"

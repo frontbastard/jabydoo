@@ -7,13 +7,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-RUN mkdir -p /app/staticfiles /app/media
+RUN mkdir -p /staticfiles /media
 
 RUN adduser --disabled-password --gecos "" app_user
 
-RUN chown -R app_user:app_user /app/staticfiles /app/media
-RUN chmod -R 755 /app/staticfiles /app/media
-
-USER app_user
-
-CMD ["gunicorn", "--bind", "unix:/app/app.sock", "site_service.wsgi:application", "--workers", "3"]
+RUN chown -R app_user:www-data /staticfiles /media
+RUN chmod -R 755 /staticfiles /media
