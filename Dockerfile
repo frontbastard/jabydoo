@@ -1,15 +1,28 @@
-FROM python:3.11
+# pull official base image
+FROM python:3.11.4-slim-buster
 
-WORKDIR /app
+# set work directory
+WORKDIR /usr/src/app
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-COPY . /app
+# install system dependencies
+RUN apt-get update && apt-get install -y netcat
 
-RUN mkdir -p /staticfiles /media
+# install dependencies
+RUN pip install --upgrade pip
+COPY ./requirements.txt .
+RUN pip install -r requirements.txt
 
-RUN adduser --disabled-password --gecos "" app_user
+# copy entrypoint.sh
+COPY ./entrypoint.sh .
+RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh
+RUN chmod +x /usr/src/app/entrypoint.sh
 
-RUN chown -R app_user:www-data /staticfiles /media
-RUN chmod -R 755 /staticfiles /media
+# copy project
+COPY . .
+
+# run entrypoint.sh
+ENTRYPOINT ["/usr/src/app/entrypoint.sh"]

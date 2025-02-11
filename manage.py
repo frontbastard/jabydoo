@@ -3,20 +3,10 @@
 import os
 import sys
 
-from decouple import config
-
-from core.enums import Environment
-
 
 def main():
     """Run administrative tasks."""
-    environment = config("ENVIRONMENT", default=Environment.PROD.value)
-
-    if environment == Environment.PROD.value:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "site_service.settings.prod")
-    else:
-        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "site_service.settings.dev")
-
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "site_service.settings")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:

@@ -1,15 +1,16 @@
+"""
+ASGI config for a site_service project.
+
+It exposes the ASGI callable as a module-level variable named ``application``.
+
+For more information on this file, see
+https://docs.djangoproject.com/en/5.1/howto/deployment/asgi/
+"""
+
 import os
 
-from django.conf import settings
 from django.core.asgi import get_asgi_application
 
-from core.enums import Environment
-
-environment = settings.ENVIRONMENT
-
-if environment == Environment.PROD.value:
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "site_service.settings.prod")
-else:
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "site_service.settings.dev")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "site_service.settings")
 
 application = get_asgi_application()

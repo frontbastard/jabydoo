@@ -3,7 +3,7 @@ staticfiles/*
 .idea/
 .vscode/
 *.iml
-.env
+.env.dev
 .env.test
 .DS_Store
 .venv/

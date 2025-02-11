@@ -7,10 +7,13 @@ from django.utils.translation import gettext_lazy as _
 from core.enums import Environment
 
 SITE_ID = 1
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-ENVIRONMENT = config("ENVIRONMENT", default=Environment.PROD.value)
+ENVIRONMENT = config("ENVIRONMENT", default=Environment.DEV.value)
 DEBUG = config("DJANGO_DEBUG", "True") == "True"
+
+SECRET_KEY = config("DJANGO_SECRET_KEY")
+ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="127.0.0.1").split(",")
 
 # General settings
 INSTALLED_APPS = [
@@ -37,6 +40,12 @@ INSTALLED_APPS = [
     "menu",
 ]
 
+if ENVIRONMENT == Environment.DEV.value:
+    INSTALLED_APPS += [
+        "sass_processor",
+        "django_browser_reload",
+    ]
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -47,6 +56,11 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+if ENVIRONMENT == Environment.DEV.value:
+    MIDDLEWARE += [
+        "django_browser_reload.middleware.BrowserReloadMiddleware",
+    ]
 
 ROOT_URLCONF = "site_service.urls"
 
@@ -88,6 +102,18 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Database
+DATABASES = {
+    "default": {
+        "ENGINE": config("POSTGRES_ENGINE", "django.db.backends.sqlite3"),
+        "NAME": config("POSTGRES_DB", BASE_DIR / "db.sqlite3"),
+        "USER": config("POSTGRES_USER", default="user"),
+        "PASSWORD": config("POSTGRES_PASSWORD", default="password"),
+        "HOST": config("POSTGRES_HOST", default="localhost"),
+        "PORT": config("POSTGRES_PORT", default="5432"),
+    }
+}
+
 # International settings
 LANGUAGE_CODE = "en"
 LANGUAGES = [
@@ -119,6 +145,20 @@ USE_TZ = True
 # Static files
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+if ENVIRONMENT == Environment.DEV.value:
+    STATICFILES_DIRS = [
+        BASE_DIR / "static",
+    ]
+    STATICFILES_FINDERS = [
+        "django.contrib.staticfiles.finders.FileSystemFinder",
+        "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+        "sass_processor.finders.CssFinder",
+    ]
+
+    SASS_PROCESSOR_ROOT = BASE_DIR / "static"
+    SASS_PROCESSOR_ENABLED = True
+    SASS_PROCESSOR_AUTO_INCLUDE = False
 
 # Media files
 MEDIA_URL = "/media/"
