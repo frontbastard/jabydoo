@@ -4,6 +4,7 @@
 
 .header {
   background: linear-gradient(0deg, #1a1c4e, #0a1241);
+  box-shadow: 0 0 100px 0 #a821c45e;
 }
 
 .navbar {
@@ -21,12 +22,12 @@
     position: relative;
 
     &:before {
-      @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 20px, $direction: 0);
+      @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 0, $direction: 0);
     }
 
     &:last-child {
       &:after {
-        @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 20px, $direction: 100%);
+        @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 0, $direction: 100%);
       }
     }
 

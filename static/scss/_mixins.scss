@@ -1,4 +1,4 @@
-@mixin gradient-diagonal-line($color: white, $deg: 20deg, $offset: 20px, $direction: 0) {
+@mixin gradient-diagonal-line($color: white, $deg: 20deg, $offset: 0, $direction: 0) {
   content: '';
   position: absolute;
   left: #{$direction};
