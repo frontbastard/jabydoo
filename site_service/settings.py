@@ -39,11 +39,11 @@ INSTALLED_APPS = [
     "pages",
     "seo",
     "menu",
+    "sass_processor", # TODO: move to DEV only
 ]
 
 if ENVIRONMENT == Environment.DEV.value:
     INSTALLED_APPS += [
-        "sass_processor",
         "django_browser_reload",
     ]
 
@@ -147,19 +147,19 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-if ENVIRONMENT == Environment.DEV.value:
-    STATICFILES_DIRS = [
-        BASE_DIR / "static",
-    ]
-    STATICFILES_FINDERS = [
-        "django.contrib.staticfiles.finders.FileSystemFinder",
-        "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-        "sass_processor.finders.CssFinder",
-    ]
+# if ENVIRONMENT == Environment.DEV.value: # TODO: make for DEV only
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+    "sass_processor.finders.CssFinder",
+]
 
-    SASS_PROCESSOR_ROOT = BASE_DIR / "static"
-    SASS_PROCESSOR_ENABLED = True
-    SASS_PROCESSOR_AUTO_INCLUDE = False
+SASS_PROCESSOR_ROOT = BASE_DIR / "static"
+SASS_PROCESSOR_ENABLED = True
+SASS_PROCESSOR_AUTO_INCLUDE = False
 
 # Media files
 MEDIA_URL = "/media/"
