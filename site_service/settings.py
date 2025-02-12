@@ -14,7 +14,7 @@ DEBUG = config("DJANGO_DEBUG", "True") == "True"
 
 SECRET_KEY = config("DJANGO_SECRET_KEY")
 ALLOWED_HOSTS = config("DJANGO_ALLOWED_HOSTS", default="127.0.0.1").split(",")
-CSRF_TRUSTED_ORIGINS = ["http://localhost:1337"]
+CSRF_TRUSTED_ORIGINS = config("DJANGO_TRUSTED_ORIGINS").split(",")
 
 # General settings
 INSTALLED_APPS = [
