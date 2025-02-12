@@ -47,7 +47,7 @@ class Page(TranslatableModel):
     status = models.CharField(
         max_length=2,
         choices=Status,
-        default=Status.DRAFT
+        default=Status.PUBLISHED
     )
     image = FilerImageField(
         null=True,

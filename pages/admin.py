@@ -7,6 +7,7 @@ from seo.admin import SEOInline
 
 @admin.register(Page)
 class PageAdmin(TranslatableAdmin):
+    fields = ["title", "slug", "is_home", "status", "content", "image", "publish"]
     list_display = ["title", "slug", "is_home", "publish", "status"]
     list_filter = ["is_home", "created", "publish"]
     list_editable = ["is_home", "status"]
