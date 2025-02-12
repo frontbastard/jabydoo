@@ -1,16 +1,22 @@
 from PIL import Image, ImageDraw, ImageFont
 import math
 
+from site_service.settings import BASE_DIR
 
-def add_watermark(image_path, watermark_text, opacity=32, spacing=50, angle=30):
+
+def add_watermark(image_path, watermark_text, opacity=90, spacing=50, angle=30, font_size=30):
     with Image.open(image_path) as img:
         img = img.convert("RGBA")
         watermark = Image.new("RGBA", img.size, (0, 0, 0, 0))
         draw = ImageDraw.Draw(watermark)
-        font = ImageFont.load_default()
 
-        text_width = draw.textlength(watermark_text, font)
-        text_height = font.size
+        # Завантаження шрифта з можливістю вказати розмір
+        font = ImageFont.truetype(str(BASE_DIR / "static/assets/fonts/Raleway-VariableFont_wght.ttf"), font_size)
+
+        # Отримання розміру тексту за допомогою textbbox
+        bbox = draw.textbbox((0, 0), watermark_text, font=font)
+        text_width = bbox[2] - bbox[0]
+        text_height = bbox[3] - bbox[1]
 
         # Розрахунок розширеного розміру для повного покриття при обертанні
         diagonal = int(math.sqrt(img.width ** 2 + img.height ** 2))
