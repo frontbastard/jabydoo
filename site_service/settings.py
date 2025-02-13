@@ -174,7 +174,7 @@ FILER_STORAGES = {
             "ENGINE": "filer.storage.PublicFileSystemStorage",
             "OPTIONS": {
                 "location": os.path.join(MEDIA_ROOT, "filer"),
-                "base_url": "/mediafiles/filer/",
+                "base_url": "/media/filer/",
             },
         },
     },
