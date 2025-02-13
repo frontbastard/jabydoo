@@ -10,60 +10,63 @@
   background-position: top center;
 }
 
-.default-button {
-  position: relative;
+.btn {
   font-size: 1.125rem;
-  color: $default-btn-danger-color;
-  font-weight: 700;
-  transition: .3s cubic-bezier(0.79, 0.14, 0.15, 0.86);
   padding: 0 1rem;
   line-height: 60px;
   font-family: "Oswald", sans-serif;
-  text-transform: uppercase;
   border-radius: 4px;
   text-decoration: none;
   border: none;
 
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
+  &-primary {
+    position: relative;
+    color: $default-btn-danger-color;
+    font-weight: 700;
+    text-transform: uppercase;
     transition: .3s cubic-bezier(0.79, 0.14, 0.15, 0.86);
-    height: 100%;
-    width: 100%;
-    border-radius: 4px;
-  }
 
-  &:before {
-    background-color: $default-btn-white-color;
-    z-index: -1;
-    box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, .2);
-  }
-
-  &:after {
-    background-color: $default-btn-danger-color;
-    transform: translate(4px, 4px);
-    z-index: -2;
-  }
-
-  &:hover {
-    color: $default-btn-white-color;
-    transform: translate(4px, 4px);
+    &:before,
+    &:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: .3s cubic-bezier(0.79, 0.14, 0.15, 0.86);
+      height: 100%;
+      width: 100%;
+      border-radius: 4px;
+    }
 
     &:before {
-      background-color: $default-btn-danger-color;
+      background-color: $default-btn-white-color;
+      z-index: 1;
+      box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, .2);
     }
 
     &:after {
-      background-color: $default-btn-white-color;
-      transform: translate(-4px, -4px);
+      background-color: $default-btn-danger-color;
+      transform: translate(4px, 4px);
+      z-index: 0;
     }
-  }
 
-  span {
-    position: inherit;
-    z-index: 2;
+    &:hover {
+      color: $default-btn-white-color;
+      transform: translate(4px, 4px);
+
+      &:before {
+        background-color: $default-btn-danger-color;
+      }
+
+      &:after {
+        background-color: $default-btn-white-color;
+        transform: translate(-4px, -4px);
+      }
+    }
+
+    span {
+      position: inherit;
+      z-index: 2;
+    }
   }
 }
