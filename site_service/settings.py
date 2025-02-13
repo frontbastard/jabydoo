@@ -146,11 +146,9 @@ USE_TZ = True
 # Static files
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
-if ENVIRONMENT == Environment.DEV.value:
-    STATICFILES_DIRS = [
-        BASE_DIR / "static",
-    ]
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
@@ -174,7 +172,7 @@ FILER_STORAGES = {
             "ENGINE": "filer.storage.PublicFileSystemStorage",
             "OPTIONS": {
                 "location": os.path.join(MEDIA_ROOT, "filer"),
-                "base_url": "/mediafiles/filer/",
+                "base_url": "/media/filer/",
             },
         },
     },
