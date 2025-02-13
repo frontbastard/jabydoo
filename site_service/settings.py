@@ -163,6 +163,8 @@ COMPRESS_PRECOMPILERS = [
 ]
 
 # Media files
+DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"
+
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "mediafiles"
 
@@ -172,7 +174,7 @@ FILER_STORAGES = {
             "ENGINE": "filer.storage.PublicFileSystemStorage",
             "OPTIONS": {
                 "location": os.path.join(MEDIA_ROOT, "filer"),
-                "base_url": "/media/filer/",
+                "base_url": "/mediafiles/filer/",
             },
         },
     },
@@ -257,7 +259,7 @@ CKEDITOR_5_CONFIGS = {
     }
 }
 
-CKEDITOR_5_UPLOAD_PATH = "media/"
+CKEDITOR_5_UPLOAD_PATH = "mediafiles/"
 
 # Make sure CKEDITOR_5_UPLOAD_PATH is inside MEDIA_ROOT
 CKEDITOR_5_MEDIA_PREFIX = f"{MEDIA_URL}{CKEDITOR_5_UPLOAD_PATH}"
