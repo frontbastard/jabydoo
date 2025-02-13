@@ -5,12 +5,24 @@
 .header {
   background: linear-gradient(0deg, #1a1c4e, #0a1241);
   box-shadow: 0 0 100px 0 #a821c45e;
+
+  .btn {
+    &-login,
+    &-signin {
+      opacity: 0.7;
+      font-weight: 500;
+
+      &:not(:hover) {
+        background: rgba($white, .05);
+      }
+    }
+  }
 }
 
 .navbar {
   .nav-link {
     line-height: 60px;
-    text-transform: uppercase;
+    //text-transform: uppercase;
     font-weight: 500;
     //font-family: "Oswald", sans-serif;
     font-size: 1.1em;

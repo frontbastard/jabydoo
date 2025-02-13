@@ -14,7 +14,6 @@
   font-size: 1.125rem;
   padding: 0 1rem;
   line-height: 60px;
-  font-family: "Oswald", sans-serif;
   border-radius: 4px;
   text-decoration: none;
   border: none;
@@ -22,6 +21,7 @@
   &-primary {
     position: relative;
     color: $default-btn-danger-color;
+    font-family: "Oswald", sans-serif;
     font-weight: 700;
     text-transform: uppercase;
     transition: .3s cubic-bezier(0.79, 0.14, 0.15, 0.86);
@@ -69,4 +69,8 @@
       z-index: 2;
     }
   }
+}
+
+.skewed-20 {
+  @include skew-it-x;
 }

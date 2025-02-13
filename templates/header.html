@@ -17,10 +17,14 @@
 
     {% render_menu %}
 
-        <div class="d-flex align-items-center me-4">
-          <a href="#" class="btn btn-outline-light"><i class="icofont-user"></i> <span>{% translate "Log in" %}</span> </a>
-          <a href="#" class="btn btn-outline-danger"><i class="icofont-users"></i> <span>{% translate "Sign up" %}</span></a>
-        </div>
+    <div class="me-4">
+      <a href="{{ site_options.sponsor_url }}" class="skewed-20 btn btn-outline-light btn-login">
+        <span>{% translate "Log in" %}</span>
+      </a>
+      <a href="{{ site_options.sponsor_url }}" class="skewed-20 btn btn-outline-danger btn-signin">
+        <span>{% translate "Sign up" %}</span>
+      </a>
+    </div>
 
     {% include "includes/language_switcher.html" %}
   </div>
