@@ -34,12 +34,12 @@ INSTALLED_APPS = [
     "easy_thumbnails",
     "filer",
     "mptt",
+    "compressor",
 
     "core",
     "pages",
     "seo",
     "menu",
-    "sass_processor", # TODO: move to DEV only
 ]
 
 if ENVIRONMENT == Environment.DEV.value:
@@ -147,20 +147,22 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# if ENVIRONMENT == Environment.DEV.value: # TODO: make for DEV only
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+if ENVIRONMENT == Environment.DEV.value:
+    STATICFILES_DIRS = [
+        BASE_DIR / "static",
+    ]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-    "sass_processor.finders.CssFinder",
+    "compressor.finders.CompressorFinder",
 ]
 
-SASS_PROCESSOR_ROOT = BASE_DIR / "static"
-SASS_PROCESSOR_ENABLED = True
-SASS_PROCESSOR_AUTO_INCLUDE = False
-SASS_OUTPUT_STYLE = "compressed"
+COMPRESS_ENABLED = True
+COMPRESS_REBUILD_TIMEOUT = 0
+COMPRESS_OFFLINE = False
+COMPRESS_PRECOMPILERS = [
+    ("text/x-scss", "pysassc {infile} {outfile}"),
+]
 
 # Media files
 MEDIA_URL = "/media/"
