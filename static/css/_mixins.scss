@@ -9,7 +9,7 @@
   transform: rotate($deg);
 }
 
-@mixin skew-it-x($deg: -20deg) {
+@mixin skew-bg-x($deg: -20deg) {
   transform: skewX($deg);
 
   > * {

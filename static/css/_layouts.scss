@@ -5,18 +5,6 @@
 .header {
   background: linear-gradient(0deg, #1a1c4e, #0a1241);
   box-shadow: 0 0 100px 0 #a821c45e;
-
-  .btn {
-    &-login,
-    &-signin {
-      opacity: 0.7;
-      font-weight: 500;
-
-      &:not(:hover) {
-        background: rgba($white, .05);
-      }
-    }
-  }
 }
 
 .navbar {
@@ -56,6 +44,17 @@
           transform: skewX(-20deg);
         }
       }
+    }
+  }
+}
+
+.action-buttons {
+  .btn {
+    &-login,
+    &-signin {
+      font-weight: 500;
+      font-family: $font-family-secondary;
+      text-transform: uppercase;
     }
   }
 }
