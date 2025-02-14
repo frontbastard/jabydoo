@@ -15,6 +15,9 @@ def site_options(request):
         base64.b64encode(sponsor_url.encode("utf-8")).decode("utf-8")
         if sponsor_url else ""
     )
+    options["sponsor_logo"] = (
+        options_obj.sponsor_logo.url if options_obj and options_obj.sponsor_logo else ""
+    )
 
     return {"site_options": options}
 
