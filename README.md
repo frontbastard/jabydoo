@@ -1,27 +1,36 @@
-### Autorun docker daemon
+## Rosetta translations
+
+`django-admin makemessages --all`
+and go to `/rosetta`
+
+## Autorun docker daemon
+
 `sudo systemctl enable docker`
 
 ### Config
+
 `sudo nano /etc/systemd/system/jabydoo.service`
+
 ```ini
 [Unit]
-Description=Jabydoo
-After=docker.service
-Requires=docker.service
+Description = Jabydoo
+After = docker.service
+Requires = docker.service
 
 [Service]
-Restart=always
-WorkingDirectory=/path/to/your/project
-ExecStart=/usr/local/bin/docker-compose up
-ExecStop=/usr/local/bin/docker-compose down
-TimeoutStartSec=0
+Restart = always
+WorkingDirectory = /path/to/your/project
+ExecStart = /usr/local/bin/docker-compose up
+ExecStop = /usr/local/bin/docker-compose down
+TimeoutStartSec = 0
 
 [Install]
-WantedBy=multi-user.target
+WantedBy = multi-user.target
 
 ```
 
 ### Run
+
 `sudo systemctl daemon-reload`
 
 `sudo systemctl enable myapp.service`
@@ -29,4 +38,5 @@ WantedBy=multi-user.target
 `sudo systemctl start myapp.service`
 
 ### Check
+
 `sudo systemctl status myapp.service`

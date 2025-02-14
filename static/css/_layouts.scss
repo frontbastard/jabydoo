@@ -10,10 +10,7 @@
 .navbar {
   .nav-link {
     line-height: 60px;
-    text-transform: uppercase;
-    font-weight: 500;
-    font-family: $font-family-secondary;
-    font-size: 1.1em;
+    font-size: 1.2em;
     text-shadow: -10px 15px 20px rgba(#0800ff, .5), -3px 5px 10px rgba(#d900bc, .5);
     margin: 0 0.5em;
   }
@@ -57,6 +54,18 @@
       font-weight: 500;
       font-family: $font-family-secondary;
       text-transform: uppercase;
+    }
+
+    &-login {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+          box-shadow: 2px 2px 0 $default-btn-danger-color;
+    }
+
+    &-signin {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+          box-shadow: 2px 2px 0 $default-btn-white-color;
     }
   }
 }

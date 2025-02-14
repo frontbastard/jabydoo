@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-04 11:38+0100\n"
-"PO-Revision-Date: 2025-02-04 10:36+0000\n"
+"POT-Creation-Date: 2025-02-14 15:53+0100\n"
+"PO-Revision-Date: 2025-02-14 14:54+0000\n"
 "Last-Translator:   <pavelxsokolov@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
@@ -19,22 +19,25 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.10.1\n"
 
-#: site_service/settings.py:129
+#: site_service/settings.py:121
 msgid "English"
 msgstr "Anglaise"
 
-#: site_service/settings.py:130
+#: site_service/settings.py:122
 msgid "French"
 msgstr "Français"
 
+#: templates/base.html:51
+msgid "Sign up"
+msgstr "S'inscrire"
+
+#: templates/base.html:54
+#| msgid "Get a bonus"
+msgid "Get bonuses!"
+msgstr "Obtenir un bonus!"
+
 #~ msgid "Log in"
 #~ msgstr "Se connecter"
-
-#~ msgid "Sign up"
-#~ msgstr "S'inscrire"
-
-#~ msgid "Get a bonus"
-#~ msgstr "Obtenir un bonus"
 
 #~ msgid "Learn more"
 #~ msgstr "En savoir plus"
