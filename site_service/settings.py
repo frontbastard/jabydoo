@@ -122,7 +122,7 @@ LANGUAGES = [
     ("fr", _("French")),
 ]
 LANGUAGE_FLAG_MAP = {
-    "en": "gb",
+    "en": "ca",
     "fr": "fr",
 }
 
