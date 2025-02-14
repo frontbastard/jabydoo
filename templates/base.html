@@ -47,12 +47,12 @@
 </header>
 
 <div class="action-buttons position-sticky d-flex justify-content-center w-100 start-0 top-0 pt-3 z-1">
-  <a href="{{ site_options.sponsor_url }}" class="d-flex skewed-20 btn btn-light btn-login">
-    <i class="bi bi-person-plus"></i> <span class="ms-2">{% translate "Sign up" %}</span>
-  </a>
-  <a href="{{ site_options.sponsor_url }}" class="d-flex skewed-20 btn btn-danger btn-signin">
+  <button class="d-flex skewed-20 btn btn-light btn-login" data-sponsor-url="{{ site_options.sponsor_encoded_url }}">
+      <i class="bi bi-person-plus"></i> <span class="ms-2">{% translate "Sign up" %}</span>
+  </button>
+  <button class="d-flex skewed-20 btn btn-danger btn-signin" data-sponsor-url="{{ site_options.sponsor_encoded_url }}">
     <i class="bi bi-gift"></i> <span class="mx-2">{% translate "Get bonuses!" %}</span><i class="bi bi-arrow-right"></i>
-  </a>
+  </button>
 </div>
 
 <main class="main">
@@ -67,6 +67,9 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"
   ></script>
+  {% compress js %}
+    <script src="{% static 'js/main.js' %}"></script>
+  {% endcompress %}
 </footer>
 </body>
 </html>
