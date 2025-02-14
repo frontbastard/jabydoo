@@ -6,6 +6,7 @@ from filer.models import Folder
 class SiteOptions(models.Model):
     sponsor_name = models.CharField(max_length=255)
     sponsor_url = models.URLField(max_length=255)
+    hide_sponsor_url = models.BooleanField(default=False)
     sponsor_logo = FilerImageField(
         related_name="sponsor_logo",
         on_delete=models.SET_NULL,
