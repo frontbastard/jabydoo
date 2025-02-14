@@ -10,9 +10,9 @@
 .navbar {
   .nav-link {
     line-height: 60px;
-    //text-transform: uppercase;
+    text-transform: uppercase;
     font-weight: 500;
-    //font-family: "Oswald", sans-serif;
+    font-family: $font-family-secondary;
     font-size: 1.1em;
     text-shadow: -10px 15px 20px rgba(#0800ff, .5), -3px 5px 10px rgba(#d900bc, .5);
     margin: 0 0.5em;
@@ -49,6 +49,8 @@
 }
 
 .action-buttons {
+  margin-bottom: -76px;
+
   .btn {
     &-login,
     &-signin {
@@ -63,7 +65,7 @@
   ol {
     li {
       &::marker {
-        font-family: "Oswald", sans-serif;
+        font-family: $font-family-secondary;
         font-weight: 600;
       }
     }
