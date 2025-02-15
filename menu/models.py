@@ -25,3 +25,8 @@ class MenuItem(MPTTModel, TranslatableModel):
         return self.safe_translation_getter(
             "name", any_language=True
         ) or "Unnamed Menu Item"
+
+    def save(self, *args, **kwargs):
+        if self.url and not self.url.startswith("/"):
+            self.url = "/" + self.url.lstrip("/")
+        super().save(*args, **kwargs)

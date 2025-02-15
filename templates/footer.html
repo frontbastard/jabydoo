@@ -1,3 +1,26 @@
-<div class="container">
+{% load i18n %}
 
+<div class="container">
+  <ul class="navbar-nav footer-navigation mb-3">
+    <li class="nav-item">
+      <a class="nav-link" href="/privacy-policy">{% translate "Privacy Policy" %}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/terms-of-service">{% translate "Terms of Service" %}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/contact-us">{% translate "Contact Us" %}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/about-us">{% translate "About Us" %}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/faq">{% translate "FAQ" %}</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/cookie-policy">{% translate "Cookie Policy" %}</a>
+    </li>
+  </ul>
+
+  <p class="text-center">&copy; {% now "Y" %} {{ site_options.sponsor_name }}. {% translate "All rights reserved" %}.</p>
 </div>

@@ -1,4 +1,4 @@
-@mixin gradient-diagonal-line($color: white, $deg: 20deg, $offset: 20px, $direction: 0) {
+@mixin gradient-diagonal-line($color: white, $deg: 20deg, $offset: 0, $direction: 0) {
   content: '';
   position: absolute;
   left: #{$direction};
@@ -7,5 +7,14 @@
   width: 1px;
   background: linear-gradient(0deg, transparent, rgba($color, .3), transparent);
   transform: rotate($deg);
+}
+
+@mixin skew-bg-x($deg: -20deg) {
+  transform: skewX($deg);
+
+  > * {
+    display: block;
+    transform: skewX(-$deg)
+  }
 }
 

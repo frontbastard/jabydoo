@@ -1,4 +1,4 @@
-{% load i18n seo_tags parler_tags custom_tags %}
+{% load i18n seo_tags parler_tags custom_tags compress static %}
 {% if object %}
   {% get_seo object as seo %}
 {% endif %}
@@ -7,11 +7,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  {% if is_dev_environment %}
-    {% include 'includes/styles_dev.html' %}
-  {% else %}
-    {% include 'includes/styles_prod.html' %}
-  {% endif %}
+  {% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'css/main.scss' %}">
+  {% endcompress %}
   {% get_current_language as LANGUAGE_CODE %}
   {% get_available_languages as LANGUAGES %}
   {% get_language_info_list for LANGUAGES as languages %}
@@ -40,14 +38,15 @@
     <meta name="keywords" content="{{ seo.keywords }}">
   {% endif %}
   <link rel="canonical" href="{{ request.build_absolute_uri }}">
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
   {% block page_json_ld %}{% endblock %}
 </head>
 <body class="theme-dark">
 <header class="header">
   {% include "header.html" %}
 </header>
+
+{% include "includes/action_buttons.html" %}
 
 <main class="main">
   {% block content %}
@@ -61,6 +60,9 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"
   ></script>
+  {% compress js %}
+    <script src="{% static 'js/main.js' %}"></script>
+  {% endcompress %}
 </footer>
 </body>
 </html>

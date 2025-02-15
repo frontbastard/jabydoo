@@ -4,15 +4,13 @@
 
 .header {
   background: linear-gradient(0deg, #1a1c4e, #0a1241);
+  box-shadow: 0 0 100px 0 #a821c45e;
 }
 
 .navbar {
   .nav-link {
     line-height: 60px;
-    text-transform: uppercase;
-    font-weight: 500;
-    //font-family: "Oswald", sans-serif;
-    font-size: 1.1em;
+    font-size: 1.2em;
     text-shadow: -10px 15px 20px rgba(#0800ff, .5), -3px 5px 10px rgba(#d900bc, .5);
     margin: 0 0.5em;
   }
@@ -21,12 +19,12 @@
     position: relative;
 
     &:before {
-      @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 20px, $direction: 0);
+      @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 0, $direction: 0);
     }
 
     &:last-child {
       &:after {
-        @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 20px, $direction: 100%);
+        @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 0, $direction: 100%);
       }
     }
 
@@ -47,11 +45,36 @@
   }
 }
 
+.action-buttons {
+  margin-bottom: -76px;
+
+  .btn {
+    &-login,
+    &-signin {
+      font-weight: 500;
+      font-family: $font-family-secondary;
+      text-transform: uppercase;
+    }
+
+    &-login {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      box-shadow: 2px 2px 0 $default-btn-danger-color;
+    }
+
+    &-signin {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      box-shadow: 2px 2px 0 $default-btn-white-color;
+    }
+  }
+}
+
 .content {
   ol {
     li {
       &::marker {
-        font-family: "Oswald", sans-serif;
+        font-family: $font-family-secondary;
         font-weight: 600;
       }
     }
@@ -89,13 +112,24 @@
 
     th, td {
       background: rgba($white, .1);
-      padding: 5px 15px;
-      border: 1px solid rgba($white, .3)
+      padding: 10px 15px !important;
+      border: 1px solid rgba($white, .3) !important;
     }
   }
 }
 
 .footer {
-  padding: 50px 0;
+  padding: 20px 0;
   background: $footer-linear-gradient;
+
+  &-navigation {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+
+    .nav-item {
+      margin: 0 10px;
+    }
+  }
 }
