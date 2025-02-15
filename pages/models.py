@@ -1,6 +1,7 @@
 import json
 
 from decouple import config
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -12,6 +13,8 @@ from parler.models import TranslatableModel, TranslatedFields
 
 from core.models import SiteOptions
 from core.services.content_generation import ContentGenerationService
+from core.services.seo_generation import SEOGenerationService
+from seo.models import SEO
 
 
 class PageQuerySet(TranslatableQuerySet):
@@ -75,6 +78,20 @@ class Page(TranslatableModel):
         if self.auto_generate_content:
             service = ContentGenerationService(self, request)
             service.generate()
+
+        if self.auto_generate_content:
+            seo, created = SEO.objects.get_or_create(
+                content_type=ContentType.objects.get_for_model(Page),
+                object_id=self.pk,
+                defaults={"title": "", "description": ""}
+            )
+            seo_service = SEOGenerationService(self, request)
+            seo_data = seo_service.generate()
+
+            if isinstance(seo_data, dict):
+                seo.title = seo_data["title"]
+                seo.description = seo_data["description"]
+                seo.save()
 
         if self.is_home:
             Page.objects.exclude(pk=self.pk).update(is_home=False)
