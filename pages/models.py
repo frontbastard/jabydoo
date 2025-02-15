@@ -1,20 +1,17 @@
 import json
 
-import requests
 from decouple import config
-from django.contrib import messages
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.safestring import mark_safe
-from django.utils.translation.trans_null import get_language
 from django_ckeditor_5.fields import CKEditor5Field
 from filer.fields.image import FilerImageField
 from parler.managers import TranslatableQuerySet
 from parler.models import TranslatableModel, TranslatedFields
-from together import Together
 
 from core.models import SiteOptions
+from core.services.content_generation import ContentGenerationService
 
 
 class PageQuerySet(TranslatableQuerySet):
@@ -76,7 +73,8 @@ class Page(TranslatableModel):
         request = kwargs.pop("request", None)
 
         if self.auto_generate_content:
-            self.generate_content(request=request)
+            service = ContentGenerationService(self, request)
+            service.generate()
 
         if self.is_home:
             Page.objects.exclude(pk=self.pk).update(is_home=False)
@@ -116,49 +114,3 @@ class Page(TranslatableModel):
         return mark_safe(
             f"<script type='application/ld+json'>{json_ld}</script>"
         )
-
-    def generate_content(self, request=None):
-        """
-        Generates content via the Together API.
-        """
-        sponsor_name = getattr(SiteOptions.get_options(), "sponsor_name", "").strip()
-
-        if not sponsor_name:
-            error_message = "Error: SiteOptions.sponsor_name haven't been set!"
-            if request:
-                messages.error(request, error_message)
-            self.content = error_message
-            return
-
-        if len(self.content) > 20:
-            return
-
-        language = self.get_current_language()
-
-        title = self.title
-        additional_info = self.ai_additional_info or ""
-        site_type = getattr(SiteOptions.get_options(), "site_type", "")
-
-        prompt = (
-            f"Згенеруй змістовний та унікальний SEO контент для статті '{title}' для сайту {sponsor_name}. "
-            f"Врахуй, що мова сайту – {language}. Тип сайту — {site_type}"
-            f"Не використовуй заповнювачі потипу [Insert Date]. Не використовуй ніяких посилань в тексті."
-            f"Або використовуй фейкові дані наближені до реальних або не використовуй взагалі."
-            f"Генеруй контент в html для візуального редактора в джанго CKEDITOR 5."
-            f"На початку не потрібно додавати h1 заголовок, він вже є в шаблоні."
-            f"Подальші інструкції мають приорітет перед попередніми: {additional_info}"
-        )
-
-        client = Together(api_key=getattr(SiteOptions.get_options(), "ai_secret_key", ""))
-
-        try:
-            response = client.chat.completions.create(
-                model=getattr(SiteOptions.get_options(), "ai_model", ""),
-                messages=[{"role": "user", "content": prompt}]
-            )
-            generated_text = response.choices[0].message.content.strip()
-
-            self.content = generated_text
-        except Exception as e:
-
-            self.content = f"Generation error: {e}"
