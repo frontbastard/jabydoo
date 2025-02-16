@@ -23,7 +23,7 @@ def home_page(request):
 
 def other_page(request, slug):
     language = request.LANGUAGE_CODE
-    home = get_object_or_404(
+    page = get_object_or_404(
         Page,
         translations__language_code=language,
         slug=slug,
@@ -32,5 +32,5 @@ def other_page(request, slug):
     return render(
         request,
         "pages/page.html",
-        {"object": home}
+        {"object": page}
     )
