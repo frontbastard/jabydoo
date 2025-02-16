@@ -12,8 +12,7 @@ from parler.managers import TranslatableQuerySet
 from parler.models import TranslatableModel, TranslatedFields
 
 from core.models import SiteOptions
-from core.services.content_generation import ContentGenerationService
-from core.services.seo_generation import SEOGenerationService
+from core.services.content_generation import ContentGenerationService, SEOGenerationService
 from seo.models import SEO
 
 
@@ -76,22 +75,8 @@ class Page(TranslatableModel):
         request = kwargs.pop("request", None)
 
         if self.auto_generate_content:
-            service = ContentGenerationService(self, request)
-            service.generate()
-
-        if self.auto_generate_content:
-            seo, created = SEO.objects.get_or_create(
-                content_type=ContentType.objects.get_for_model(Page),
-                object_id=self.pk,
-                defaults={"title": "", "description": ""}
-            )
-            seo_service = SEOGenerationService(self, request)
-            seo_data = seo_service.generate()
-
-            if isinstance(seo_data, dict):
-                seo.title = seo_data["title"]
-                seo.description = seo_data["description"]
-                seo.save()
+            self.generate_content_and_seo(request, save=False)
+            self.auto_generate_content = False
 
         if self.is_home:
             Page.objects.exclude(pk=self.pk).update(is_home=False)
@@ -131,3 +116,26 @@ class Page(TranslatableModel):
         return mark_safe(
             f"<script type='application/ld+json'>{json_ld}</script>"
         )
+
+    def generate_content_and_seo(self, request=None, save=True):
+        """Generates content and SEO for the page"""
+        if self.auto_generate_content or not self.content:
+            service = ContentGenerationService(self, request)
+            service.generate()
+
+            seo, created = SEO.objects.get_or_create(
+                content_type=ContentType.objects.get_for_model(Page),
+                object_id=self.pk,
+                defaults={"title": "", "description": ""}
+            )
+
+            seo_service = SEOGenerationService(self, request)
+            seo_data = seo_service.generate()
+
+            if isinstance(seo_data, dict):
+                seo.title = seo_data.get("title", "")
+                seo.description = seo_data.get("description", "")
+                seo.save()
+
+        if save:
+            self.save()
