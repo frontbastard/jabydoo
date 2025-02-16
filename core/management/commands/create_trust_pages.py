@@ -1,7 +1,5 @@
-from django.conf import settings
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
-
 from pages.models import Page
 
 TRUST_PAGES = [
@@ -13,8 +11,6 @@ TRUST_PAGES = [
     {"title": "Cookie Policy"},
 ]
 
-LANGUAGES = [lang[0] for lang in settings.LANGUAGES]
-
 
 class Command(BaseCommand):
     help = "Creates default trust pages if they do not exist."
@@ -23,6 +19,7 @@ class Command(BaseCommand):
         for page_data in TRUST_PAGES:
             slug = slugify(page_data["title"])
 
+            # Check if a page with this word exists
             page, created = Page.objects.get_or_create(slug=slug)
 
             if created:
