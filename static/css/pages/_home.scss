@@ -3,7 +3,6 @@
   display: flex;
   background-position: center;
   background-size: cover;
-
   mix-blend-mode: lighten;
 
   &:after {
@@ -17,11 +16,15 @@
   }
 
   .title {
-    padding: 150px 0;
     font-family: "Oswald", sans-serif;
+    padding: 50px 0 20px;
     font-weight: 500;
-    font-size: 5em;
     max-width: 600px;
     text-shadow: 2px 2px 2px $danger;
+
+    @include media("xl") {
+      padding: 150px 0;
+      font-size: 5em;
+    }
   }
 }
