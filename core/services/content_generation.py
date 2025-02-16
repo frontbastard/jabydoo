@@ -50,7 +50,9 @@ class ContentGenerationService(BaseGenerationService):
 
     def _create_prompt(self):
         return (
-            f"Generate meaningful and unique SEO content for the article “{self.title}” for the site {self.sponsor_name}. "
+            f"Generate meaningful and unique SEO content based on the top 10 for the query '{self.title}' (title). "
+            f"For the site {self.sponsor_name}. Insert bulleted lists and tables where appropriate. "
+            f"The content should not be the same type, look at the `title` and stick to its possible template.  "
             f"Please note that the site language is {self.language}. The site type is {self.site_type}. "
             f"Do not use placeholders like [Insert Date]. Do not use any links in the text. "
             f"Generate content in html for the visual editor in Django CKEDITOR 5. "
