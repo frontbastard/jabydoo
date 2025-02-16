@@ -57,9 +57,7 @@ class ContentGenerationService(BaseGenerationService):
             f"Do not use placeholders like [Insert Date]. Do not use any links in the text. "
             f"You do not need to add an h1 header at the beginning, it is already in the template. "
             f"IMPORTANT: Return the result as valid, structured HTML. Example format: "
-            f"```html"
-            f"<content is here>"
-            f"``` "
+            f"<html content is here (not markdown)>"
             f"If there are further instructions, they take precedence over previous ones: {self.additional_info}. "
         )
 
