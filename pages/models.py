@@ -65,6 +65,7 @@ class Page(TranslatableModel):
         help_text="If active, new content will be generated on save, but only if the content is empty"
     )
     ai_additional_info = models.TextField(
+        null=True,
         blank=True,
         help_text="In addition to the main request, these additional instructions will be used (they are in priority)"
     )
