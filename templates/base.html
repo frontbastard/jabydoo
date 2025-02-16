@@ -1,47 +1,18 @@
-{% load i18n seo_tags parler_tags custom_tags compress static %}
-{% if object %}
-  {% get_seo object as seo %}
-{% endif %}
+{% load static compress %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  {% include "includes/seo.html" with object=object %}
   {% compress css %}
     <link rel="stylesheet" type="text/x-scss" href="{% static 'css/main.scss' %}">
   {% endcompress %}
-  {% get_current_language as LANGUAGE_CODE %}
-  {% get_available_languages as LANGUAGES %}
-  {% get_language_info_list for LANGUAGES as languages %}
-  {% for lang in languages %}
-    {% get_translated_url lang.code as trans_url %}
-    {% if trans_url %}
-      <link rel="alternate" hreflang="{{ lang.code }}"
-            href="{{ request.scheme }}://{{ request.get_host }}{{ trans_url }}">
-    {% endif %}
-  {% endfor %}
-  {% get_translated_url LANGUAGE_CODE as default_url %}
-  {% get_parler_fallback_language as FALLBACK_LANG %}
-  <link rel="alternate" hreflang="x-default"
-        href="{{ request.scheme }}://{{ request.get_host }}{% get_translated_url FALLBACK_LANG %}">
-  <title>
-    {% block title %}
-      {% if seo.title %}
-        {{ seo.title }}
-      {% else %}
-        {{ object.title }}
-      {% endif %}
-    {% endblock %}
-  </title>
-  {% if seo %}
-    <meta name="description" content="{{ seo.description }}">
-    <meta name="keywords" content="{{ seo.keywords }}">
-  {% endif %}
-  <link rel="canonical" href="{{ request.build_absolute_uri }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-  {% block page_json_ld %}{% endblock %}
 </head>
 <body class="theme-dark">
+{{ object }}
 <header class="header">
   {% include "header.html" %}
 </header>
