@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from django.utils.text import slugify
+from django.conf import settings
 from pages.models import Page
 
 TRUST_PAGES = [
@@ -10,6 +11,8 @@ TRUST_PAGES = [
     {"title": "FAQ"},
     {"title": "Cookie Policy"},
 ]
+
+LANGUAGES = [lang[0] for lang in settings.LANGUAGES]
 
 
 class Command(BaseCommand):
