@@ -1,25 +1,42 @@
 {% load i18n %}
 
-<div class="action-buttons position-sticky d-flex justify-content-center w-100 start-0 top-0 pt-xl-3 z-1">
+<div class="action-buttons position-sticky d-flex justify-content-center w-100 start-0 top-0 pt-2 pt-xl-3 z-1">
   {% if site_options.hide_sponsor_url %}
-    <button class="d-flex skewed-20 btn btn-light btn-login" data-sponsor-url="{{ site_options.sponsor_encoded_url }}">
-      <i class="bi bi-person-plus"></i> <span class="ms-2">{% translate "Sign up" %}</span>
+    <button class="d-flex skewed-20 btn btn-light btn-login align-items-center"
+            data-sponsor-url="{{ site_options.sponsor_encoded_url }}">
+      <svg class="icon">
+        <use xlink:href="#gift-line"></use>
+      </svg>
+      <span class="ms-2">{% translate "Sign up" %}</span>
     </button>
-    <button class="d-flex skewed-20 btn btn-danger btn-signin"
+    <button class="d-flex skewed-20 btn btn-danger btn-signin align-items-center"
             data-sponsor-url="{{ site_options.sponsor_encoded_url }}"
     >
-      <i class="bi bi-gift"></i>
+      <svg class="icon">
+        <use xlink:href="#gift-line"></use>
+      </svg>
       <span class="mx-2">{% translate "Get bonuses!" %}</span>
-      <i class="bi bi-arrow-right"></i>
+      <svg class="icon">
+        <use xlink:href="#arrow-right-long-line"></use>
+      </svg>
     </button>
   {% else %}
-    <a href="{{ site_options.sponsor_url }}" target="_blank" class="d-flex skewed-20 btn btn-light btn-login">
-      <i class="bi bi-person-plus"></i> <span class="ms-2">{% translate "Sign up" %}</span>
+    <a href="{{ site_options.sponsor_url }}" target="_blank"
+       class="d-flex skewed-20 btn btn-light btn-login align-items-center">
+      <svg class="icon">
+        <use xlink:href="#user-add-line"></use>
+      </svg>
+      <span class="ms-2">{% translate "Sign up" %}</span>
     </a>
-    <a href="{{ site_options.sponsor_url }}" target="_blank" class="d-flex skewed-20 btn btn-danger btn-signin">
-      <i class="bi bi-gift"></i>
+    <a href="{{ site_options.sponsor_url }}" target="_blank"
+       class="d-flex skewed-20 btn btn-danger btn-signin align-items-center">
+      <svg class="icon">
+        <use xlink:href="#gift-line"></use>
+      </svg>
       <span class="mx-2">{% translate "Get bonuses!" %}</span>
-      <i class="bi bi-arrow-right"></i>
+      <svg class="icon">
+        <use xlink:href="#arrow-right-long-line"></use>
+      </svg>
     </a>
   {% endif %}
 </div>

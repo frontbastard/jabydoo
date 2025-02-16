@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n static %}
 
 <div class="container">
   <ul class="navbar-nav footer-navigation mb-3">
@@ -22,5 +22,24 @@
     </li>
   </ul>
 
-  <p class="text-center opacity-50">&copy; {% now "Y" %} {{ site_options.sponsor_name }}. {% translate "All rights reserved" %}.</p>
+  <div class="payment-icons text-center mb-4">
+    <svg class="icon">
+      <use xlink:href="#btc-line"></use>
+    </svg>
+    <svg class="icon">
+      <use xlink:href="#eth-line"></use>
+    </svg>
+    <svg class="icon">
+      <use xlink:href="#visa-line"></use>
+    </svg>
+    <svg class="icon">
+      <use xlink:href="#mastercard-line"></use>
+    </svg>
+    <svg class="icon">
+      <use xlink:href="#paypal-line"></use>
+    </svg>
+  </div>
+
+  <p class="text-center opacity-50">
+    &copy; {% now "Y" %} {{ site_options.sponsor_name }}. {% translate "All rights reserved" %}.</p>
 </div>

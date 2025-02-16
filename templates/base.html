@@ -6,6 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   {% include "includes/seo.html" with object=object %}
+  {% include "includes/svg_sprite.html" %}
   {% compress css %}
     <link rel="stylesheet" type="text/x-scss" href="{% static 'css/main.scss' %}">
   {% endcompress %}
