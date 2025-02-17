@@ -23,7 +23,7 @@
     font-family: '#{$name}';
     font-style: $style;
     font-weight: $weight;
-    font-display: swap;
+    font-display: optional;
     src: url('/static/assets/fonts/#{$name}/#{$name}-#{$weight}.woff2') format('woff2');
   }
 }
