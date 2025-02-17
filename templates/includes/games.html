@@ -1,7 +1,7 @@
-{% load i18n %}
+{% load i18n static %}
 
 {% if games %}
-  <aside class="games-list container mb-3">
+  <aside class="games-list container mb-3 py-3">
     <div class="px-2 pb-4">
       <p class="games-list-title">{% translate "Online Casino in Canada for Real Money" %}</p>
       <div class="row">
@@ -38,4 +38,5 @@
       </div>
     </div>
   </aside>
+  <img src="{% static "qr_ref.png" %}" alt="Bodog QR code for play" class="d-none d-xl-block mb-3">
 {% endif %}
