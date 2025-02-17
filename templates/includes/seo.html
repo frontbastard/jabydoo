@@ -7,6 +7,26 @@
 {% get_translated_url LANGUAGE_CODE as default_url %}
 {% get_parler_fallback_language as FALLBACK_LANG %}
 
+{# title, description, keywords #}
+{% if object %}
+  {% get_seo object as seo %}
+{% endif %}
+
+<title>
+  {% block title %}
+    {% if seo.title %}
+      {{ seo.title }}
+    {% else %}
+      {{ object.title }}
+    {% endif %}
+  {% endblock %}
+</title>
+
+{% if seo %}
+  <meta name="description" content="{{ seo.description }}">
+  <meta name="keywords" content="{{ seo.keywords }}">
+{% endif %}
+
 {# Favicons #}
 <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
 <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
@@ -23,26 +43,6 @@
 {% endfor %}
 <link rel="alternate" hreflang="x-default"
       href="{{ request.scheme }}://{{ request.get_host }}{% get_translated_url FALLBACK_LANG %}">
-
-{# title, description, keywords #}
-{% if object %}
-  {% get_seo object as seo %}
-{% endif %}
-
-{% if seo %}
-  <meta name="description" content="{{ seo.description }}">
-  <meta name="keywords" content="{{ seo.keywords }}">
-{% endif %}
-
-<title>
-  {% block title %}
-    {% if seo.title %}
-      {{ seo.title }}
-    {% else %}
-      {{ object.title }}
-    {% endif %}
-  {% endblock %}
-</title>
 
 {# Canonical #}
 <link rel="canonical" href="{{ request.build_absolute_uri }}">
