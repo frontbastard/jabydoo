@@ -9,7 +9,6 @@ class SEO(TranslatableModel):
     translations = TranslatedFields(
         title=models.CharField(max_length=200, blank=True),
         description=models.TextField(blank=True),
-        keywords=models.CharField(max_length=500, blank=True),
     )
 
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)

@@ -85,7 +85,7 @@ class TranslationService:
 
         if seo_object:
             # List of SEO fields to translate
-            seo_fields = ['title', 'description', 'keywords']
+            seo_fields = ["title", "description"]
             for field in seo_fields:
                 field_value = getattr(seo_object, field, None)
                 if field_value:

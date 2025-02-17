@@ -57,11 +57,11 @@ class PageAdmin(TranslatableAdmin):
                 translations = translation_service.translate()
 
                 # Translation of title and content for the page
-                update_translated_field(page, lang, 'title', translations)
-                update_translated_field(page, lang, 'content', translations)
+                update_translated_field(page, lang, "title", translations)
+                update_translated_field(page, lang, "content", translations)
 
                 # Translation of SEO fields
-                seo_fields = ['title', 'description', 'keywords']
+                seo_fields = ["title", "description"]
                 seo_object = SEO.objects.filter(object_id=page.id).first()
                 if seo_object:
                     for field in seo_fields:

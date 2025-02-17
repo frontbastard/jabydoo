@@ -8,4 +8,4 @@ class SEOInline(GenericStackedInline, TranslatableStackedInline):
     model = SEO
     extra = 1
     max_num = 1
-    fields = ["title", "description", "keywords"]
+    fields = ["title", "description"]
