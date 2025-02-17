@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "pages",
     "seo",
     "menu",
+    "games",
 ]
 
 if ENVIRONMENT == Environment.DEV.value:
