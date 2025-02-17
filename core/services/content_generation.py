@@ -55,7 +55,7 @@ class ContentGenerationService(BaseGenerationService):
             f"The content should not be the same type, look at the `title` and stick to its possible template.  "
             f"Please note that the site language is {self.language}. The site type is {self.site_type}. "
             f"Do not use placeholders like [Insert Date]. Do not use any links in the text. "
-            f"You do not need to add an h1 header at the beginning, it is already in the template. "
+            f"It's forbidden to add <h1> header in the response. "
             f"IMPORTANT: Return the result as valid, structured HTML. Example format: "
             f"<html content is here (not markdown)>"
             f"If there are further instructions, they take precedence over previous ones: {self.additional_info}. "
