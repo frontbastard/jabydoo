@@ -151,6 +151,8 @@
   }
 
   table {
+    margin-bottom: 15px;
+
     > :not(caption) > * > * {
       background: transparent;
       color: white;
