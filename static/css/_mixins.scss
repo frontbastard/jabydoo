@@ -18,3 +18,12 @@
   }
 }
 
+@mixin font-face($name, $weight, $style: normal) {
+  @font-face {
+    font-family: '#{$name}';
+    font-style: $style;
+    font-weight: $weight;
+    src: url('/static/assets/fonts/#{$name}/#{$name}-#{$weight}.woff2') format('woff2');
+  }
+}
+

@@ -1,3 +1,16 @@
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: middle;
+}
+
 .border-white-opacity {
   box-shadow: 0 0 0 1px rgba(white, .5);
 }
@@ -10,67 +23,110 @@
   background-position: top center;
 }
 
-.btn {
+.custom-button {
   font-size: 1.125rem;
   padding: 0 1rem;
   line-height: 60px;
   border-radius: 4px;
   text-decoration: none;
   border: none;
+  position: relative;
+  color: $default-btn-danger-color;
+  font-family: $font-family-secondary;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: .3s cubic-bezier(0.79, 0.14, 0.15, 0.86);
 
-  &-primary {
-    position: relative;
-    color: $default-btn-danger-color;
-    font-family: $font-family-secondary;
-    font-weight: 700;
-    text-transform: uppercase;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
     transition: .3s cubic-bezier(0.79, 0.14, 0.15, 0.86);
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+  }
 
-    &:before,
-    &:after {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      transition: .3s cubic-bezier(0.79, 0.14, 0.15, 0.86);
-      height: 100%;
-      width: 100%;
-      border-radius: 4px;
-    }
+  &:before {
+    background-color: $default-btn-white-color;
+    z-index: 1;
+    box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, .2);
+  }
+
+  &:after {
+    background-color: $default-btn-danger-color;
+    transform: translate(4px, 4px);
+    z-index: 0;
+  }
+
+  &:hover {
+    color: $default-btn-white-color;
+    transform: translate(4px, 4px);
 
     &:before {
-      background-color: $default-btn-white-color;
-      z-index: 1;
-      box-shadow: .2rem .2rem .5rem rgba(0, 0, 0, .2);
+      background-color: $default-btn-danger-color;
     }
 
     &:after {
-      background-color: $default-btn-danger-color;
-      transform: translate(4px, 4px);
-      z-index: 0;
+      background-color: $default-btn-white-color;
+      transform: translate(-4px, -4px);
     }
+  }
 
-    &:hover {
-      color: $default-btn-white-color;
-      transform: translate(4px, 4px);
+  > * {
+    position: inherit;
+    z-index: 2;
+  }
 
-      &:before {
-        background-color: $default-btn-danger-color;
-      }
-
-      &:after {
-        background-color: $default-btn-white-color;
-        transform: translate(-4px, -4px);
-      }
-    }
-
-    span {
-      position: inherit;
-      z-index: 2;
-    }
+  .icon {
+    position: relative;
+    top: -2px;
   }
 }
 
 .skewed-20 {
   @include skew-bg-x;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+}
+
+.payment-icons {
+  .icon {
+    width: 30px;
+    height: 30px;
+    margin: 0 10px;
+  }
+}
+
+.games-list {
+    background: $bunting;
+  &-title {
+    font-family: $font-family-secondary;
+    font-size: 2.2rem;
+  }
+
+  .card {
+    cursor: pointer;
+
+    .card-body {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      background: linear-gradient(0deg, transparent, blue);
+      transition: opacity .3s ease;
+    }
+
+    &:hover {
+      .card-body {
+        opacity: 1;
+      }
+    }
+  }
 }

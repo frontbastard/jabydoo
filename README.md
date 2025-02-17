@@ -40,3 +40,7 @@ WantedBy = multi-user.target
 ### Check
 
 `sudo systemctl status myapp.service`
+
+
+## Resources
+https://remixicon.com/

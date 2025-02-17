@@ -1,0 +1,48 @@
+{% load i18n static %}
+
+{% if games %}
+  <aside class="games-list container mb-3 py-3">
+    <div class="px-2 pb-4">
+      <p class="games-list-title">{% translate "Online Casino in Canada for Real Money" %}</p>
+      <div class="row">
+        {% for game in games %}
+          <div class="col-6 p-0">
+            <article class="card h-100 border-0 m-1 bg-transparent" role="button"
+                     data-sponsor-url="{{ site_options.sponsor_encoded_url }}">
+              <img
+                src="{{ game.image.url }}"
+                class="card-img-top"
+                alt="{{ game.title }}"
+                loading="lazy" width="162" height="123"
+              >
+              <div class="card-body text-center">
+                <h2 class="h5">{{ game.title }}</h2>
+              </div>
+              <button class="btn btn-primary z-1">
+                <span>Play</span>
+              </button>
+            </article>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="text-center mt-4">
+        <button class="btn custom-button align-items-center" data-sponsor-url="{{ site_options.sponsor_encoded_url }}">
+          <svg class="icon">
+            <use xlink:href="#game-line"></use>
+          </svg>
+          <span>{% translate "See more games" %}</span>
+          <svg class="icon">
+            <use xlink:href="#arrow-right-long-line"></use>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </aside>
+  <img
+    role="button"
+    src="{% static "qr_ref.png" %}"
+    alt="Bodog QR code for play"
+    class="d-none d-xl-block mb-3 pointer"
+    data-sponsor-url="{{ site_options.sponsor_encoded_url }}"
+  >
+{% endif %}

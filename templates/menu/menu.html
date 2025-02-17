@@ -1,11 +1,11 @@
 {% load menu_filter %}
 
-<div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+<div class="collapse navbar-collapse justify-content-center order-3 order-xl-0" id="navbarNav">
   <ul class="navbar-nav">
     {% for item in menu_items %}
       <li class="nav-item {% if item.children.all %}dropdown{% endif %}">
         <a
-          class="nav-link {% if item.children.all %}dropdown-toggle{% endif %}"
+          class="nav-link p-0 p-xl-2 {% if item.children.all %}dropdown-toggle{% endif %}"
           href="{{ item.url|add_language_prefix:language_code }}"
           {% if item.children.all %}id="navbarDropdown" role="button"
           data-bs-toggle="dropdown" aria-expanded="false"{% endif %}>

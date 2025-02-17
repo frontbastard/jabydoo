@@ -1,5 +1,37 @@
 .main {
   padding-bottom: 50px;
+
+  .page-header {
+    position: relative;
+    display: flex;
+    background-position: center;
+    background-size: cover;
+    mix-blend-mode: lighten;
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 20%;
+      background: linear-gradient(0, #060b31, transparent);
+    }
+
+    .title {
+      padding: 100px 0;
+      font-size: 3em;
+      font-family: "Oswald", sans-serif;
+      font-weight: 500;
+      max-width: 600px;
+      text-shadow: 2px 2px 2px $danger;
+
+
+      @include media("xl") {
+        font-size: 5em;
+      }
+    }
+  }
 }
 
 .header {
@@ -18,13 +50,15 @@
   .nav-item {
     position: relative;
 
-    &:before {
-      @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 0, $direction: 0);
-    }
+    @include media("xl") {
+      &:before {
+        @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 0, $direction: 0);
+      }
 
-    &:last-child {
-      &:after {
-        @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 0, $direction: 100%);
+      &:last-child {
+        &:after {
+          @include gradient-diagonal-line($color: white, $deg: 20deg, $offset: 0, $direction: 100%);
+        }
       }
     }
 
@@ -46,9 +80,22 @@
 }
 
 .action-buttons {
-  margin-bottom: -76px;
+  margin-bottom: -53px;
+
+  @include media("xl") {
+    margin-bottom: -76px;
+    font-size: 1.125rem;
+  }
 
   .btn {
+    font-size: 1em;
+    line-height: 30px;
+
+    @include media("xl") {
+      font-size: 1.125rem;
+      line-height: 40px;
+    }
+
     &-login,
     &-signin {
       font-weight: 500;
@@ -103,7 +150,7 @@
     }
   }
 
-  .table {
+  table {
     > :not(caption) > * > * {
       background: transparent;
       color: white;

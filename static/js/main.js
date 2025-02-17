@@ -11,4 +11,13 @@ document.addEventListener("DOMContentLoaded", function () {
             openSponsor(encodedUrl);
         });
     });
+
+    document.querySelectorAll(".content table").forEach(function (table) {
+        if (!table.parentElement.classList.contains("table-wrapper")) {
+            let wrapper = document.createElement("div");
+            wrapper.classList.add("table-wrapper");
+            table.parentNode.insertBefore(wrapper, table);
+            wrapper.appendChild(table);
+        }
+    });
 });

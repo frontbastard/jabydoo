@@ -2,21 +2,24 @@
 
 <nav class="navbar navbar-expand-xl navbar-dark p-0">
   <div class="container">
-    <a class="navbar-brand" href="{% url 'pages:home' %}">
+    <a class="navbar-brand order-1 order-xl-0" href="{% url 'pages:home' %}">
       {% if site_options.sponsor_logo %}
-        <img src="{{ site_options.sponsor_logo }}" alt="{{ header_image.default_alt_text }}" width="130">
+        <img
+          src="{{ site_options.sponsor_logo }}"
+          alt="{{ header_image.default_alt_text }}"
+          width="130" height="63" loading="lazy">
       {% else %}
         Logo Image
       {% endif %}
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+    <button class="navbar-toggler order-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     {% render_menu %}
-    <div class="flex-grow-1 invisible mx-3">|</div>
+    <div class="flex-grow-1 invisible mx-3 d-none d-xl-block">|</div>
 
     {% include "includes/language_switcher.html" %}
   </div>
