@@ -26,7 +26,7 @@
         {% endfor %}
       </div>
       <div class="text-center mt-4">
-        <button class="btn custom-button align-items-center">
+        <button class="btn custom-button align-items-center" data-sponsor-url="{{ site_options.sponsor_encoded_url }}">
           <svg class="icon">
             <use xlink:href="#game-line"></use>
           </svg>
@@ -38,5 +38,10 @@
       </div>
     </div>
   </aside>
-  <img src="{% static "qr_ref.png" %}" alt="Bodog QR code for play" class="d-none d-xl-block mb-3">
+  <img
+    src="{% static "qr_ref.png" %}"
+    alt="Bodog QR code for play"
+    class="d-none d-xl-block mb-3"
+    data-sponsor-url="{{ site_options.sponsor_encoded_url }}"
+  >
 {% endif %}
