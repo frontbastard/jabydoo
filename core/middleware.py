@@ -20,7 +20,7 @@ class UpdateSiteDomainMiddleware:
 
             if site.domain != new_domain:
                 site.domain = new_domain
-                site.name = new_domain  # Опціонально
+                site.name = new_domain
                 site.save()
                 print(f"[INFO] Updated Site.domain to {new_domain}")
             else:
