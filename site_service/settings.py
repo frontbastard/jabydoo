@@ -7,6 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from core.enums import Environment
 
 SITE_ID = 1
+SITE_DOMAIN = config("SITE_DOMAIN")
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 ENVIRONMENT = config("ENVIRONMENT", default=Environment.DEV.value)
@@ -36,11 +38,11 @@ INSTALLED_APPS = [
     "mptt",
     "compressor",
 
-    "core",
-    "pages",
-    "seo",
-    "menu",
-    "games",
+    "core.apps.CoreConfig",
+    "pages.apps.PagesConfig",
+    "seo.apps.SeoConfig",
+    "menu.apps.MenuConfig",
+    "games.apps.GamesConfig",
 ]
 
 if ENVIRONMENT == Environment.DEV.value:
@@ -50,6 +52,7 @@ if ENVIRONMENT == Environment.DEV.value:
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "core.middleware.UpdateSiteDomainMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
