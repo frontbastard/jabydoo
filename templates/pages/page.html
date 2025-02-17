@@ -16,9 +16,16 @@
       <h1 class="title" {% if not object.image %}style="padding: 100px 0 50px;"{% endif %}>{{ object.title }}</h1>
     </div>
   </section>
-  <section class="content">
-    <div class="container">
-      {{ object.content|sponsor_info|safe }}
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 col-xl-8 order-1 order-xl-0">
+        <section class="content">
+          {{ object.content|sponsor_info|safe }}
+        </section>
+      </div>
+      <div class="col-md-12 col-xl-4">
+        {% include "includes/games.html" with games=games %}
+      </div>
     </div>
-  </section>
+  </div>
 {% endblock %}
