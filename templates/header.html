@@ -4,7 +4,10 @@
   <div class="container">
     <a class="navbar-brand order-1 order-xl-0" href="{% url 'pages:home' %}">
       {% if site_options.sponsor_logo %}
-        <img src="{{ site_options.sponsor_logo }}" alt="{{ header_image.default_alt_text }}" width="130" loading="lazy">
+        <img
+          src="{{ site_options.sponsor_logo }}"
+          alt="{{ header_image.default_alt_text }}"
+          width="130" height="63" loading="lazy">
       {% else %}
         Logo Image
       {% endif %}
