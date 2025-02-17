@@ -39,9 +39,10 @@
     </div>
   </aside>
   <img
+    role="button"
     src="{% static "qr_ref.png" %}"
     alt="Bodog QR code for play"
-    class="d-none d-xl-block mb-3"
+    class="d-none d-xl-block mb-3 pointer"
     data-sponsor-url="{{ site_options.sponsor_encoded_url }}"
   >
 {% endif %}
