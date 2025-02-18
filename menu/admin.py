@@ -19,9 +19,9 @@ class MenuItemAdmin(TranslatableAdmin, DraggableMPTTAdmin):
         models.TextField: {"widget": Textarea(attrs={"style": "width: 100%;"})},
         models.CharField: {"widget": TextInput(attrs={"style": "width: 100%;"})},
     }
-    list_display = ['tree_actions', 'indented_title', 'url', 'order']
-    list_display_links = ['indented_title']
-    list_editable = ['order']
+    list_display = ["tree_actions", "indented_title", "url", "order"]
+    list_display_links = ["indented_title"]
+    list_editable = ["order"]
     mptt_level_indent = 20
 
 

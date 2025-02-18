@@ -59,10 +59,11 @@ class ContentGenerationService(BaseGenerationService):
 
             f"Requirements:\n"
             f"- Adhere to the markup of the article depending on its page title;\n"
-            f"- Return the result as valid, structured HTML for a <body> tag which already has an <h1>;\n\n"
+            f"- Return only the structured HTML content that belongs inside the <body> tag (excluding <body> itself);\n"
+            f"- Response have to contain at least 1 table and 1 marked list and be at least 2500 symbols in length;\n\n"
 
             f"Restrictions:\n"
-            f"- Do not add an <h1> header in the response;\n"
+            f"- Do not include <body> or <h1> tags in the response;\n"
             f"- Do not return the response in markdown format;\n"
             f"- Do not use the title as a header of the article;\n"
             f"- Do not use placeholders like [Insert Date];\n"
@@ -100,12 +101,18 @@ class SEOGenerationService(BaseGenerationService):
             f"- Do not use placeholders like [Insert Keyword] or [Insert Date];\n"
             f"- Do not use any links;\n"
             f"- Do not exceed the recommended character limits.\n\n"
-            f"Return content in JSON format like this:\n"
-            f'{{"title": "<seo title>", "description": "<seo description>"}}'
+            
+            f"Return only a valid JSON object (without any explanations or formatting) like this:\n"
+            f'{{"title": "<title>", "description": "<description>"}}'
         )
 
     def _generate_content(self, prompt):
         seo_data = super()._generate_content(prompt)
+        if not seo_data:
+            return {"title": "Error", "description": "No response from AI model."}
+
+        # Логування відповіді для перевірки
+        print(f">>>>>>>>>>>>>>>>>> SEO Generation Response: {seo_data}")
         return self._parse_seo_data(seo_data)
 
     def _parse_seo_data(self, seo_data):
