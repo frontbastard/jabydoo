@@ -50,15 +50,26 @@ class ContentGenerationService(BaseGenerationService):
 
     def _create_prompt(self):
         return (
-            f"Generate meaningful and unique SEO content based on the top 10 for the query '{self.title}' (title). "
-            f"For the site {self.sponsor_name}. Insert bulleted lists and tables where appropriate. "
-            f"The content should not be the same type, look at the `title` and stick to its possible template.  "
-            f"Please note that the site language is {self.language}. The site type is {self.site_type}. "
-            f"Do not use placeholders like [Insert Date]. Do not use any links in the text. "
-            f"It's forbidden to add <h1> header in the response. "
-            f"IMPORTANT: Return the result as valid, structured HTML. Example format: "
-            f"<html content is here (not markdown)>"
-            f"If there are further instructions, they take precedence over previous ones: {self.additional_info}. "
+            f"Generate meaningful SEO content based on the top 10 for the query '{self.title}'.\n\n"
+
+            f"Information:\n"
+            f"- Brand name is {self.sponsor_name};\n"
+            f"- Site language is {self.language};\n"
+            f"- Site type is {self.site_type};\n\n"
+
+            f"Requirements:\n"
+            f"- Adhere to the markup of the article depending on its page title;\n"
+            f"- Return the result as valid, structured HTML for a <body> tag which already has an <h1>;\n\n"
+
+            f"Restrictions:\n"
+            f"- Do not add an <h1> header in the response;\n"
+            f"- Do not return the response in markdown format;\n"
+            f"- Do not use the title as a header of the article;\n"
+            f"- Do not use placeholders like [Insert Date];\n"
+            f"- Do not use any links in the text;\n\n"
+
+            f"IMPORTANT: Any additional instructions ({self.additional_info}) should be followed, "
+            f"but must not contradict the restrictions above.\n"
         )
 
     def _generate_content(self, prompt):
@@ -69,9 +80,26 @@ class ContentGenerationService(BaseGenerationService):
 class SEOGenerationService(BaseGenerationService):
     def _create_prompt(self):
         return (
-            f"Generate SEO-friendly title, description for the article '{self.title}' for the site {self.sponsor_name}. "
-            f"Consider that the site language is {self.language}. The site type is {self.site_type}. "
-            f"Do not use placeholders like [Insert Date]. Do not include any links in the text. "
+            f"Generate an SEO-friendly title and meta description for the article generated based on the query '{self.title}'.\n\n"
+
+            f"Information:\n"
+            f"- Brand name: {self.sponsor_name};\n"
+            f"- Site language: {self.language};\n"
+            f"- Site type: {self.site_type};\n\n"
+
+            f"Requirements:\n"
+            f"- The title should be engaging, relevant, and include the main keyword from the query;\n"
+            f"- The title must be between 50-60 characters long;\n"
+            f"- The meta description should summarize the article concisely and persuasively;\n"
+            f"- The meta description must be between 140-160 characters long;\n"
+            f"- Both elements should be naturally readable and encourage user engagement.\n\n"
+
+            f"Restrictions:\n"
+            f"- Do not use clickbait or misleading phrases;\n"
+            f"- Do not include duplicate information from the article title in the meta description;\n"
+            f"- Do not use placeholders like [Insert Keyword] or [Insert Date];\n"
+            f"- Do not use any links;\n"
+            f"- Do not exceed the recommended character limits.\n\n"
             f"Return content in JSON format like this:\n"
             f'{{"title": "<seo title>", "description": "<seo description>"}}'
         )
@@ -84,8 +112,8 @@ class SEOGenerationService(BaseGenerationService):
         try:
             data = json.loads(seo_data)
             return {
-                "title": data.get("title", "aaa"),
-                "description": data.get("description", "bbb"),
+                "title": data.get("title"),
+                "description": data.get("description"),
             }
-        except json.JSONDecodeError:
-            return {"title": "ggg", "description": "ggg"}
+        except json.JSONDecodeError as err:
+            return {"title": "Error", "description": err}
