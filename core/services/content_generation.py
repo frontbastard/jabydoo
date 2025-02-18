@@ -111,8 +111,6 @@ class SEOGenerationService(BaseGenerationService):
         if not seo_data:
             return {"title": "Error", "description": "No response from AI model."}
 
-        # Логування відповіді для перевірки
-        print(f">>>>>>>>>>>>>>>>>> SEO Generation Response: {seo_data}")
         return self._parse_seo_data(seo_data)
 
     def _parse_seo_data(self, seo_data):
