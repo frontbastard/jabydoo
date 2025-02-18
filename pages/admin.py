@@ -1,7 +1,10 @@
 from django.conf import settings
 from django.contrib import admin
 from django.contrib import messages
+from django.db import models
+from django.forms import TextInput, Textarea
 from parler.admin import TranslatableAdmin
+from parler.forms import TranslatableModelForm
 from parler.utils.context import switch_language
 
 from core.services.content_translation import TranslationService
@@ -10,8 +13,23 @@ from seo.admin import SEOInline
 from seo.models import SEO
 
 
+class PageForm(TranslatableModelForm):
+    class Meta:
+        model = Page
+        fields = "__all__"
+        widgets = {
+            "title": TextInput(attrs={"style": "width: 100%;"}),
+            "description": Textarea(attrs={"style": "width: 100%;"}),
+        }
+
 @admin.register(Page)
 class PageAdmin(TranslatableAdmin):
+    form = PageForm
+    formfield_overrides = {
+        models.TextField: {"widget": Textarea(attrs={"style": "width: 100%;"})},
+        models.CharField: {"widget": TextInput(attrs={"style": "width: 100%;"})},
+    }
+
     fields = ["title", "slug", "is_home", "status", "auto_generate_content", "ai_additional_info", "content", "image",
               "publish"]
     list_display = ["title", "slug", "is_home", "publish", "status", "language_column"]
