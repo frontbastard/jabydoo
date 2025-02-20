@@ -1,40 +1,23 @@
-from django.db.models import Q
-from django.shortcuts import render, get_object_or_404
-
-from games.models import Game
+from django.http import Http404
+from django.shortcuts import get_object_or_404, render
+from django.utils.translation import get_language
+from django.views.generic import DetailView
 from .models import Page
 
 
-def home_page(request):
-    home = Page.objects.filter(
-        is_home=True, status=Page.Status.PUBLISHED
-    ).order_by("-is_home").first()
-    games = Game.objects.all()
+class PageDetailView(DetailView):
+    model = Page
+    template_name = "page_detail.html"
+    context_object_name = "page"
 
-    if not home:
-        home = Page.objects.filter(status=Page.Status.PUBLISHED).first()
+    def get_object(self):
+        lang = get_language()
+        slug = self.kwargs.get("slug")
 
-    if not home:
-        return render(request, "/pages/404.html", status=404)
+        if not slug:
+            home_page = Page.objects.get_home_page()
+            if not home_page:
+                return render(self.request, "404.html", status=404)
+            return home_page.translated(lang)
 
-    return render(
-        request,
-        "pages/home.html",
-        {"object": home, "games": games}
-    )
-
-
-def other_page(request, slug):
-    language = request.LANGUAGE_CODE
-    page = get_object_or_404(
-        Page,
-        translations__language_code=language,
-        slug=slug,
-        status=Page.Status.PUBLISHED,
-    )
-    games = Game.objects.all()
-    return render(
-        request,
-        "pages/page.html",
-        {"object": page, "games": games}
-    )
+        return get_object_or_404(Page.objects.get_published().translated(lang), slug=slug)

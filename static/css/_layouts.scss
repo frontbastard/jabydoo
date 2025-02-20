@@ -1,5 +1,6 @@
 .main {
   padding-bottom: 50px;
+  overflow-y: auto;
 
   .page-header {
     position: relative;
@@ -80,10 +81,10 @@
 }
 
 .action-buttons {
-  margin-bottom: -53px;
+  margin-bottom: -52px;
 
   @include media("xl") {
-    margin-bottom: -76px;
+    margin-bottom: -70px;
     font-size: 1.125rem;
   }
 
@@ -151,6 +152,8 @@
   }
 
   table {
+    margin-bottom: 15px;
+
     > :not(caption) > * > * {
       background: transparent;
       color: white;

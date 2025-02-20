@@ -1,3 +1,5 @@
+from django.db import models
+from django.forms import Textarea, TextInput
 from mptt.forms import MPTTAdminForm
 from parler.admin import TranslatableModelForm
 
@@ -13,9 +15,13 @@ from .models import MenuItem
 
 
 class MenuItemAdmin(TranslatableAdmin, DraggableMPTTAdmin):
-    list_display = ['tree_actions', 'indented_title', 'url', 'order']
-    list_display_links = ['indented_title']
-    list_editable = ['order']
+    formfield_overrides = {
+        models.TextField: {"widget": Textarea(attrs={"style": "width: 100%;"})},
+        models.CharField: {"widget": TextInput(attrs={"style": "width: 100%;"})},
+    }
+    list_display = ["tree_actions", "indented_title", "url", "order"]
+    list_display_links = ["indented_title"]
+    list_editable = ["order"]
     mptt_level_indent = 20
 
 

@@ -43,4 +43,5 @@ WantedBy = multi-user.target
 
 
 ## Resources
-https://remixicon.com/
+- https://remixicon.com/
+- https://api.together.ai/
