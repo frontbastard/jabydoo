@@ -1,5 +1,4 @@
 import json
-
 from decouple import config
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
@@ -11,28 +10,29 @@ from filer.fields.image import FilerImageField
 from parler.managers import TranslatableQuerySet
 from parler.models import TranslatableModel, TranslatedFields
 
-from core.models import SiteOptions
 from core.services.content_generation import ContentGenerationService, SEOGenerationService
 from seo.models import SEO
 
 
 class PageQuerySet(TranslatableQuerySet):
-    pass
+    def published(self):
+        """Filters only published pages."""
+        return self.filter(status=Page.Status.PUBLISHED)
+
+    def home_page(self):
+        """Gets the home page if it is published."""
+        return self.published().filter(is_home=True).first()
 
 
 class PageManager(models.Manager):
-    def get_home_page(self):
-        return self.filter(is_home=True).first()
-
     def get_queryset(self):
         return PageQuerySet(self.model, using=self._db)
 
+    def get_home_page(self):
+        return self.get_queryset().home_page()
 
-class PuglishedManager(models.Manager):
-    def get_queryset(self):
-        return (
-            super().get_queryset().filter(status=Page.Status.PUBLISHED)
-        )
+    def get_published(self):
+        return self.get_queryset().published()
 
 
 class Page(TranslatableModel):
@@ -67,26 +67,10 @@ class Page(TranslatableModel):
     ai_additional_info = models.TextField(
         null=True,
         blank=True,
-        help_text="In addition to the main request, these additional instructions will be used (they are in priority)"
+        help_text="Additional AI generation instructions"
     )
 
     objects = PageManager()
-
-    def save(self, *args, **kwargs):
-        request = kwargs.pop("request", None)
-
-        if self.auto_generate_content:
-            self.generate_content_and_seo(request, save=False)
-            self.auto_generate_content = False
-
-        if self.is_home:
-            Page.objects.exclude(pk=self.pk).update(is_home=False)
-
-        super().save(*args, **kwargs)
-
-        if self.auto_generate_content:
-            self.auto_generate_content = False
-            self.save(update_fields=["auto_generate_content"])
 
     class Meta:
         ordering = ["-publish"]
@@ -94,12 +78,27 @@ class Page(TranslatableModel):
     def __str__(self):
         return self.title
 
-    def get_absolute_url(self):
+    def save(self, *args, **kwargs):
+        request = kwargs.pop("request", None)
+
+        if self.auto_generate_content:
+            self.generate_content_and_seo(request)
+            self.auto_generate_content = False
+            super().save(*args, **kwargs)
+
         if self.is_home:
-            return reverse("pages:home")
-        return reverse("pages:page", kwargs={"slug": self.slug})
+            Page.objects.exclude(pk=self.pk).update(is_home=False)
+
+        super().save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse("pages:home") if self.is_home else reverse(
+            "pages:page_detail",
+            kwargs={"slug": self.slug}
+        )
 
     def get_json_ld(self):
+        """Generates structured JSON-LD data for SEO"""
         data = {
             "@context": "https://schema.org",
             "@type": "WebPage",
@@ -109,34 +108,32 @@ class Page(TranslatableModel):
             "dateModified": self.updated.isoformat(),
             "url": f"https://{config('SITE_DOMAIN', default='site-domain.com')}{self.get_absolute_url()}",
         }
-
         if self.image:
             data["image"] = f"https://{config('SITE_DOMAIN', default='site-domain.com')}{self.image.url}"
 
-        json_ld = json.dumps(data, ensure_ascii=False)
-        return mark_safe(
-            f"<script type='application/ld+json'>{json_ld}</script>"
+        return mark_safe(f"<script type='application/ld+json'>{json.dumps(data, ensure_ascii=False)}</script>")
+
+    def generate_content_and_seo(self, request=None):
+        """Generates content and SEO for the page"""
+        content_was_empty = not self.content
+
+        service = ContentGenerationService(self, request)
+        service.generate()
+
+        if content_was_empty:
+            self.save(update_fields=["content"])
+
+        seo, created = SEO.objects.get_or_create(
+            content_type=ContentType.objects.get_for_model(Page),
+            object_id=self.pk,
+            defaults={"title": "", "description": ""}
         )
 
-    def generate_content_and_seo(self, request=None, save=True):
-        """Generates content and SEO for the page"""
-        if self.auto_generate_content or not self.content:
-            service = ContentGenerationService(self, request)
-            service.generate()
+        seo_service = SEOGenerationService(self, request)
+        seo_data = seo_service.generate()
 
-            seo, created = SEO.objects.get_or_create(
-                content_type=ContentType.objects.get_for_model(Page),
-                object_id=self.pk,
-                defaults={"title": "", "description": ""}
-            )
+        if isinstance(seo_data, dict):
+            seo.title = seo_data.get("title", "")
+            seo.description = seo_data.get("description", "")
+            seo.save()
 
-            seo_service = SEOGenerationService(self, request)
-            seo_data = seo_service.generate()
-
-            if isinstance(seo_data, dict):
-                seo.title = seo_data.get("title", "")
-                seo.description = seo_data.get("description", "")
-                seo.save()
-
-        if save:
-            self.save()
