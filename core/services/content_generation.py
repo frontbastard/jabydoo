@@ -69,8 +69,9 @@ class ContentGenerationService(BaseGenerationService):
             f"- Do not use placeholders like [Insert Date];\n"
             f"- Do not use any links in the text;\n\n"
 
-            f"IMPORTANT: Any additional instructions ({self.additional_info}) should be followed, "
-            f"but must not contradict the restrictions above.\n"
+            f"IMPORTANT:\n"
+            f"- if there are further instructions, they take precedence over previous ones: {self.additional_info};\n "
+            f"- these instructions can override previous instructions if there is a conflict with them.\n"
         )
 
     def _generate_content(self, prompt):
