@@ -1,0 +1,51 @@
+{% load seo_tags custom_tags parler_tags i18n static %}
+
+{# Params #}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+{% get_translated_url LANGUAGE_CODE as default_url %}
+{% get_parler_fallback_language as FALLBACK_LANG %}
+
+{# title, description #}
+{% if object %}
+  {% get_seo object as seo %}
+{% endif %}
+
+<title>
+  {% block title %}
+    {% if seo.title %}
+      {{ seo.title }}
+    {% else %}
+      {{ object.title }}
+    {% endif %}
+  {% endblock %}
+</title>
+
+{% if seo %}
+  <meta name="description" content="{{ seo.description }}">
+{% endif %}
+
+{# Favicons #}
+<link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+<link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+<link rel="apple-touch-icon" href="{% static 'favicon/favicon-192x192.png' %}">
+<meta name="theme-color" content="#ffffff">
+
+{# Alternates #}
+{% for lang in languages %}
+  {% get_translated_url lang.code as trans_url %}
+  {% if trans_url %}
+    <link rel="alternate" hreflang="{{ lang.code }}"
+          href="{{ request.scheme }}://{{ request.get_host }}{{ trans_url }}">
+  {% endif %}
+{% endfor %}
+<link rel="alternate" hreflang="x-default"
+      href="{{ request.scheme }}://{{ request.get_host }}{% get_translated_url FALLBACK_LANG %}">
+
+{# Canonical #}
+<link rel="canonical" href="{{ request.build_absolute_uri }}">
+<meta name="google-site-verification" content="nJJ05KafdTSSpId_AkkAqCP4j9WfM0aO6whzXIRKnH0" />
+
+{# json_ld #}
+{% block page_json_ld %}{% endblock %}
