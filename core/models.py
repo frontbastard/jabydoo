@@ -19,6 +19,7 @@ class SiteOptions(models.Model):
         max_length=255, null=True, blank=True,
         help_text="Model used for text generation. For example: meta-llama/Llama-3.3-70B-Instruct-Turbo"
     )
+    custom_css = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return "Options"
