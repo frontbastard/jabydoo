@@ -12,8 +12,11 @@
     <link rel="stylesheet" type="text/x-scss" href="{% static 'css/main.scss' %}">
   {% endcompress %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+  <style>
+    {{ site_options.custom_css|safe }}
+  </style>
 </head>
-<body class="theme-dark">
+<body>
 <header class="header">
   {% include "includes/header.html" %}
 </header>
@@ -26,7 +29,7 @@
         {% endblock %}
       </div>
 
-      {% if PARTNERS|length %}
+      {% if PARTNERS %}
         <div class="col-2">
           {% include "includes/partners.html" with partners=PARTNERS %}
         </div>
