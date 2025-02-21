@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib import admin
+from django_ace import AceWidget
+
 from .models import SiteOptions, Partners
 
 
@@ -8,7 +10,12 @@ class SiteOptionsForm(forms.ModelForm):
         model = SiteOptions
         fields = "__all__"
         widgets = {
-            "custom_css": forms.Textarea(attrs={"rows": 50, "cols": 100}),
+            "custom_css": AceWidget(
+                mode="css",
+                width="100%",
+                height="500px",
+                showprintmargin=False,
+            ),
         }
 
 
