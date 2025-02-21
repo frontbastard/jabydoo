@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from core.enums import Environment
 
-SITE_TYPE = "casino"
+SITE_TYPE = "health"
 
 SITE_ID = 1
 SITE_DOMAIN = config("SITE_DOMAIN")
@@ -157,7 +157,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    BASE_DIR / "static" / SITE_TYPE,
+    BASE_DIR / "templates" / SITE_TYPE / "static",
 ]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",

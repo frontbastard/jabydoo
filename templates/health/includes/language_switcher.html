@@ -1,0 +1,25 @@
+{% load i18n custom_tags %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% load i18n parler_tags %}
+
+{% if LANGUAGES|length > 1 %}
+<div class="dropdown order-2 order-xl-0">
+  <button class="btn dropdown-toggle d-flex align-items-center" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+    <span class="flag-icon flag-icon-{{ LANGUAGE_FLAG_MAP|get_item:LANGUAGE_CODE|default:LANGUAGE_CODE }} me-1  border-white-opacity" style="margin: 0.2em 0;"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+    {% for lang_code, lang_name in LANGUAGES %}
+      <li>
+        <a class="dropdown-item d-flex align-items-center" href="{% change_lang_url lang_code %}">
+          <span class="flag-icon flag-icon-{{ LANGUAGE_FLAG_MAP|get_item:lang_code }} me-2"></span>
+          {{ lang_name }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
+{% endif %}
