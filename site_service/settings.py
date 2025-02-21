@@ -10,6 +10,7 @@ SITE_TYPE = "health"
 
 SITE_ID = 1
 SITE_DOMAIN = config("SITE_DOMAIN")
+SITE_NAME = config("SITE_NAME", default=SITE_DOMAIN)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 

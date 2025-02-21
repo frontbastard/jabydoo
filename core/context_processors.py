@@ -1,6 +1,4 @@
-import base64
-
-from decouple import config
+from django.conf import settings
 from django.contrib.sites.models import Site
 
 from .models import SiteOptions
@@ -15,6 +13,7 @@ def site_options(request):
     site = Site.objects.get_current()
 
     options["site_domain"] = site.domain
+    options["site_name"] = settings.SITE_NAME
 
     # Add a field to check if the URL needs to be hidden
     options["hide_sponsor_url"] = options_obj.hide_sponsor_url if options_obj else True

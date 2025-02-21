@@ -17,10 +17,11 @@ class UpdateSiteDomainMiddleware:
         try:
             site = Site.objects.get_current()
             new_domain = settings.SITE_DOMAIN
+            new_name = settings.SITE_NAME
 
             if site.domain != new_domain:
                 site.domain = new_domain
-                site.name = new_domain
+                site.name = new_name
                 site.save()
                 print(f"[INFO] Updated Site.domain to {new_domain}")
             else:
