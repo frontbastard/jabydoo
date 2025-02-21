@@ -4,6 +4,8 @@ from django.urls import resolve, reverse, Resolver404
 from django.utils.translation import activate
 from parler.utils.context import switch_language
 
+from core.models import Partners
+
 register = template.Library()
 
 
@@ -43,3 +45,9 @@ def get_parler_fallback_language():
     parler_languages = getattr(settings, "PARLER_LANGUAGES", {})
     default_config = parler_languages.get("default", {})
     return default_config.get("fallback", settings.LANGUAGE_CODE)
+
+
+@register.simple_tag
+def get_partners():
+    partners = Partners.objects.all()
+    return partners
