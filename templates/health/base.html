@@ -1,4 +1,5 @@
-{% load static compress %}
+{% load static compress custom_tags %}
+{% get_partners as PARTNERS %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -18,8 +19,20 @@
 </header>
 
 <main class="main">
-  {% block content %}
-  {% endblock %}
+  <div class="container">
+    <div class="row">
+      <div class="{% if PARTNERS %}col-10{% else %}col-12{% endif %}">
+        {% block content %}
+        {% endblock %}
+      </div>
+
+      {% if PARTNERS|length %}
+        <div class="col-2">
+          {% include "includes/partners.html" with partners=PARTNERS %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
 </main>
 
 <footer class="footer">
