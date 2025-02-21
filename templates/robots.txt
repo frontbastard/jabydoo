@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin/*
-Sitemap: https://canadatechguys.com/sitemap.xml
+Sitemap: https://{{ site_options.site_domain }}/sitemap.xml
