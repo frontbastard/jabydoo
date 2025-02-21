@@ -15,3 +15,4 @@ libsass==0.23.0
 django-browser-reload==1.17.0
 cairosvg==2.7.1
 together==1.4.1
+django-ace==1.38.0
