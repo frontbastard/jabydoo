@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "filer",
     "mptt",
     "compressor",
+    "django_ace",
 
     "core.apps.CoreConfig",
     "pages.apps.PagesConfig",
