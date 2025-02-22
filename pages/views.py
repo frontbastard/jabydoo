@@ -17,15 +17,18 @@ class PageDetailView(DetailView):
         slug = self.kwargs.get("slug")
 
         if not slug:
-            home_page = Page.objects.get_home_page()
-            if not home_page:
-                return render(self.request, "404.html", status=404)
-            return home_page.translated(lang)
+            return self.get_home_page(lang)
 
         return get_object_or_404(Page.objects.get_published().translated(lang), slug=slug)
+
+    def get_home_page(self, lang):
+        home_page = Page.objects.get_home_page()
+        if not home_page:
+            raise Http404("Головна сторінка не знайдена")
+
+        return Page.objects.get_published().filter(pk=home_page.pk).translated(lang).first()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["games"] = Game.objects.all()
-
         return context
