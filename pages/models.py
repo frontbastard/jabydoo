@@ -1,5 +1,7 @@
 import json
+
 from decouple import config
+from django.contrib.contenttypes.fields import GenericRelation
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.urls import reverse
@@ -10,7 +12,6 @@ from filer.fields.image import FilerImageField
 from parler.managers import TranslatableQuerySet
 from parler.models import TranslatableModel, TranslatedFields
 
-from core.services.content_generation import ContentGenerationService, SEOGenerationService
 from seo.models import SEO
 
 
@@ -60,15 +61,12 @@ class Page(TranslatableModel):
         related_name="product_image",
         on_delete=models.SET_NULL
     )
-    auto_generate_content = models.BooleanField(
-        default=False,
-        help_text="If active, new content will be generated on save, but only if the content is empty"
-    )
     ai_additional_info = models.TextField(
         null=True,
         blank=True,
         help_text="Additional AI generation instructions"
     )
+    seo = GenericRelation(SEO)
 
     objects = PageManager()
 
@@ -79,13 +77,6 @@ class Page(TranslatableModel):
         return self.title
 
     def save(self, *args, **kwargs):
-        request = kwargs.pop("request", None)
-
-        if self.auto_generate_content:
-            self.generate_content_and_seo(request)
-            self.auto_generate_content = False
-            super().save(*args, **kwargs)
-
         if self.is_home:
             Page.objects.exclude(pk=self.pk).update(is_home=False)
 
@@ -112,28 +103,3 @@ class Page(TranslatableModel):
             data["image"] = f"https://{config('SITE_DOMAIN', default='site-domain.com')}{self.image.url}"
 
         return mark_safe(f"<script type='application/ld+json'>{json.dumps(data, ensure_ascii=False)}</script>")
-
-    def generate_content_and_seo(self, request=None):
-        """Generates content and SEO for the page"""
-        content_was_empty = not self.content
-
-        service = ContentGenerationService(self, request)
-        service.generate()
-
-        if content_was_empty:
-            self.save(update_fields=["content"])
-
-        seo, created = SEO.objects.get_or_create(
-            content_type=ContentType.objects.get_for_model(Page),
-            object_id=self.pk,
-            defaults={"title": "", "description": ""}
-        )
-
-        seo_service = SEOGenerationService(self, request)
-        seo_data = seo_service.generate()
-
-        if isinstance(seo_data, dict):
-            seo.title = seo_data.get("title", "")
-            seo.description = seo_data.get("description", "")
-            seo.save()
-

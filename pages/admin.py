@@ -7,6 +7,7 @@ from parler.admin import TranslatableAdmin
 from parler.forms import TranslatableModelForm
 from parler.utils.context import switch_language
 
+from core.services.ai_content_service import AIContentService
 from core.services.content_translation import TranslationService
 from pages.models import Page
 from seo.admin import SEOInline
@@ -22,6 +23,7 @@ class PageForm(TranslatableModelForm):
             "description": Textarea(attrs={"style": "width: 100%;"}),
         }
 
+
 @admin.register(Page)
 class PageAdmin(TranslatableAdmin):
     form = PageForm
@@ -29,9 +31,7 @@ class PageAdmin(TranslatableAdmin):
         models.TextField: {"widget": Textarea(attrs={"style": "width: 100%;"})},
         models.CharField: {"widget": TextInput(attrs={"style": "width: 100%;"})},
     }
-
-    fields = ["title", "slug", "is_home", "status", "auto_generate_content", "ai_additional_info", "content", "image",
-              "publish"]
+    fields = ["title", "slug", "is_home", "status", "ai_additional_info", "content", "image", "publish"]
     list_display = ["title", "slug", "is_home", "publish", "status", "language_column"]
     list_filter = ["is_home", "created", "publish"]
     list_editable = ["status"]
@@ -39,7 +39,7 @@ class PageAdmin(TranslatableAdmin):
     date_hierarchy = "publish"
     ordering = ["status", "-publish"]
     show_facets = admin.ShowFacets.ALWAYS
-    actions = ["generate_content_for_selected", "auto_translate"]
+    actions = ["generate_content_for_pages", "auto_translate"]
 
     def get_prepopulated_fields(self, request, obj=None):
         return {"slug": ("title",)}
@@ -47,14 +47,7 @@ class PageAdmin(TranslatableAdmin):
     def language_column(self, obj):
         return ", ".join(obj.get_available_languages())
 
-    language_column.short_description = "Доступні мови"
-
-    @admin.action(description="Generate content for selected pages")
-    def generate_content_for_selected(self, request, queryset):
-        for page in queryset:
-            page.auto_generate_content = True
-            page.generate_content_and_seo(request)
-        self.message_user(request, "Content successfully generated", messages.SUCCESS)
+    language_column.short_description = "Available languages"
 
     @admin.action(description="Translate into all languages")
     def auto_translate(modeladmin, request, queryset):
@@ -87,6 +80,23 @@ class PageAdmin(TranslatableAdmin):
 
         messages.success(request, "Translation completed successfully!")
 
+    @admin.action(description="Generate content using AI")
+    def generate_content_for_pages(self, request, queryset):
+        """
+        Generates content via together.ai for selected pages.
+        """
+        ai_service = AIContentService()
+        results = ai_service.generate_content_for_pages(queryset)
+
+        for page in results["success"]:
+            messages.success(request, f"Content generated for {page}")
+
+        for msg in results["skipped"]:
+            messages.warning(request, f"Missing {msg}")
+
+        for page in results["failed"]:
+            messages.error(request, f"Failed to generate content for {page}")
+
 
 def update_translated_field(page, lang, field, translations):
     """
@@ -100,7 +110,7 @@ def update_translated_field(page, lang, field, translations):
 
 def update_seo_field(seo_object, lang, field, translations):
     """
-    Updates the SEO field for an SEO object with a translation.
+    Updates the SEO field for a SEO object with a translation.
     """
     if translations.get(f"seo_{field}"):
         with switch_language(seo_object, lang):
