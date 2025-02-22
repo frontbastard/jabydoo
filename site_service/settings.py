@@ -64,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "core.middleware.AdminLanguageMiddleware",
 ]
 
 if ENVIRONMENT == Environment.DEV.value:
@@ -130,11 +131,9 @@ DATABASES = {
 LANGUAGE_CODE = "en"
 LANGUAGES = [
     ("en", _("English")),
-    ("fr", _("French")),
 ]
 LANGUAGE_FLAG_MAP = {
-    "en": "ca",
-    "fr": "fr",
+    "en": "en",
 }
 
 LOCALE_PATHS = [BASE_DIR / "locale"]
@@ -142,12 +141,12 @@ LOCALE_PATHS = [BASE_DIR / "locale"]
 PARLER_LANGUAGES = {
     1: (
         {"code": "en"},
-        {"code": "fr"},
-    ),
-    "default": {
+    ), "default": {
         "fallback": "en",
         "hide_untranslated": False,
-    }
+    }, "admin": [
+        {"code": "en", "name": "English"},
+    ]
 }
 
 TIME_ZONE = "UTC"

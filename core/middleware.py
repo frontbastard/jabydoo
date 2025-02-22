@@ -1,5 +1,7 @@
 from django.contrib.sites.models import Site
 from django.conf import settings
+from django.utils.deprecation import MiddlewareMixin
+from django.utils.translation import activate
 
 
 class UpdateSiteDomainMiddleware:
@@ -29,3 +31,9 @@ class UpdateSiteDomainMiddleware:
 
         except Site.DoesNotExist:
             print("[WARNING] Site not found")
+
+
+class AdminLanguageMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        if request.path.startswith("/admin/"):
+            activate("en")

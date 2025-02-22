@@ -33,5 +33,4 @@ def site_options(request):
 
 
 def language_flag_map(request):
-    from django.conf import settings
-    return {"LANGUAGE_FLAG_MAP": settings.LANGUAGE_FLAG_MAP}
+    return {"LANGUAGE_FLAG_MAP": getattr(settings, "LANGUAGE_FLAG_MAP", {})}
