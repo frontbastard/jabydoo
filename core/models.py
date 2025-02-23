@@ -4,8 +4,8 @@ from filer.models import Folder
 
 
 class SiteOptions(models.Model):
-    sponsor_name = models.CharField(max_length=255)
-    sponsor_url = models.URLField(max_length=255, help_text="Referral link to sponsor")
+    sponsor_name = models.CharField(max_length=255, null=True, blank=True)
+    sponsor_url = models.URLField(max_length=255, null=True, blank=True, help_text="Referral link to sponsor")
     hide_sponsor_url = models.BooleanField(default=False, help_text="Hide sponsor url from search engines")
     site_type = models.CharField(max_length=255, null=True, blank=True)
     sponsor_logo = FilerImageField(
@@ -19,6 +19,7 @@ class SiteOptions(models.Model):
         max_length=255, null=True, blank=True,
         help_text="Model used for text generation. For example: meta-llama/Llama-3.3-70B-Instruct-Turbo"
     )
+    custom_css = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return "Options"
@@ -35,3 +36,11 @@ class SiteOptions(models.Model):
     @staticmethod
     def get_options():
         return SiteOptions.objects.first()
+
+
+class Partners(models.Model):
+    name = models.CharField(max_length=255)
+    url = models.URLField()
+
+    def __str__(self):
+        return self.name

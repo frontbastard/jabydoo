@@ -1,4 +1,5 @@
-import base64
+from django.conf import settings
+from django.contrib.sites.models import Site
 
 from .models import SiteOptions
 
@@ -9,6 +10,10 @@ def site_options(request):
     options_obj = SiteOptions.get_options()
     options = vars(options_obj) if options_obj else {}
     sponsor_url = options.get("sponsor_url", "")
+    site = Site.objects.get_current()
+
+    options["site_domain"] = site.domain
+    options["site_name"] = settings.SITE_NAME
 
     # Add a field to check if the URL needs to be hidden
     options["hide_sponsor_url"] = options_obj.hide_sponsor_url if options_obj else True
@@ -28,5 +33,4 @@ def site_options(request):
 
 
 def language_flag_map(request):
-    from django.conf import settings
-    return {"LANGUAGE_FLAG_MAP": settings.LANGUAGE_FLAG_MAP}
+    return {"LANGUAGE_FLAG_MAP": getattr(settings, "LANGUAGE_FLAG_MAP", {})}

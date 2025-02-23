@@ -1,5 +1,7 @@
 from django.contrib.sites.models import Site
 from django.conf import settings
+from django.utils.deprecation import MiddlewareMixin
+from django.utils.translation import activate
 
 
 class UpdateSiteDomainMiddleware:
@@ -17,10 +19,11 @@ class UpdateSiteDomainMiddleware:
         try:
             site = Site.objects.get_current()
             new_domain = settings.SITE_DOMAIN
+            new_name = settings.SITE_NAME
 
             if site.domain != new_domain:
                 site.domain = new_domain
-                site.name = new_domain
+                site.name = new_name
                 site.save()
                 print(f"[INFO] Updated Site.domain to {new_domain}")
             else:
@@ -28,3 +31,9 @@ class UpdateSiteDomainMiddleware:
 
         except Site.DoesNotExist:
             print("[WARNING] Site not found")
+
+
+class AdminLanguageMiddleware(MiddlewareMixin):
+    def process_request(self, request):
+        if request.path.startswith("/admin/"):
+            activate("en")

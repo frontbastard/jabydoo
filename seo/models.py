@@ -5,13 +5,12 @@ from parler.models import TranslatableModel, TranslatedFields
 
 
 class SEO(TranslatableModel):
-
     translations = TranslatedFields(
         title=models.CharField(max_length=200, blank=True),
         description=models.TextField(blank=True),
     )
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name="seo_pages")
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey("content_type", "object_id")
 

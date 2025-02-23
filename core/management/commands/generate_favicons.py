@@ -1,11 +1,13 @@
 import os
+
+from decouple import config
 from django.core.management.base import BaseCommand
 from PIL import Image
 import cairosvg
 
 # Favicon parameters
 FAVICON_SIZES = [16, 32, 48, 64, 128, 192, 512]
-ICON_DIR = "static/favicon/"
+ICON_DIR = f"static/favicon/"
 SOURCE_IMAGE = "static/favicon.png"
 
 

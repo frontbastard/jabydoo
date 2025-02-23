@@ -6,8 +6,11 @@ from django.utils.translation import gettext_lazy as _
 
 from core.enums import Environment
 
+SITE_TYPE = "health"
+
 SITE_ID = 1
 SITE_DOMAIN = config("SITE_DOMAIN")
+SITE_NAME = config("SITE_NAME", default=SITE_DOMAIN)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     "filer",
     "mptt",
     "compressor",
+    "django_ace",
 
     "core.apps.CoreConfig",
     "pages.apps.PagesConfig",
@@ -60,6 +64,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "core.middleware.AdminLanguageMiddleware",
 ]
 
 if ENVIRONMENT == Environment.DEV.value:
@@ -72,7 +77,10 @@ ROOT_URLCONF = "site_service.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "templates"],
+        "DIRS": [
+            BASE_DIR / "templates",
+            BASE_DIR / "templates" / SITE_TYPE,
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -123,11 +131,9 @@ DATABASES = {
 LANGUAGE_CODE = "en"
 LANGUAGES = [
     ("en", _("English")),
-    ("fr", _("French")),
 ]
 LANGUAGE_FLAG_MAP = {
-    "en": "ca",
-    "fr": "fr",
+    "en": "en",
 }
 
 LOCALE_PATHS = [BASE_DIR / "locale"]
@@ -135,12 +141,12 @@ LOCALE_PATHS = [BASE_DIR / "locale"]
 PARLER_LANGUAGES = {
     1: (
         {"code": "en"},
-        {"code": "fr"},
-    ),
-    "default": {
+    ), "default": {
         "fallback": "en",
         "hide_untranslated": False,
-    }
+    }, "admin": [
+        {"code": "en", "name": "English"},
+    ]
 }
 
 TIME_ZONE = "UTC"
@@ -152,6 +158,7 @@ STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_DIRS = [
     BASE_DIR / "static",
+    BASE_DIR / "templates" / SITE_TYPE / "static",
 ]
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",

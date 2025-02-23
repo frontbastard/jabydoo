@@ -1,6 +1,6 @@
 {% load i18n menu_tags %}
 
-<nav class="navbar navbar-expand-xl navbar-dark p-0">
+<nav class="navbar navbar-expand-xl p-0">
   <div class="container">
     <a class="navbar-brand order-1 order-xl-0" href="{% url 'pages:home' %}">
       {% if site_options.sponsor_logo %}
@@ -9,7 +9,7 @@
           alt="{{ header_image.default_alt_text }}"
           width="130" height="63" loading="lazy">
       {% else %}
-        Logo Image
+        <div class="py-3">{{ site_options.site_name }}</div>
       {% endif %}
     </a>
 
@@ -19,7 +19,7 @@
     </button>
 
     {% render_menu %}
-    <div class="flex-grow-1 invisible mx-3 d-none d-xl-block">|</div>
+
 
     {% include "includes/language_switcher.html" %}
   </div>
