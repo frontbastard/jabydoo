@@ -31,9 +31,3 @@ class UpdateSiteDomainMiddleware:
 
         except Site.DoesNotExist:
             print("[WARNING] Site not found")
-
-
-class AdminLanguageMiddleware(MiddlewareMixin):
-    def process_request(self, request):
-        if request.path.startswith("/admin/"):
-            activate("en")
