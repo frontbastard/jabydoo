@@ -1,0 +1,29 @@
+html {
+  font-size: 62.5%;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6,
+p,
+ul,
+li,
+table {
+  margin-bottom: 1.5rem;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  fill: currentColor;
+  vertical-align: middle;
+}

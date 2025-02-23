@@ -1,17 +1,17 @@
 {% load i18n %}
 
-<aside class="aside mb-3 py-3">
-  <div class="px-2 pb-4">
-    <h2>{% translate "Partners" %}</h2>
-    <div class="aside-list list-group">
-      {% for partner in partners %}
-        <a href="{{ partner.url }}"
-           class="list-group-item list-group-item-action text-break"
-           target="_blank"
-        >
-          {{ partner.name }}
-        </a>
-      {% endfor %}
-    </div>
-  </div>
-</aside>
+<h2 class="h1">{% translate "Partners" %}</h2>
+<div class="aside-list list-group">
+  {% for partner in partners %}
+    <a href="{{ partner.url }}"
+       class="list-group-item list-group-item-action text-break d-flex justify-content-between"
+       target="_blank"
+    >
+      {{ partner.name }}
+
+      <svg class="icon">
+        <use xlink:href="#arrow-right-long-line"></use>
+      </svg>
+    </a>
+  {% endfor %}
+</div>
