@@ -25,15 +25,15 @@
 <main class="main">
   <div class="container">
     <div class="row">
-      <div class="{% if PARTNERS %}col-10{% else %}col-12{% endif %}">
+      <article class="{% if PARTNERS %}col-xl-10{% else %}col-12{% endif %}">
         {% block content %}
         {% endblock %}
-      </div>
+      </article>
 
       {% if PARTNERS %}
-        <div class="col-2">
+        <aside class="col-xl-2">
           {% include "includes/partners.html" with partners=PARTNERS %}
-        </div>
+        </aside>
       {% endif %}
     </div>
   </div>

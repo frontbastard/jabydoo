@@ -1,43 +1,257 @@
 @import url(https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css);
+@import "static/css/general";
 
 :root {
-  /* Main colours */
-  --primary-color: blue;
-  --secondary-color: red;
-  --accent-color: yellow;
+  /***
+    Generate styles that replace XXX with values whose ranges are specified after the keyword "PARAMS:".
+    Do not enter any comments.
+  ***/
+  /* Main colours
+    Update the colours below by taking --primary-colour at random. Select the other colours
+    (--secondary-colour, --accent-colour) automatically so that they contrast well and meet the rules of UI/UX design.
+  */
+  --primary-color: XXX; /* PARAMS: main color */
+  --secondary-color: XXX; /* PARAMS: black text color on it should be readable easily, it also can be white */
+  --accent-color: XXX;
+
 
   /* Text colours */
-  --text-color: black;
-  --heading-color: var(--primary-color);
+  --text-color: XXX;
 
   /* Backgrounds */
-  --bg-color: green;
-  --header-bg-color: var(--primary-color);
-  --footer-bg-color: var(--primary-color);
+  --bg-color: var(--secondary-color);
 
   /* Fonts */
-  --font-family: Arial, sans-serif;
-  --font-size-base: 16px;
-  --font-size-heading: 24px;
+  --font-family-base: XXX; /* PARAMS: use random standard system font */
+  --font-size-base: XXX; /* PARAMS: from 1.2rem to 1.8rem */
+  --font-color-base: XXX; /* PARAMS: colour must be light if --secondary-colour is dark, and vice versa. */
 
   /* Borders and indents */
-  --border-radius: 8px;
-  --spacing: 10px;
-}
+  --header-pb: XXX; /* PARAMS: from 1.5rem to 5rem */
+  --border-radius: XXX; /* PARAMS: none, from 0 to 1rem */
 
-img {
-  max-width: 100%;
-  height: auto;
+  /* Transform */
+  --skew-x: XXX; /* PARAMS: from 0 to -20deg */
+
+  /* ------------------ */
+
+  /* Elements */
+  --navbar-brand-size: XXX; /* PARAMS: from 2.5rem to 3.5rem */
+  --nav-item-px: XXX; /* PARAMS: from 1rem to 2rem */
+  --nav-item-py: XXX; /* PARAMS: from 0rem to 0.5rem */
+  --nav-text-color: XXX; /* PARAMS: should not blend in with the --primary-color */
 }
 
 body {
   background: var(--bg-color);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family-base);
+  color: var(--font-color-base);
 }
 
 .header {
-  background-color: var(--header-bg-color);
+  background-color: var(--primary-color);
+  margin: 0 0 var(--header-pb);
+
+  .navbar {
+    .navbar-brand {
+      font-size: var(--navbar-brand-size);
+      color: var(--nav-text-color);
+    }
+
+    .navbar-nav {
+      .nav-item {
+        position: relative;
+        margin: .1rem;
+        padding: var(--nav-item-py) var(--nav-item-px);
+
+        &:before {
+          content: '';
+          background: #fff;
+          opacity: 0.15;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          transform: skewX(var(--skew-x));
+          border-radius: var(--border-radius);
+          transition: opacity .3s ease;
+        }
+
+        &:hover {
+          &:before {
+            opacity: 1;
+          }
+
+          .nav-link {
+            color: #000;
+          }
+        }
+      }
+
+      .nav-link {
+        position: relative;
+        color: var(--nav-text-color);
+        transition: color .3s ease;
+      }
+    }
+
+    .navbar-toggler {
+      position: relative;
+      height: 2.5rem;
+      width: 3rem;
+      padding: 0;
+
+      &[aria-expanded="false"] {
+        span {
+          opacity: 1;
+        }
+
+        &:before {
+          top: 0;
+          transform: rotate(0);
+        }
+
+        &:after {
+          bottom: 0;
+          transform: rotate(0);
+        }
+      }
+
+      span,
+      &:before,
+      &:after {
+        display: block;
+        position: absolute;
+        background: var(--nav-text-color);
+        height: .3rem;
+        width: 100%;
+        border-radius: .2rem
+      }
+
+      span {
+        top: calc(50% - .15rem);
+        opacity: 0;
+        transition: opacity .3s ease;
+      }
+
+      &:before,
+      &:after {
+        content: '';
+        transition: all .3s ease;
+      }
+
+      &:before {
+        top: calc(50% - .15rem);
+        transform: rotate(-45deg);
+      }
+
+      &:after {
+        bottom: calc(50% - .15rem);
+        transform: rotate(45deg);
+      }
+    }
+  }
+}
+
+.aside {
+  &-list {
+    &,
+    .list-group-item {
+      background: transparent;
+    }
+
+    .list-group-item {
+      color: var(--bs-gray-700);
+      padding: .5rem 0;
+      border: none;
+      transition: color .3s ease;
+
+      + .list-group-item {
+        border-top: 1px solid rgba(#000, .4);
+      }
+
+      &:hover {
+        color: var(--bs-black);
+
+        .icon {
+          transform: translateX(.5rem);
+        }
+      }
+
+      .icon {
+        transform: translateX(0);
+        transition: transform .3s ease;
+      }
+    }
+  }
+}
+
+.content {
+  ol,
+  ul {
+    li::marker {
+      color: var(--accent-color);
+      font-weight: bold;
+    }
+  }
+
+  ol,
+  ul,
+  li {
+    background: transparent;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+
+    li {
+      position: relative;
+      padding: 0 0 0 1.5rem;
+
+      &:before {
+        content: '\2022';
+        font-size: 1.7rem;
+        color: var(--accent-color);
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .table-wrapper {
+    overflow-y: auto;
+
+    table {
+      width: 100%;
+
+      tbody,
+      td,
+      tfoot,
+      th,
+      thead,
+      tr {
+        padding: .5rem 1rem;
+        background: rgba(#fff, .3);
+        border: 1px solid rgba(#000, .2)
+      }
+    }
+  }
 }
 
 .footer {
-  background-color: var(--footer-bg-color);
+  background-color: var(--primary-color);
+  color: var(--nav-text-color);
+}
+
+.navbar-nav {
+  .dropdown-menu {
+    position: relative;
+    border: none;
+    font-size: var(--font-size-base);
+  }
 }
