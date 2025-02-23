@@ -1,0 +1,58 @@
+.custom-theme {
+/* Main colours */
+--primary-color: #A8D08D;
+--secondary-color: #D9EAD3;
+--accent-color: #FFABAB;
+
+/* Text colours */
+--text-color: #4F4F4F;
+
+/* Backgrounds */
+--bg-color: var(--secondary-color);
+
+/* Fonts */
+--font-family-base: 'Arial', sans-serif;
+--font-size-base: 1.5rem;
+--font-color-base: #4F4F4F;
+
+/* Borders and indents */
+--header-pb: 2rem;
+--border-radius: 0.5rem;
+
+/* Transform */
+--skew-x: -10deg;
+
+/* ------------------ */
+
+/* Elements */
+--navbar-brand-size: 3rem;
+--nav-item-px: 1.5rem;
+--nav-item-py: 0.25rem;
+--nav-text-color: #4F4F4F;
+
+}
+
+.custom-theme {
+  --primary-color: #3498db;
+  --secondary-color: #ffffff;
+  --accent-color: #e74c3c;
+
+  --text-color: #2c3e50;
+
+  --bg-color: var(--secondary-color);
+
+  --font-family-base: Arial, sans-serif;
+  --font-size-base: 1.5rem;
+  --font-color-base: #000000;
+
+  --header-pb: 3rem;
+  --border-radius: 0.5rem;
+
+  --skew-x: -10deg;
+
+  --navbar-brand-size: 3rem;
+  --nav-item-px: 1.5rem;
+  --nav-item-py: 0.3rem;
+  --nav-text-color: #ffffff;
+
+}
