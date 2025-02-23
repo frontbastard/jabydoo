@@ -1,9 +1,9 @@
 {% load i18n %}
 
-<aside class="mb-3 py-3">
+<aside class="aside mb-3 py-3">
   <div class="px-2 pb-4">
-    <p class="games-list-title">{% translate "Partners" %}</p>
-    <div class="list-group">
+    <h2>{% translate "Partners" %}</h2>
+    <div class="aside-list list-group">
       {% for partner in partners %}
         <a href="{{ partner.url }}"
            class="list-group-item list-group-item-action text-break"

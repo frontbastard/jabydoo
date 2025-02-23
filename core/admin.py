@@ -22,7 +22,6 @@ class SiteOptionsForm(forms.ModelForm):
 @admin.register(SiteOptions)
 class SiteOptionsAdmin(admin.ModelAdmin):
     form = SiteOptionsForm
-    list_display = ["sponsor_name", "sponsor_url", "sponsor_logo"]
 
 
 @admin.register(Partners)
