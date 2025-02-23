@@ -1,7 +1,7 @@
 {% load i18n static %}
 
-<div class="container">
-  <ul class="d-flex justify-content-around list-unstyled mb-3">
+<div class="container py-5 text-center">
+  <ul class="d-flex justify-content-around list-unstyled mb-5">
     <li class="nav-item">
       <a class="nav-link" href="/privacy-policy">{% translate "Privacy Policy" %}</a>
     </li>
@@ -22,6 +22,6 @@
     </li>
   </ul>
 
-  <p class="text-center opacity-50">
-    &copy; {% now "Y" %} {{ site_options.sponsor_name }}. {% translate "All rights reserved" %}.</p>
+  <p class="opacity-50 d-inline">
+    &copy; {% now "Y" %} {{ site_options.site_name }}. {% translate "All rights reserved" %}.</p>
 </div>
