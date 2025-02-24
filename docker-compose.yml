@@ -46,7 +46,7 @@ services:
       - ./nginx/nginx.template:/etc/nginx/nginx.template
     env_file:
       - .env
-    command: /bin/sh -c "envsubst '$$SITE_DOMAIN' < /etc/nginx/nginx.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+    command: /bin/sh -c "envsubst '${SITE_DOMAIN}' < /etc/nginx/nginx.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
     ports:
       - "80:80"
       - "443:443"

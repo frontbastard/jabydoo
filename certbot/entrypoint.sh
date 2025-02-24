@@ -10,7 +10,7 @@ if [ ! -d "$CERT_DIR" ]; then
     --email your@email.com --agree-tos --no-eff-email --force-renewal
 
   echo "Restarting Nginx..."
-  docker-compose restart nginx
+  docker compose restart nginx
 else
   echo "The certificates already exist. Let's start the update..."
   certbot renew --quiet
