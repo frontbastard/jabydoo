@@ -52,11 +52,17 @@ services:
     depends_on:
       - web
 
-#  certbot:
-#    image: certbot/certbot
-#    volumes:
-#      - ./certbot/conf:/etc/letsencrypt
-#      - ./certbot/www:/var/www/certbot
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/www:/var/www/certbot
+    depends_on:
+      - nginx
+    restart: always
+    entrypoint: ["/bin/sh", "-c", "chmod +x /var/www/certbot/entrypoint.sh && /var/www/certbot/entrypoint.sh"]
+
 
 volumes:
   postgres_data:
