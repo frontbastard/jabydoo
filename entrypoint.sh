@@ -11,17 +11,22 @@ if [ "$DATABASE" = "postgres" ]; then
     echo "PostgreSQL started"
 fi
 
-# Check if the command is already in the autorun (crontab)
-if ! crontab -l 2>/dev/null | grep -q "docker compose up -d"; then
-    echo "Adding Docker Compose to autorun..."
+#!/bin/sh
 
-    # Add a command to the crontab to autorun after reboot
-    (crontab -l 2>/dev/null; echo "@reboot sleep 10 && cd $(pwd) && docker compose up -d") | crontab -
-
-    echo "Autostart has been successfully configured!"
-else
-    echo "Autorun is already set up."
+# Make sure that the SITE_DOMAIN variable is set
+if [ -z "$SITE_DOMAIN" ]; then
+    echo "Error: SITE_DOMAIN is not set"
+    exit 1
 fi
 
-# Start the standard container startup process
+# Generate the configuration for Nginx
+envsubst '$SITE_DOMAIN' < /var/www/$SITE_DOMAIN/nginx/default.nginx > /etc/nginx/sites-available/$SITE_DOMAIN
+
+# Create a symbolic link in the sites-enabled
+ln -sf /etc/nginx/sites-available/$SITE_DOMAIN /etc/nginx/sites-enabled/
+
+# Let's reboot Nginx
+systemctl reload nginx
+
+# Start the main process
 exec "$@"
