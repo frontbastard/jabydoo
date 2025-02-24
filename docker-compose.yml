@@ -20,7 +20,6 @@ services:
       - "8000:8000"
     env_file:
       - .env
-    restart: always
     depends_on:
       - db
     networks:
@@ -33,7 +32,6 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - .env
-    restart: always
     networks:
       - internal_network
 
@@ -52,7 +50,6 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    restart: always
     depends_on:
       - web
     networks:
@@ -66,7 +63,6 @@ services:
       - ./certbot/www:/var/www/certbot
     depends_on:
       - nginx
-    restart: always
     entrypoint: ["/bin/sh", "-c", "chmod +x /var/www/certbot/entrypoint.sh && /var/www/certbot/entrypoint.sh"]
     networks:
       - internal_network
