@@ -13,7 +13,7 @@ fi
 
 # Check if the command is already in the autorun (crontab)
 if ! crontab -l 2>/dev/null | grep -q "docker compose up -d"; then
-    echo "Adding Docker-Compose to autorun..."
+    echo "Adding Docker Compose to autorun..."
 
     # Add a command to the crontab to autorun after reboot
     (crontab -l 2>/dev/null; echo "@reboot sleep 10 && cd $(pwd) && docker compose up -d") | crontab -
