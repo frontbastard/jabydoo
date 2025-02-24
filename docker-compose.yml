@@ -44,8 +44,8 @@ services:
       - static_volume:/home/app/web/staticfiles
       - media_volume:/home/app/web/mediafiles
       - ./nginx/nginx.template:/etc/nginx/nginx.template
-    environment:
-      - $SITE_DOMAIN=${SITE_DOMAIN}
+    env_file:
+      - .env
     command: /bin/sh -c "envsubst '$$SITE_DOMAIN' < /etc/nginx/nginx.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
     ports:
       - "80:80"
