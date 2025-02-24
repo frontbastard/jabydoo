@@ -2,7 +2,6 @@ upstream jabydoo {
     server web:8000;
 }
 
-# Check cert by certbot and redirect to https
 server {
     listen 80;
     server_name $SITE_DOMAIN www.$SITE_DOMAIN;
@@ -14,7 +13,6 @@ server {
     return 301 https://$SITE_DOMAIN$request_uri;
 }
 
-# Redirect from www to without www (HTTPS)
 server {
     listen 443 ssl;
     server_name www.$SITE_DOMAIN;
@@ -25,7 +23,6 @@ server {
     return 301 https://$SITE_DOMAIN$request_uri;
 }
 
-# Main server unit (endpoint)
 server {
     listen 443 ssl;
     server_name $SITE_DOMAIN;
@@ -33,7 +30,6 @@ server {
     ssl_certificate /etc/letsencrypt/live/$SITE_DOMAIN/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/$SITE_DOMAIN/privkey.pem;
 
-    # Proxying with Django
     location / {
         proxy_pass http://jabydoo;
         proxy_set_header Host $host;
@@ -42,7 +38,6 @@ server {
         proxy_redirect off;
     }
 
-    # Static files
     location /static/ {
         alias /home/app/web/staticfiles/;
     }
