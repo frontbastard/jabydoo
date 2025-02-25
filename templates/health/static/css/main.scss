@@ -12,105 +12,137 @@ body {
 .header {
   background-color: var(--primary-color);
   margin: 0 0 var(--header-pb);
+}
 
-  .navbar {
-    .navbar-brand {
-      font-size: var(--navbar-brand-size);
-      color: var(--nav-text-color);
+.navbar {
+  .navbar-brand {
+    font-size: var(--navbar-brand-size);
+    color: var(--nav-text-color);
+  }
+
+  .nav-link {
+    position: relative;
+    color: var(--nav-text-color);
+    transition: color .3s ease;
+
+    &:hover {
+      color: var(--accent-color);
+    }
+  }
+
+  .navbar-nav {
+    position: relative;
+    border: none;
+    font-size: var(--font-size-base);
+
+    .dropdown-menu {
+      min-width: 27rem;
+      max-width: 100%;
+      padding: 0;
+
+      &.show {
+        @include media("xl") {
+          box-shadow: 0 .5rem 1rem -.5rem rgba(#000, .5);
+        }
+      }
+
+      li + li {
+        border-top: .1rem solid #ccc;
+      }
     }
 
-    .navbar-nav {
-      .nav-item {
-        position: relative;
-        margin: .1rem;
-        padding: var(--nav-item-py) var(--nav-item-px);
+    .dropdown-item {
+      white-space: unset;
+      padding: 1rem;
+      font-size: 1.4rem;
+    }
+  }
 
-        &:before {
-          content: '';
-          background: #fff;
-          opacity: 0.15;
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          transform: skewX(var(--skew-x));
-          border-radius: var(--border-radius);
-          transition: opacity .3s ease;
-        }
+  .nav-item {
+    position: relative;
+    margin: .1rem;
+    padding: var(--nav-item-py) var(--nav-item-px);
 
-        &:hover {
-          &:before {
-            opacity: 1;
-          }
+    &:before {
+      @include media("xl") {
+        content: '';
+        background: #fff;
+        opacity: 0.15;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transform: skewX(var(--skew-x));
+        border-radius: var(--border-radius);
+        transition: opacity .3s ease;
+      }
+    }
 
-          .nav-link {
-            color: #000;
-          }
-        }
+    &:hover {
+      &:before {
+        opacity: 1;
       }
 
       .nav-link {
-        position: relative;
-        color: var(--nav-text-color);
-        transition: color .3s ease;
+        color: #000;
       }
     }
+  }
 
-    .navbar-toggler {
-      position: relative;
-      height: 2.5rem;
-      width: 3rem;
-      padding: 0;
+  .navbar-toggler {
+    position: relative;
+    height: 2.5rem;
+    width: 3rem;
+    padding: 0;
 
-      &[aria-expanded="false"] {
-        span {
-          opacity: 1;
-        }
-
-        &:before {
-          top: 0;
-          transform: rotate(0);
-        }
-
-        &:after {
-          bottom: 0;
-          transform: rotate(0);
-        }
-      }
-
-      span,
-      &:before,
-      &:after {
-        display: block;
-        position: absolute;
-        background: var(--nav-text-color);
-        height: .3rem;
-        width: 100%;
-        border-radius: .2rem
-      }
-
+    &[aria-expanded="false"] {
       span {
-        top: calc(50% - .15rem);
-        opacity: 0;
-        transition: opacity .3s ease;
-      }
-
-      &:before,
-      &:after {
-        content: '';
-        transition: all .3s ease;
+        opacity: 1;
       }
 
       &:before {
-        top: calc(50% - .15rem);
-        transform: rotate(-45deg);
+        top: 0;
+        transform: rotate(0);
       }
 
       &:after {
-        bottom: calc(50% - .15rem);
-        transform: rotate(45deg);
+        bottom: 0;
+        transform: rotate(0);
       }
+    }
+
+    span,
+    &:before,
+    &:after {
+      display: block;
+      position: absolute;
+      background: var(--nav-text-color);
+      height: .3rem;
+      width: 100%;
+      border-radius: .2rem
+    }
+
+    span {
+      top: calc(50% - .15rem);
+      opacity: 0;
+      transition: opacity .3s ease;
+    }
+
+    &:before,
+    &:after {
+      content: '';
+      transition: all .3s ease;
+    }
+
+    &:before {
+      top: calc(50% - .15rem);
+      transform: rotate(-45deg);
+    }
+
+    &:after {
+      bottom: calc(50% - .15rem);
+      transform: rotate(45deg);
     }
   }
 }
@@ -206,18 +238,4 @@ body {
 .footer {
   background-color: var(--primary-color);
   color: var(--nav-text-color);
-}
-
-.navbar-nav {
-  .dropdown-menu {
-    position: relative;
-    border: none;
-    font-size: var(--font-size-base);
-  }
-}
-
-.nav-link {
-  &:hover {
-    color: var(--accent-color);
-  }
 }
