@@ -15,14 +15,15 @@ services:
       - DJANGO_SETTINGS_MODULE=site_service.settings
     volumes:
       - .:/app
-      - static_volume:/app/staticfiles
-      - media_volume:/app/mediafiles
+      - ./staticfiles:/app/staticfiles
+      - ./mediafiles:/app/mediafiles
     ports:
       - "8000:8000"
     env_file:
       - .env
     depends_on:
       - db
+    restart: always
 
   db:
     image: postgres:13-alpine
@@ -31,18 +32,7 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - .env
-
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./certbot/conf:/etc/letsencrypt
-      - ./certbot/entrypoint.sh:/var/www/certbot/entrypoint.sh
-    env_file:
-      - .env
-    entrypoint: ["/bin/sh", "-c", "chmod +x /var/www/certbot/entrypoint.sh && /var/www/certbot/entrypoint.sh"]
+    restart: always
 
 volumes:
   postgres_data:
-  static_volume:
-  media_volume:
