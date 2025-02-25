@@ -32,6 +32,7 @@ server {
     }
 
     location / {
+        include proxy_params;
         proxy_pass http://unix:/var/www/${SITE_DOMAIN}/app.sock;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
