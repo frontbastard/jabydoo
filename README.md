@@ -3,9 +3,11 @@
 `django-admin makemessages --all`
 and go to `/rosetta`
 
-### Run
-`chmod +x entrypoint.sh`
+### Create nginx config
+`chmod +x /nginx/deploy_nginx.sh`
 
+### Certificates
+sudo certbot --nginx -d neosmart-stream.de -d www.neosmart-stream.de --non-interactive --agree-tos --email pavelxsokolov@gmail.com
 
 ## Resources
 - https://remixicon.com/
