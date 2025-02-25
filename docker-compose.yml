@@ -10,13 +10,13 @@ services:
              python manage.py create_superuser &&
              python manage.py create_trust_pages &&
              python manage.py collectstatic --noinput &&
-             gunicorn --workers 3 --bind unix:/home/app/web/app.sock site_service.wsgi:application"
+             gunicorn --workers 3 --bind unix:/app/app.sock site_service.wsgi:application"
     environment:
       - DJANGO_SETTINGS_MODULE=site_service.settings
     volumes:
-      - .:/home/app/web
-      - static_volume:/home/app/web/staticfiles
-      - media_volume:/home/app/web/mediafiles
+      - .:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/mediafiles
     ports:
       - "8000:8000"
     env_file:
@@ -32,15 +32,15 @@ services:
     env_file:
       - .env
 
-#  certbot:
-#    image: certbot/certbot
-#    container_name: certbot
-#    volumes:
-#      - ./certbot/conf:/etc/letsencrypt
-#      - ./certbot/entrypoint.sh:/var/www/certbot/entrypoint.sh
-#    env_file:
-#      - .env
-#    entrypoint: ["/bin/sh", "-c", "chmod +x /var/www/certbot/entrypoint.sh && /var/www/certbot/entrypoint.sh"]
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/conf:/etc/letsencrypt
+      - ./certbot/entrypoint.sh:/var/www/certbot/entrypoint.sh
+    env_file:
+      - .env
+    entrypoint: ["/bin/sh", "-c", "chmod +x /var/www/certbot/entrypoint.sh && /var/www/certbot/entrypoint.sh"]
 
 volumes:
   postgres_data:
