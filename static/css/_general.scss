@@ -22,6 +22,15 @@ table {
   margin-bottom: 1.5rem;
 }
 
+.content {
+  ul,
+  ol {
+    li {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
 img {
   max-width: 100%;
   height: auto;

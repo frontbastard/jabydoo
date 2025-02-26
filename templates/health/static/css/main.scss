@@ -6,12 +6,11 @@ body {
   background: var(--bg-color);
   font-size: var(--font-size-base);
   font-family: var(--font-family-base);
-  color: var(--font-color-base);
+  color: var(--text-color-base);
 }
 
 .header {
   background-color: var(--primary-color);
-  margin: 0 0 var(--header-pb);
 }
 
 .navbar {
@@ -161,7 +160,7 @@ body {
       transition: color .3s ease;
 
       + .list-group-item {
-        border-top: 1px solid rgba(#000, .4);
+        border-top: .1rem solid rgba(#000, .4);
       }
 
       &:hover {
@@ -180,7 +179,11 @@ body {
   }
 }
 
-.content {
+.content-wrapper {
+  .content {
+    background-color: rgba(#b4b4b4, .2);
+  }
+
   ol,
   ul {
     li::marker {
@@ -229,7 +232,7 @@ body {
       tr {
         padding: .5rem 1rem;
         background: rgba(#fff, .3);
-        border: 1px solid rgba(#000, .2)
+        border: .1rem solid rgba(#000, .2)
       }
     }
   }

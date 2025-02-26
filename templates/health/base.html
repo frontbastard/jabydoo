@@ -26,13 +26,13 @@
 <main class="main">
   <div class="container">
     <div class="row">
-      <article class="{% if PARTNERS %}col-xl-10{% else %}col-12{% endif %}">
+      <article class="content-wrapper{% if PARTNERS %} col-xl-10{% else %} col-12{% endif %}">
         {% block content %}
         {% endblock %}
       </article>
 
       {% if PARTNERS %}
-        <aside class="col-xl-2">
+        <aside class="aside-right col-xl-2">
           {% include "includes/partners.html" with partners=PARTNERS %}
         </aside>
       {% endif %}
