@@ -1,8 +1,9 @@
-{% load static compress custom_tags %}
+{% load i18n static compress custom_tags %}
 {% get_partners as PARTNERS %}
 
 <!DOCTYPE html>
-<html lang="en">
+{% get_current_language as LANGUAGE_CODE%}
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
