@@ -36,41 +36,41 @@ msgstr ""
 #: templates/casino/includes/footer.html:6
 #: templates/health/includes/footer.html:6
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Datenschutzbestimmungen"
 
 #: templates/casino/includes/footer.html:9
 #: templates/health/includes/footer.html:9
 msgid "Terms of Service"
-msgstr ""
+msgstr "Bedingungen der Dienstleistung"
 
 #: templates/casino/includes/footer.html:12
 #: templates/health/includes/footer.html:12
 msgid "Contact Us"
-msgstr ""
+msgstr "Kontakt"
 
 #: templates/casino/includes/footer.html:15
 #: templates/health/includes/footer.html:15
 msgid "About Us"
-msgstr ""
+msgstr "Über uns"
 
 #: templates/casino/includes/footer.html:18
 #: templates/health/includes/footer.html:18
 msgid "FAQ"
-msgstr ""
+msgstr "FAQ"
 
 #: templates/casino/includes/footer.html:21
 #: templates/health/includes/footer.html:21
 msgid "Cookie Policy"
-msgstr ""
+msgstr "Cookie-Richtlinie"
 
 #: templates/casino/includes/footer.html:44
 #: templates/health/includes/footer.html:26
 msgid "All rights reserved"
-msgstr ""
+msgstr "Alle Rechte vorbehalten"
 
 #: templates/casino/includes/games.html:6
 msgid "Online Casino in Canada for Real Money"
-msgstr ""
+msgstr "Online Casino in Canada for Real Money"
 
 #: templates/casino/includes/games.html:33
 msgid "See more games"
@@ -78,4 +78,4 @@ msgstr ""
 
 #: templates/health/includes/partners.html:3
 msgid "Partners"
-msgstr "Partners"
+msgstr "Partner"
