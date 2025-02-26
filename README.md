@@ -1,3 +1,20 @@
+## Checklist
+- .env
+  - SITE_DOMAIN
+  - SITE_NAME
+  - SITE_TYPE
+  - ENVIRONMENT
+  - DJANGO_DEBUG
+  - POSTGRES_XXX
+- Admin page Options
+  - Site type
+  - Secret Key
+  - AI model
+  - Custom CSS
+- Pages
+- Menu
+- Partners
+
 ## Deployment
 - `cd /var/www/`
 - `git clone git@github.com:frontbastard/jabydoo.git [DOMAIN_NAME]`
