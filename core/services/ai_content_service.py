@@ -73,56 +73,81 @@ class AIContentService:
 
     def generate_content_for_pages(self, queryset):
         """
-        Generates content for the transferred pages and returns the results.
+        Generates content and/or SEO for the submitted pages and returns results.
         """
         results = {"success": [], "skipped": [], "failed": []}
 
         for page in queryset:
             if not page.title or not page.slug:
-                results["skipped"].append(f"{page} (no title or slug)")
+                results["skipped"].append(f"{page} (no header or slug)")
                 continue
 
-            prompt = (
-                f"Generate meaningful SEO content based on the top 10 for the query '{page.title}'.\n"
-                f"Brand name is {self.options.sponsor_name}. "
-                f"Site language is {page.get_current_language()}. "
-                f"Site type is {self.options.site_type}.\n"
-                f"Adhere to the markup of the article depending on its page title. "
-                f"Return only the structured HTML content (not markdown) for the <body> tag. "
-                f"Response have to contain at least 1 table and 1 marked list and be at least 2500 symbols in length.\n"
-                f"Do not include <body> or <h1> tags in the response. "
-                f"Do not use the title as a header of the article. "
-                f"Do not use placeholders like [Insert Date]. "
-                f"Do not use any links in the text.\n"
-                f"{page.ai_additional_info}.\n "
+            # Get an SEO object
+            content_type = ContentType.objects.get_for_model(page)
+            seo_object, _ = SEO.objects.get_or_create(
+                content_type=content_type,
+                object_id=page.id
             )
-            generated_text = self.generate_text(prompt)
 
-            if generated_text:
-                page.content = generated_text
-                # Now generate SEO
-                seo_title, seo_description = self.generate_seo(generated_text, page.title)
+            content_generated = False
+            seo_generated = False
+
+            # Generate content if it is too short
+            if not page.content or len(page.content.strip()) < 20:
+                prompt = (
+                    f"Generate meaningful SEO content based on the top 10 for the query '{page.title}'.\n"
+                    f"Brand name is {self.options.sponsor_name}. "
+                    f"Site language is {page.get_current_language()}. "
+                    f"Site type is {self.options.site_type}.\n"
+                    f"Adhere to the markup of the article depending on its page title. "
+                    f"Return only the structured HTML content (not markdown) for the <body> tag. "
+                    f"Response have to contain at least 1 table and 1 marked list and be at least 2500 symbols in length.\n"
+                    f"Do not include <body> or <h1> tags in the response. "
+                    f"Do not use the title as a header of the article. "
+                    f"Do not use placeholders like [Insert Date]. "
+                    f"Do not use any links in the text.\n"
+                    f"{page.ai_additional_info}.\n "
+                )
+                generated_text = self.generate_text(prompt)
+
+                if generated_text:
+                    page.content = generated_text
+                    content_generated = True
+                else:
+                    results["failed"].append(page)
+                    continue  # If content cannot be generated, there is no point in going any further
+
+            # SEO generation if at least one of the fields is empty
+            if not seo_object.title or not seo_object.description:
+                seo_title, seo_description = self.generate_seo(page.content, page.title)
                 if seo_title and seo_description:
-                    # Save SEO data
                     self.update_seo_fields(page, seo_title, seo_description)
+                    seo_generated = True
+
+            # We only save the page if the content or SEO has been updated
+            if content_generated or seo_generated:
                 page.save()
                 results["success"].append(page)
             else:
-                results["failed"].append(page)
+                results["skipped"].append(f"{page} (content and seo are already generated)")
 
         return results
 
     def update_seo_fields(self, page, seo_title, seo_description):
-        # Визначаємо ContentType для сторінки
+        # Define the ContentType for the page
         content_type = ContentType.objects.get_for_model(page)
 
-        # Спробуй отримати або створити SEO об'єкт
+        # Try to get or create an SEO object
         seo_object, created = SEO.objects.get_or_create(
             content_type=content_type,
             object_id=page.id
         )
 
-        # Оновлюємо SEO поля
-        seo_object.title = seo_title
-        seo_object.description = seo_description
+        # Update SEO fields
+        if not seo_object.title:
+            seo_object.title = seo_title
+
+        if not seo_object.description:
+            seo_object.description = seo_description
+
         seo_object.save()
