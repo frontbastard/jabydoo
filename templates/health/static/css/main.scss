@@ -182,6 +182,14 @@ body {
 .content-wrapper {
   .content {
     background-color: rgba(#b4b4b4, .2);
+
+    .container {
+      padding: 0 !important;
+    }
+
+    .content {
+      background-color: unset !important;
+    }
   }
 
   ol,
