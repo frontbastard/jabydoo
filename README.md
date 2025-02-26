@@ -1,13 +1,13 @@
+## Deployment
+- `cd /var/www/`
+- `git clone git@github.com:frontbastard/jabydoo.git [DOMAIN_NAME]`
+- `chmod +x /nginx/deploy_nginx.sh`
+- `sudo deploy.sh`
+
 ## Rosetta translations
-
-`django-admin makemessages --all`
-and go to `/rosetta`
-
-### Create nginx config
-`chmod +x /nginx/deploy_nginx.sh`
-
-### Certificates
-sudo certbot --nginx -d neosmart-stream.de -d www.neosmart-stream.de --non-interactive --agree-tos --email pavelxsokolov@gmail.com
+- `django-admin makemessages --all`
+- `python manage.py compilemessages`
+- and go to `/rosetta`
 
 ## Resources
 - https://remixicon.com/

@@ -1,0 +1,81 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-02-26 14:29+0100\n"
+"PO-Revision-Date: 2025-02-26 13:31+0000\n"
+"Last-Translator:   <pavelxsokolov@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Translated-Using: django-rosetta 0.10.1\n"
+
+#: site_service/settings.py:132
+msgid "German"
+msgstr ""
+
+#: templates/casino/includes/action_buttons.html:10
+#: templates/casino/includes/action_buttons.html:29
+msgid "Sign up"
+msgstr ""
+
+#: templates/casino/includes/action_buttons.html:18
+#: templates/casino/includes/action_buttons.html:36
+msgid "Get bonuses!"
+msgstr ""
+
+#: templates/casino/includes/footer.html:6
+#: templates/health/includes/footer.html:6
+msgid "Privacy Policy"
+msgstr "Datenschutzbestimmungen"
+
+#: templates/casino/includes/footer.html:9
+#: templates/health/includes/footer.html:9
+msgid "Terms of Service"
+msgstr "Bedingungen der Dienstleistung"
+
+#: templates/casino/includes/footer.html:12
+#: templates/health/includes/footer.html:12
+msgid "Contact Us"
+msgstr "Kontakt"
+
+#: templates/casino/includes/footer.html:15
+#: templates/health/includes/footer.html:15
+msgid "About Us"
+msgstr "Über uns"
+
+#: templates/casino/includes/footer.html:18
+#: templates/health/includes/footer.html:18
+msgid "FAQ"
+msgstr "FAQ"
+
+#: templates/casino/includes/footer.html:21
+#: templates/health/includes/footer.html:21
+msgid "Cookie Policy"
+msgstr "Cookie-Richtlinie"
+
+#: templates/casino/includes/footer.html:44
+#: templates/health/includes/footer.html:26
+msgid "All rights reserved"
+msgstr "Alle Rechte vorbehalten"
+
+#: templates/casino/includes/games.html:6
+msgid "Online Casino in Canada for Real Money"
+msgstr "Online Casino in Canada for Real Money"
+
+#: templates/casino/includes/games.html:33
+msgid "See more games"
+msgstr ""
+
+#: templates/health/includes/partners.html:3
+msgid "Partners"
+msgstr "Partner"
