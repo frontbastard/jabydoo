@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-14 15:53+0100\n"
+"POT-Creation-Date: 2025-02-26 21:38+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,18 +18,63 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: site_service/settings.py:121
-msgid "English"
+#: site_service/settings.py:132
+msgid "German"
 msgstr ""
 
-#: site_service/settings.py:122
-msgid "French"
-msgstr ""
-
-#: templates/base.html:51
+#: templates/casino/includes/action_buttons.html:10
+#: templates/casino/includes/action_buttons.html:29
 msgid "Sign up"
 msgstr ""
 
-#: templates/base.html:54
+#: templates/casino/includes/action_buttons.html:18
+#: templates/casino/includes/action_buttons.html:36
 msgid "Get bonuses!"
+msgstr ""
+
+#: templates/casino/includes/footer.html:6
+#: templates/health/includes/footer.html:6
+msgid "Privacy Policy"
+msgstr ""
+
+#: templates/casino/includes/footer.html:9
+#: templates/health/includes/footer.html:9
+msgid "Terms of Service"
+msgstr ""
+
+#: templates/casino/includes/footer.html:12
+#: templates/health/includes/footer.html:12
+msgid "Contact Us"
+msgstr ""
+
+#: templates/casino/includes/footer.html:15
+#: templates/health/includes/footer.html:15
+msgid "About Us"
+msgstr ""
+
+#: templates/casino/includes/footer.html:18
+#: templates/health/includes/footer.html:18
+msgid "FAQ"
+msgstr ""
+
+#: templates/casino/includes/footer.html:21
+#: templates/health/includes/footer.html:21
+msgid "Cookie Policy"
+msgstr ""
+
+#: templates/casino/includes/footer.html:44
+#: templates/health/includes/footer.html:26
+msgid "All rights reserved"
+msgstr ""
+
+#: templates/casino/includes/games.html:6
+msgid "Online Casino in Canada for Real Money"
+msgstr ""
+
+#: templates/casino/includes/games.html:33
+msgid "See more games"
+msgstr ""
+
+#: templates/health/includes/partners.html:3
+msgid "Partners"
 msgstr ""
