@@ -3,11 +3,11 @@
 `django-admin makemessages --all`
 and go to `/rosetta`
 
-### Create nginx config
-`chmod +x /nginx/deploy_nginx.sh`
-
-### Certificates
-sudo certbot --nginx -d neosmart-stream.de -d www.neosmart-stream.de --non-interactive --agree-tos --email pavelxsokolov@gmail.com
+## Deployment
+- `cd /var/www/`
+- `git clone git@github.com:frontbastard/jabydoo.git [DOMAIN_NAME]`
+- `chmod +x /nginx/deploy_nginx.sh`
+- `sudo deploy.sh`
 
 ## Resources
 - https://remixicon.com/
