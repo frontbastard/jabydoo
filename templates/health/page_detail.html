@@ -6,9 +6,9 @@
 {% endblock %}
 
 {% block content %}
-  <h1 class="h1">{{ page.title }}</h1>
+  <h1 class="content-title h1 m-0 py-5 px-4">{{ page.title }}</h1>
   {% if page.image %}
-    <div class="content-image pb-3">
+    <div class="content-image">
       <picture>
         <source media="(max-width: 575px)" srcset="{% thumbnail page.image 576x576 crop %}" width="576" height="576">
         <source media="(max-width: 767px)" srcset="{% thumbnail page.image 768x432 crop %}" width="768" height="432">
@@ -19,7 +19,7 @@
       </picture>
     </div>
   {% endif %}
-  <section class="content">
+  <section class="content content py-5 px-4">
     {{ page.content|safe }}
   </section>
 {% endblock %}
