@@ -11,14 +11,13 @@ class AIImageService:
         self.api_key = getattr(SiteOptions.get_options(), "ai_secret_key", "")
         self.client = Together(api_key=self.api_key)
 
-    def generate_image(
-            self, prompt, width=1440, height=704,
-            model="black-forest-labs/FLUX.1-schnell-Free",
-
-    ):
+    def generate_image(self, model, prompt, width=1440, height=704):
         """
         Executes a query to Together AI and returns the generated image as base64 JSON.
         """
+        if not model:
+            return "Error: Model hasn't been defined"
+
         try:
             response = self.client.images.generate(
                 prompt=prompt,

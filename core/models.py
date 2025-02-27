@@ -21,7 +21,7 @@ class SiteOptions(models.Model):
     )
     ai_image_model = models.CharField(
         max_length=255, null=True, blank=True,
-        help_text="Model used for image generation. For example: black-forest-labs/FLUX.1.1-pro"
+        help_text="Model used for image generation. For example: black-forest-labs/FLUX.1-pro"
     )
     custom_css = models.TextField(null=True, blank=True)
 
