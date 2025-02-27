@@ -23,10 +23,16 @@ class AIContentService:
     def __init__(self):
         self.options = SiteOptions.get_options()
 
-    def generate_text(self, prompt, model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"):
+    def generate_text(self, prompt, model):
         """
         Executes a query to Together AI and returns the generated text.
         """
+        if not prompt or not isinstance(prompt, str):
+            return "Error: Invalid prompt"
+
+        if not model:
+            return "Error: Model hasn't been defined"
+
         client = Together(api_key=self.options.ai_secret_key)
         try:
             response = client.chat.completions.create(
@@ -37,13 +43,14 @@ class AIContentService:
         except Exception as e:
             return f"Generation error: {e}"
 
-    def generate_seo(self, content, page_title, max_tokens=150):
+    def generate_seo(self, page_title, page_content):
         """
         Generate SEO title and description based on the page content and title.
         Returns a JSON object with title and description.
         """
         prompt = (
-            f"Generate an SEO-friendly title and meta description for the article generated based on the query '{page_title}'.\n\n"
+            f"Generate an SEO-friendly title and meta description for the article generated "
+            f"based on the query '{page_title}' and '{page_content}'.\n\n"
             f"Information:\n"
             f"- Brand name: {self.options.sponsor_name};\n"
             f"- Site type: {self.options.site_type};\n\n"
@@ -102,23 +109,28 @@ class AIContentService:
                 f"Do not use any links in the text.\n"
                 f"{page.ai_additional_info}.\n "
             )
-            generated_text = self.generate_text(prompt)
+
+            if len(page.content) > 20:
+                generated_text = page.content
+            else:
+                generated_text = self.generate_text(prompt, model=self.options.ai_chat_model)
 
             if generated_text:
                 page.content = generated_text
                 # Now generate SEO
-                seo_title, seo_description = self.generate_seo(generated_text, page.title)
+                seo_title, seo_description = self.generate_seo(page.title, page_content=page.content)
                 if seo_title and seo_description:
                     # Save SEO data
                     self.update_seo_fields(page, seo_title, seo_description)
 
-                # Image generation
-                image_url = self.generate_image_for_page(
-                    f"Generate meaningful image for page title '{page.title}'.\n"
-                    f"The focus is on '{self.options.site_type}'. The image should be without words."
-                )
-                if image_url:
-                    self.save_image_from_url(image_url, page)
+                if not page.image:
+                    # Image generation
+                    image_url = self.generate_image_for_page(
+                        f"Generate meaningful image for page title '{page.title}'.\n"
+                        f"The focus is on '{self.options.site_type}'. The image should be without words."
+                    )
+                    if image_url:
+                        self.save_image_from_url(image_url, page)
 
                 page.save()
                 results["success"].append(page)
@@ -138,8 +150,12 @@ class AIContentService:
         )
 
         # Update SEO fields
-        seo_object.title = seo_title
-        seo_object.description = seo_description
+        if not seo_object.title:
+            seo_object.title = seo_title
+
+        if not seo_object.description:
+            seo_object.description = seo_description
+
         seo_object.save()
 
     def generate_image_for_page(self, title):
@@ -183,5 +199,3 @@ class AIContentService:
             return image_file
         except Exception as e:
             return f"Error saving image: {str(e)}"
-
-
