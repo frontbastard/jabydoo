@@ -138,7 +138,7 @@ PARLER_LANGUAGES = {
     1: (
         {"code": "de"},
     ), "default": {
-        "fallback": ["de"],
+        "fallback": "de",
         "hide_untranslated": False,
     }
 }

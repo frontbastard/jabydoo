@@ -1,0 +1,31 @@
+from together import Together
+from core.models import SiteOptions
+
+
+class AIImageService:
+    """
+    A service for image generation using Together AI.
+    """
+
+    def __init__(self):
+        self.api_key = getattr(SiteOptions.get_options(), "ai_secret_key", "")
+        self.client = Together(api_key=self.api_key)
+
+    def generate_image(
+            self, prompt, width=1440, height=704,
+            model="black-forest-labs/FLUX.1.1-pro",
+
+    ):
+        """
+        Executes a query to Together AI and returns the generated image as base64 JSON.
+        """
+        try:
+            response = self.client.images.generate(
+                prompt=prompt,
+                width=width,
+                height=height,
+                model=model,
+            )
+            return response.data[0].url
+        except Exception as e:
+            return f"Error generating image: {str(e)}"
