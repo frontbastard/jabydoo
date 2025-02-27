@@ -19,10 +19,6 @@ class SEOForm(TranslatableModelForm):
 
 class SEOInline(GenericStackedInline, TranslatableStackedInline):
     form = SEOForm
-    formfield_overrides = {
-        models.TextField: {"widget": Textarea(attrs={"style": "width: 100%;"})},
-        models.CharField: {"widget": TextInput(attrs={"style": "width: 100%;"})},
-    }
     model = SEO
     extra = 1
     max_num = 1
