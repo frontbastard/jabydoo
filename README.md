@@ -23,9 +23,11 @@
 
 ## Rosetta translations
 - `django-admin makemessages --all`
+  - or just for one lang `django-admin makemessages -l de`
 - `python manage.py compilemessages`
 - and go to `/rosetta`
 
 ## Resources
 - https://remixicon.com/
 - https://api.together.ai/
+- https://dashboard.uptimerobot.com/monitors
