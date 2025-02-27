@@ -20,6 +20,7 @@ class PageForm(TranslatableModelForm):
         fields = "__all__"
         widgets = {
             "title": TextInput(attrs={"style": "width: 100%;"}),
+            "slug": TextInput(attrs={"style": "width: 100%;"}),
             "description": Textarea(attrs={"style": "width: 100%;"}),
         }
 
@@ -27,12 +28,8 @@ class PageForm(TranslatableModelForm):
 @admin.register(Page)
 class PageAdmin(TranslatableAdmin):
     form = PageForm
-    formfield_overrides = {
-        models.TextField: {"widget": Textarea(attrs={"style": "width: 100%;"})},
-        models.CharField: {"widget": TextInput(attrs={"style": "width: 100%;"})},
-    }
     fields = ["title", "slug", "is_home", "status", "ai_additional_info", "content", "image", "publish"]
-    list_display = ["title", "slug", "is_home", "publish", "status", "language_column"]
+    list_display = ["title", "slug", "is_home", "publish", "status"]
     list_filter = ["is_home", "created", "publish"]
     list_editable = ["status"]
     inlines = [SEOInline]
@@ -43,11 +40,6 @@ class PageAdmin(TranslatableAdmin):
 
     def get_prepopulated_fields(self, request, obj=None):
         return {"slug": ("title",)}
-
-    def language_column(self, obj):
-        return ", ".join(obj.get_available_languages())
-
-    language_column.short_description = "Available languages"
 
     @admin.action(description="Translate into all languages")
     def auto_translate(modeladmin, request, queryset):
