@@ -21,17 +21,16 @@ class AIContentService:
     """
 
     def __init__(self):
-        together.api_key = getattr(SiteOptions.get_options(), "ai_secret_key", "")
         self.options = SiteOptions.get_options()
 
-    def generate_text(self, prompt, max_tokens=500, temperature=0.7):
+    def generate_text(self, prompt, model="meta-llama/Llama-3.3-70B-Instruct-Turbo-Free"):
         """
         Executes a query to Together AI and returns the generated text.
         """
         client = Together(api_key=self.options.ai_secret_key)
         try:
             response = client.chat.completions.create(
-                model=self.options.ai_model,
+                model=model,
                 messages=[{"role": "user", "content": prompt}]
             )
             return response.choices[0].message.content.strip()
@@ -64,7 +63,7 @@ class AIContentService:
             f'{{"title": "<title>", "description": "<description>"}}'
         )
 
-        generated_text = self.generate_text(prompt, max_tokens)
+        generated_text = self.generate_text(prompt, model=self.options.ai_chat_model)
 
         if generated_text:
             try:
@@ -116,7 +115,7 @@ class AIContentService:
                 # Image generation
                 image_url = self.generate_image_for_page(
                     f"Generate meaningful image for page title '{page.title}'.\n"
-                    f"The focus of the site is {self.options.site_type}"
+                    f"The focus is on '{self.options.site_type}'. The image should be without words."
                 )
                 if image_url:
                     self.save_image_from_url(image_url, page)
@@ -148,7 +147,7 @@ class AIContentService:
         Generates an image for the page using the title as a prompt.
         """
         ai_image_service = AIImageService()
-        return ai_image_service.generate_image(prompt=title)
+        return ai_image_service.generate_image(prompt=title, model=self.options.ai_image_model)
 
     def save_image_from_url(self, image_url, page):
         """
