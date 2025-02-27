@@ -150,11 +150,8 @@ class AIContentService:
         )
 
         # Update SEO fields
-        if not seo_object.title:
-            seo_object.title = seo_title
-
-        if not seo_object.description:
-            seo_object.description = seo_description
+        seo_object.title = seo_title
+        seo_object.description = seo_description
 
         seo_object.save()
 

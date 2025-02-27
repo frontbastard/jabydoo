@@ -12,6 +12,7 @@ TRUST_PAGES = {
         {"title": "About Us", "slug": "about-us"},
         {"title": "FAQ", "slug": "faq"},
         {"title": "Cookie Policy", "slug": "cookie-policy"},
+        {"title": "Legal Notice", "slug": "legal-notice"},
     ],
     "de": [
         {"title": "Datenschutzrichtlinie", "slug": "privacy-policy"},
@@ -20,6 +21,7 @@ TRUST_PAGES = {
         {"title": "Über uns", "slug": "about-us"},
         {"title": "FAQ", "slug": "faq"},
         {"title": "Cookie-Richtlinie", "slug": "cookie-policy"},
+        {"title": "Impressum", "slug": "legal-notice"},
     ],
 }
 
