@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-02-26 21:38+0100\n"
+"POT-Creation-Date: 2025-02-27 23:15+0100\n"
 "PO-Revision-Date: 2025-02-26 20:45+0000\n"
 "Last-Translator:   <info@hornsandhooves.co>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,7 +64,7 @@ msgid "Cookie Policy"
 msgstr "Cookie-Richtlinie"
 
 #: templates/casino/includes/footer.html:44
-#: templates/health/includes/footer.html:26
+#: templates/health/includes/footer.html:29
 msgid "All rights reserved"
 msgstr "Alle Rechte vorbehalten"
 
@@ -75,6 +75,10 @@ msgstr "Online Casino in Canada for Real Money"
 #: templates/casino/includes/games.html:33
 msgid "See more games"
 msgstr ""
+
+#: templates/health/includes/footer.html:24
+msgid "Legal Notice"
+msgstr "Impressum"
 
 #: templates/health/includes/partners.html:3
 msgid "Partners"
