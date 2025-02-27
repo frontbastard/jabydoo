@@ -13,7 +13,7 @@ class AIImageService:
 
     def generate_image(
             self, prompt, width=1440, height=704,
-            model="black-forest-labs/FLUX.1.1-pro",
+            model="black-forest-labs/FLUX.1-schnell-Free",
 
     ):
         """
