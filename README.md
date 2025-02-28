@@ -11,10 +11,10 @@
 - Admin page Options
   - Site type
   - Secret Key
-  - AI model
+  - AI models
   - Custom CSS
-- Pages
-- Menu
+- Menu Items
+- Generate content
 - Partners
 
 ## Deployment
