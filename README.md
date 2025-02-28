@@ -20,7 +20,8 @@
 ## Deployment
 - `cd /var/www/`
 - `git clone git@github.com:frontbastard/jabydoo.git [DOMAIN_NAME]`
-- `chmod +x /nginx/deploy_nginx.sh`
+- `cd [DOMAIN_NAME]`
+- `chmod +x ./nginx/deploy_nginx.sh`
 - `sudo deploy.sh`
 
 ## Rosetta translations
