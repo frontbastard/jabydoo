@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 from core.enums import Environment
 
-SITE_TYPE = "health"
+SITE_TYPE = config("SITE_TYPE")
 
 SITE_ID = 1
 SITE_DOMAIN = config("SITE_DOMAIN")
