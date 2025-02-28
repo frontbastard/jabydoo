@@ -8,23 +8,19 @@ services:
              python manage.py migrate &&
              python manage.py create_superuser &&
              python manage.py create_trust_pages &&
-             python manage.py collectstatic --noinput &&
-             gunicorn --workers 3 --bind unix:/app/app.sock site_service.wsgi:application"
+             python manage.py runserver 0.0.0.0:8000;"
     environment:
       - DJANGO_SETTINGS_MODULE=site_service.settings
     volumes:
       - .:/app
-      - ./staticfiles:/app/staticfiles
-      - ./mediafiles:/app/mediafiles
     ports:
-      - "8000"
+      - "8000:8000"
     env_file:
       - .env
     depends_on:
       - db
       - redis
       - celery
-    restart: always
 
   db:
     image: postgres:13-alpine
@@ -32,26 +28,26 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     env_file:
       - .env
-    restart: always
 
   redis:
     image: redis:alpine
-    restart: always
 
   celery:
     build: .
     command: celery -A site_service worker --loglevel=info
     depends_on:
       - redis
-    restart: always
 
   celery-beat:
     build: .
-    command: celery -A site_service beat --loglevel=info
+    command:
+      sh -c "
+        python manage.py wait_for_db &&
+        celery -A site_service beat -l info
+      "
     depends_on:
       - redis
       - celery
-    restart: always
 
 volumes:
   postgres_data:
