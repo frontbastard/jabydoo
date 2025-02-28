@@ -6,6 +6,8 @@
   - ENVIRONMENT
   - DJANGO_DEBUG
   - POSTGRES_XXX
+- settings
+  - Language
 - Admin page Options
   - Site type
   - Secret Key
