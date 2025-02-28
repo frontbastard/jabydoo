@@ -9,6 +9,8 @@ if [ -z "$SITE_DOMAIN" ]; then
     exit 1
 fi
 
+export SITE_DOMAIN
+
 # Import functions from deploy_nginx.sh
 source ./nginx/deploy_nginx.sh
 
