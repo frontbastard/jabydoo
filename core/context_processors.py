@@ -13,7 +13,6 @@ def site_options(request):
     site = Site.objects.get_current()
 
     options["site_domain"] = site.domain
-    options["site_name"] = settings.SITE_NAME
 
     # Add a field to check if the URL needs to be hidden
     options["hide_sponsor_url"] = options_obj.hide_sponsor_url if options_obj else True

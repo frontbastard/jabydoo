@@ -10,7 +10,6 @@ SITE_TYPE = config("SITE_TYPE")
 
 SITE_ID = 1
 SITE_DOMAIN = config("SITE_DOMAIN")
-SITE_NAME = config("SITE_NAME", default=SITE_DOMAIN)
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     "mptt",
     "compressor",
     "django_ace",
+    "django_celery_beat",
 
     "core.apps.CoreConfig",
     "pages.apps.PagesConfig",
@@ -272,3 +272,9 @@ CKEDITOR_5_UPLOAD_PATH = "mediafiles/"
 
 # Make sure CKEDITOR_5_UPLOAD_PATH is inside MEDIA_ROOT
 CKEDITOR_5_MEDIA_PREFIX = f"{MEDIA_URL}{CKEDITOR_5_UPLOAD_PATH}"
+
+# Celery settings
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"

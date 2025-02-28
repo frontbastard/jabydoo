@@ -2,6 +2,7 @@
 - settings
   - Language
 - Admin page Options
+  - Brand name
   - Site type
   - Secret Key
   - AI models
@@ -15,7 +16,6 @@
 - `git clone git@github.com:frontbastard/jabydoo.git [DOMAIN_NAME]`
 - customize .env
   - SITE_DOMAIN
-  - SITE_NAME
   - SITE_TYPE
   - ENVIRONMENT
   - DJANGO_DEBUG

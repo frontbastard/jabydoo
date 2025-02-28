@@ -52,7 +52,7 @@ class AIContentService:
             f"Generate an SEO-friendly title and meta description for the article generated "
             f"based on the query '{page_title}' and '{page_content}'.\n\n"
             f"Information:\n"
-            f"- Brand name: {self.options.sponsor_name};\n"
+            f"- Brand name: {self.options.brand_name};\n"
             f"- Site type: {self.options.site_type};\n\n"
             f"Requirements:\n"
             f"- The title should be engaging, relevant, and include the main keyword from the query;\n"
@@ -97,7 +97,7 @@ class AIContentService:
 
             prompt = (
                 f"Generate meaningful SEO content based on the top 10 for the query '{page.title}'.\n"
-                f"Brand name is {self.options.sponsor_name}. "
+                f"Brand name is {self.options.brand_name}. "
                 f"Site language is {page.get_current_language()}. "
                 f"Site type is {self.options.site_type}.\n"
                 f"Adhere to the markup of the article depending on its page title. "
