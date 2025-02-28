@@ -1,11 +1,4 @@
 ## Checklist
-- .env
-  - SITE_DOMAIN
-  - SITE_NAME
-  - SITE_TYPE
-  - ENVIRONMENT
-  - DJANGO_DEBUG
-  - POSTGRES_XXX
 - settings
   - Language
 - Admin page Options
@@ -18,11 +11,18 @@
 - Partners
 
 ## Deployment
+- customize .env
+  - SITE_DOMAIN
+  - SITE_NAME
+  - SITE_TYPE
+  - ENVIRONMENT
+  - DJANGO_DEBUG
+  - POSTGRES_XXX
 - `cd /var/www/`
 - `git clone git@github.com:frontbastard/jabydoo.git [DOMAIN_NAME]`
 - `cd [DOMAIN_NAME]`
-- `chmod +x ./nginx/deploy_nginx.sh`
-- `sudo deploy.sh`
+- `chmod +x deploy_nginx.sh`
+- `sudo ./deploy.sh`
 
 ## Rosetta translations
 - `django-admin makemessages --all`
