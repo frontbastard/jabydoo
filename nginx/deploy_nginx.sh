@@ -5,7 +5,7 @@ function deploy_nginx() {
   SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
   # Generate the Nginx configuration
-  envsubst '$SITE_DOMAIN' < "$SCRIPT_DIR/default.nginx" > "/etc/nginx/sites-available/$SITE_DOMAIN"
+  envsubst '$SITE_DOMAIN' < "$SCRIPT_DIR/nginx/default.nginx" > "/etc/nginx/sites-available/$SITE_DOMAIN"
 
   # Create a symbolic link
   ln -sf "/etc/nginx/sites-available/$SITE_DOMAIN" "/etc/nginx/sites-enabled/"
