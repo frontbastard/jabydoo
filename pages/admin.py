@@ -1,12 +1,15 @@
 from django.contrib import admin
-from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from django.forms import TextInput, Textarea
+from django.http import HttpResponse, JsonResponse
+from django.utils.html import format_html
 from parler.admin import TranslatableAdmin
 from parler.forms import TranslatableModelForm
 
-from pages.models import Page
-from pages.services.tasks import generate_content_task
+from core.models import SiteOptions
+from core.services.ai_content_service import AIContentService, TogetherAIClient, ContentGenerationService, FileService
 from seo.admin import SEOInline
+from .models import Page
 
 
 class PageForm(TranslatableModelForm):
@@ -41,14 +44,46 @@ class PageAdmin(TranslatableAdmin):
 
     @admin.action(description="Generate content using AI")
     def generate_content_for_pages(self, request, queryset):
-        """
-        Generates content via together.ai for selected pages.
-        Launches content generation through Celery for each page separately.
-        """
-        for page in queryset:
-            generate_content_task.delay(page.id)
+        if not request.user.is_superuser:
+            raise PermissionDenied
 
-        messages.info(request, f"Started content generation for {queryset.count()} pages")
+        options = SiteOptions.get_options()
+        ai_client = TogetherAIClient(api_key=options.ai_secret_key)
+        content_service = ContentGenerationService(ai_client, options)
+        file_service = FileService()
+        ai_content_service = AIContentService(ai_client, content_service, file_service)
+
+        results = {"success": [], "failed": [], "skipped": []}
+
+        for page in queryset:
+            result = ai_content_service.generate_content_for_page(page)
+            print(">>>>>>>>>><<<<<<<<!!", result)
+            if result["status"] == "success":
+                results["success"].append(page)
+            elif result["status"] == "failed":
+                results["failed"].append(page)
+            else:
+                results["skipped"].append(page)
+
+        success_count = len(results["success"])
+        failed_count = len(results["failed"])
+        skipped_count = len(results["skipped"])
+
+        message = format_html(
+            "Content generated for {} pages.<br>"
+            "Failed for {} pages.<br>"
+            "Skipped {} pages.",
+            success_count, failed_count, skipped_count
+        )
+
+        self.message_user(request, message)
+
+        # return JsonResponse({
+        #     "message": message,
+        #     "success": success_count,
+        #     "failed": failed_count,
+        #     "skipped": skipped_count
+        # })
 
 #     @admin.action(description="Translate into all languages")
 #     def auto_translate(modeladmin, request, queryset):
