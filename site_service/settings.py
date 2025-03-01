@@ -127,18 +127,18 @@ DATABASES = {
 }
 
 # International settings
-LANGUAGE_CODE = "de"
+LANGUAGE_CODE = "en"
 LANGUAGES = [
-    ("de", _("German")),
+    ("en", _("English")),
 ]
 
 LOCALE_PATHS = [BASE_DIR / "locale"]
 
 PARLER_LANGUAGES = {
     1: (
-        {"code": "de"},
+        {"code": "en"},
     ), "default": {
-        "fallback": "de",
+        "fallback": "en",
         "hide_untranslated": False,
     }
 }
