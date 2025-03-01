@@ -59,7 +59,7 @@ class ContentGenerationService:
         return self.ai_client.generate_text(prompt, self.options.ai_chat_model)
 
     def generate_image(self, prompt: str) -> str:
-        return self.ai_client.generate_image(prompt, self.options.ai_image_model, 256, 256)
+        return self.ai_client.generate_image(prompt, self.options.ai_image_model, 1440, 704)
 
     def generate_seo(self, page_title: str, page_content: str) -> dict:
         prompt = (

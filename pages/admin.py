@@ -57,7 +57,6 @@ class PageAdmin(TranslatableAdmin):
 
         for page in queryset:
             result = ai_content_service.generate_content_for_page(page)
-            print(">>>>>>>>>><<<<<<<<!!", result)
             if result["status"] == "success":
                 results["success"].append(page)
             elif result["status"] == "failed":
