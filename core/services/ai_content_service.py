@@ -65,9 +65,10 @@ class ContentGenerationService:
 
     def generate_seo(self, page_title: str, page_content: str) -> dict:
         prompt = (
-            f"Generate an SEO-friendly title and meta description for '{page_title}'.\n"
+            f"Generate an SEO-friendly title and meta description for '{page_title}' "
+            f"for a website on the topic of '{self.content_service.options.site_type}'. \n"
             f"Title: 50-60 characters.\nDescription: 140-160 characters.\n"
-            f"Respond ONLY with a JSON object in the following format, without any additional text: "
+            f"Respond ONLY with a JSON object in the following format (without any additional text): "
             f"{{'title': '<title>', 'description': '<description>'}}"
         )
         generated_text = self.generate_text(prompt)
@@ -110,7 +111,8 @@ class AIContentService:
             return {"status": "skipped", "message": "No title or slug"}
 
         prompt = (
-            f"Generate structured SEO content for '{page.title}'. Maximum 2500 symbols.\n"
+            f"Generate structured SEO content for '{page.title}' "
+            f"for a website on the topic of '{self.content_service.options.site_type}'.\n"
             f"Respond only with an HTML content for a WYSIWYG editor. Do not include <html>, <body>, or <h1> tags. \n"
             f"Start with <h2> for headings. Return only valid HTML without any additional text or explanations.\n\n"
             f"Create HTML content with the following requirements:\n"
