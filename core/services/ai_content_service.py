@@ -111,17 +111,18 @@ class AIContentService:
             return {"status": "skipped", "message": "No title or slug"}
 
         prompt = (
-            f"Generate structured SEO content (minimum 2500 symbols) for the page title '{page.title}',"
-            f"site name is {self.content_service.options.brand_name}, "
-            f"for a website on the topic of '{self.content_service.options.activity}'. No links in the response.\n"
+            f"Generate structured SEO content (about 2500 characters) with hierarchical and SEO-optimised titles for "
+            f"the page title '{page.title}'. Site name is {self.content_service.options.brand_name}. "
+            f"The website activity is '{self.content_service.options.activity}'. No links in the response.\n"
             f"Respond only with an HTML content, do not include <html>, <body>, or <h1> tags. No markdown at all.\n"
-            f"Start with <h2> for headings. Return only valid HTML without any additional text or explanations.\n\n"
+            f"Return only valid HTML without any additional text or explanations.\n\n"
             f"Create HTML content with the following requirements:\n"
             f"- Use only tags allowed in the body of an HTML document\n"
             f"- Start with <h2> for the main heading\n"
             f"- Include at least one table and one unordered list\n"
             f"- Do not use <h1>, <html>, <body>, or any other structural tags\n"
-            f"- Ensure all tags are properly closed. Ensure there are no markdown elements like **bold text**\n"
+            f"- Ensure all tags are properly closed\n"
+            f"- Instead markdown **bold text** use html <strong>bold text</strong>, the same for other tags. \n\n"
             f"{page.ai_additional_info}."
         )
         generated_text = self.content_service.generate_text(prompt)
