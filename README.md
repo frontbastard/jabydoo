@@ -15,7 +15,7 @@
 - `cd /var/www/`
 - `git clone git@github.com:frontbastard/jabydoo.git [DOMAIN_NAME]`
 - `cd [DOMAIN_NAME]`
-- customize .env
+- customize .env `nano .env`
   - SITE_DOMAIN
   - SITE_TYPE
   - ENVIRONMENT
