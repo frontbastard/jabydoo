@@ -12,6 +12,10 @@ def create_page_for_menu(sender, instance, created, **kwargs):
     if created and instance.parent is None:  # Only for root elements
         slug = slugify(instance.name)
 
+        # If the URL is "#" (hash), skip page creation
+        if instance.url == "/#":
+            return
+
         # Check if a page with this slug already exists
         if not Page.objects.filter(slug=slug).exists():
             Page.objects.create(
