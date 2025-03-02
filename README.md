@@ -14,13 +14,12 @@
 ## Deployment
 - `cd /var/www/`
 - `git clone git@github.com:frontbastard/jabydoo.git [DOMAIN_NAME]`
+- `cd [DOMAIN_NAME]`
 - customize .env
   - SITE_DOMAIN
   - SITE_TYPE
   - ENVIRONMENT
   - DJANGO_DEBUG
-  - POSTGRES_XXX
-- `cd [DOMAIN_NAME]`
 - `chmod +x deploy.sh`
 - `sudo ./deploy.sh`
 
