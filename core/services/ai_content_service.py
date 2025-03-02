@@ -2,6 +2,8 @@ import json
 from abc import ABC, abstractmethod
 
 import requests
+import validators
+from django.contrib import messages
 from django.contrib.contenttypes.models import ContentType
 from django.core.files import File as DjangoFile
 from django.core.files.base import ContentFile
@@ -69,6 +71,7 @@ class ContentGenerationService:
             f"{{'title': '<title>', 'description': '<description>'}}"
         )
         generated_text = self.generate_text(prompt)
+        print(">>>>>>>>>>>>>>> SEO generated_text", generated_text)
         try:
             return json.loads(generated_text)
         except json.JSONDecodeError:
@@ -128,11 +131,14 @@ class AIContentService:
         if seo_data:
             self.update_seo_fields(page, seo_data)
 
-        if not page.image:
+        if self.content_service.options.ai_image_model and not page.image:
             image_url = self.content_service.generate_image(
-                f"Generate meaningful image for page title '{page.title}'")
-            if image_url:
+                f"Generate meaningful image for page title '{page.title}'"
+            )
+            if image_url and validators.url(image_url):
                 self.file_service.save_image_from_url(image_url, page)
+            else:
+                messages.warning(None, "AI image generation failed. Skipping image.")
 
         page.save()
         return {"status": "success", "page": page}
@@ -143,4 +149,3 @@ class AIContentService:
         seo_object.title = seo_data.get('title', '')
         seo_object.description = seo_data.get('description', '')
         seo_object.save()
-
