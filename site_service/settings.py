@@ -46,10 +46,8 @@ INSTALLED_APPS = [
     "pages.apps.PagesConfig",
     "seo.apps.SeoConfig",
     "menu.apps.MenuConfig",
+    "games.apps.GamesConfig",
 ]
-
-if SITE_TYPE == "neon":
-    INSTALLED_APPS.append("games.apps.GamesConfig")
 
 if ENVIRONMENT == Environment.DEV.value:
     INSTALLED_APPS += [
