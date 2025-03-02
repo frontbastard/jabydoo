@@ -133,7 +133,9 @@ class AIContentService:
 
         if self.content_service.options.ai_image_model and not page.image:
             image_url = self.content_service.generate_image(
-                f"Generate meaningful image for page title '{page.title}'"
+                f"Generate an illustration for the article '{page.title}' "
+                f"for a website on the topic of '{self.content_service.options.site_type}'. "
+                f"The image should match the website's theme and the article's content."
             )
             if image_url and validators.url(image_url):
                 self.file_service.save_image_from_url(image_url, page)
