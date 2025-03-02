@@ -66,7 +66,7 @@ class ContentGenerationService:
     def generate_seo(self, page_title: str, page_content: str) -> dict:
         prompt = (
             f"Generate an SEO-friendly title and meta description for '{page_title}' "
-            f"for a website on the topic of '{self.options.site_type}'.\n"
+            f"for a website on the topic of '{self.options.activity}'.\n"
             f"Title: 50-60 characters.\nDescription: 140-160 characters.\n"
             f"Respond ONLY with a JSON object in the following format (without any additional text): "
             f"{{'title': '<title>', 'description': '<description>'}}"
@@ -112,7 +112,7 @@ class AIContentService:
         prompt = (
             f"Generate structured SEO content (minimum 2500 symbols) for the page title '{page.title}',"
             f"site name is {self.content_service.options.brand_name}, "
-            f"for a website on the topic of '{self.content_service.options.site_type}'. No links in the response.\n"
+            f"for a website on the topic of '{self.content_service.options.activity}'. No links in the response.\n"
             f"Respond only with an HTML content for a WYSIWYG editor. Do not include <html>, <body>, or <h1> tags. \n"
             f"Start with <h2> for headings. Return only valid HTML without any additional text or explanations.\n\n"
             f"Create HTML content with the following requirements:\n"
@@ -136,7 +136,7 @@ class AIContentService:
         if self.content_service.options.ai_image_model and not page.image:
             image_url = self.content_service.generate_image(
                 f"Generate an image for the article '{page.title}' "
-                f"for a topic of '{self.content_service.options.site_type}'. Don't use text on images. \n"
+                f"for a topic of '{self.content_service.options.activity}'. Don't use text on images. \n"
                 f"The image should match the website's theme and the article's content."
             )
             if image_url and validators.url(image_url):

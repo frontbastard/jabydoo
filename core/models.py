@@ -7,7 +7,7 @@ class SiteOptions(models.Model):
     brand_name = models.CharField(max_length=255, null=True, blank=True)
     sponsor_url = models.URLField(max_length=255, null=True, blank=True, help_text="Referral link to sponsor")
     hide_sponsor_url = models.BooleanField(default=False, help_text="Hide sponsor url from search engines")
-    site_type = models.CharField(max_length=255, null=True, blank=True)
+    activity = models.CharField(max_length=255, null=True, blank=True)
     sponsor_logo = FilerImageField(
         related_name="sponsor_logo",
         on_delete=models.SET_NULL,
