@@ -17,7 +17,7 @@ class SiteOptions(models.Model):
     ai_secret_key = models.CharField(max_length=255, null=True, blank=True)
     ai_chat_model = models.CharField(
         max_length=255, null=True, blank=True,
-        help_text="Model used for text generation. For example: meta-llama/Llama-3.3-70B-Instruct-Turbo"
+        help_text="Model used for text generation. For example: meta-llama/Meta-Llama-3.1-405B-Instruct-Turbo"
     )
     ai_image_model = models.CharField(
         max_length=255, null=True, blank=True,

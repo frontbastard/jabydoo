@@ -66,13 +66,12 @@ class ContentGenerationService:
     def generate_seo(self, page_title: str, page_content: str) -> dict:
         prompt = (
             f"Generate an SEO-friendly title and meta description for '{page_title}' "
-            f"for a website on the topic of '{self.content_service.options.site_type}'. \n"
+            f"for a website on the topic of '{self.options.site_type}'.\n"
             f"Title: 50-60 characters.\nDescription: 140-160 characters.\n"
             f"Respond ONLY with a JSON object in the following format (without any additional text): "
             f"{{'title': '<title>', 'description': '<description>'}}"
         )
         generated_text = self.generate_text(prompt)
-        print(">>>>>>>>>>>>>>> SEO generated_text", generated_text)
         try:
             return json.loads(generated_text)
         except json.JSONDecodeError:
@@ -110,8 +109,10 @@ class AIContentService:
         if not page.title or not page.slug:
             return {"status": "skipped", "message": "No title or slug"}
 
+        # Генерація контенту
         prompt = (
-            f"Generate structured SEO content for '{page.title}' "
+            f"Generate structured SEO content for the page title '{page.title}', "
+            f"site name is {self.content_service.options.brand_name}, "
             f"for a website on the topic of '{self.content_service.options.site_type}'.\n"
             f"Respond only with an HTML content for a WYSIWYG editor. Do not include <html>, <body>, or <h1> tags. \n"
             f"Start with <h2> for headings. Return only valid HTML without any additional text or explanations.\n\n"
@@ -150,6 +151,6 @@ class AIContentService:
     def update_seo_fields(self, page, seo_data):
         content_type = ContentType.objects.get_for_model(page)
         seo_object, created = SEO.objects.get_or_create(content_type=content_type, object_id=page.id)
-        seo_object.title = seo_data.get('title', '')
-        seo_object.description = seo_data.get('description', '')
+        seo_object.title = seo_data.get("title", "")
+        seo_object.description = seo_data.get("description", "")
         seo_object.save()
