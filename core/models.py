@@ -17,11 +17,12 @@ class SiteOptions(models.Model):
     ai_secret_key = models.CharField(max_length=255, null=True, blank=True)
     ai_chat_model = models.CharField(
         max_length=255, null=True, blank=True,
-        help_text="Model used for text generation. For example: meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo"
+        help_text=f"Model used for text generation. For example: <b>meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo</b>, "
+                  f"<b>mistralai/Mistral-7B-Instruct-v0.3</b>"
     )
     ai_image_model = models.CharField(
         max_length=255, null=True, blank=True,
-        help_text="Model used for image generation. For example: black-forest-labs/FLUX.1-pro"
+        help_text="Model used for image generation. For example: <b>black-forest-labs/FLUX.1-pro</b>"
     )
     custom_css = models.TextField(null=True, blank=True)
 
