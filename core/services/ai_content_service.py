@@ -106,7 +106,7 @@ class AIContentService:
         self.content_service = content_service
         self.file_service = file_service
 
-    def generate_content_for_page(self, page):
+    def generate_content_for_page(self, request, page):
         if not page.title or not page.slug:
             return {"status": "skipped", "message": "No title or slug"}
 
@@ -143,7 +143,7 @@ class AIContentService:
             if image_url and validators.url(image_url):
                 self.file_service.save_image_from_url(image_url, page)
             else:
-                messages.warning(None, "AI image generation failed. Skipping image.")
+                messages.warning(request, "AI image generation failed. Skipping image.")
 
         page.save()
         return {"status": "success", "page": page}
