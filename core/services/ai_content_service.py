@@ -111,7 +111,7 @@ class AIContentService:
             return {"status": "skipped", "message": "No title or slug"}
 
         prompt = (
-            f"Generate structured SEO content (about 2500 characters) with hierarchical and SEO-optimised titles for "
+            f"Generate structured SEO content (minimum 2000 characters) with hierarchical and SEO-optimised titles for "
             f"the page title '{page.title}'. Site name is {self.content_service.options.brand_name}. "
             f"The website activity is '{self.content_service.options.activity}'. No links in the response.\n"
             f"Respond only with an HTML content, do not include <html>, <body>, or <h1> tags. No markdown at all.\n"
