@@ -7,7 +7,6 @@ services:
       sh -c "python manage.py wait_for_db &&
              python manage.py migrate &&
              python manage.py create_superuser &&
-             python manage.py create_trust_pages &&
              python manage.py collectstatic --noinput &&
              gunicorn --workers 1 --timeout 180 --keep-alive 5 --bind unix:/app/app.sock site_service.wsgi:application"
     environment:

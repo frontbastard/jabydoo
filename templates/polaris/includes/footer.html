@@ -1,30 +1,7 @@
-{% load i18n static %}
+{% load i18n static menu_tags %}
 
 <div class="container py-5 text-center">
-  <ul class="d-flex flex-wrap justify-content-around list-unstyled mb-5">
-    <li class="nav-item">
-      <a class="nav-link p-3" href="/privacy-policy">{% translate "Privacy Policy" %}</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link p-3" href="/terms-of-service">{% translate "Terms of Service" %}</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link p-3" href="/contact-us">{% translate "Contact Us" %}</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link p-3" href="/about-us">{% translate "About Us" %}</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link p-3" href="/faq">{% translate "FAQ" %}</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link p-3" href="/cookie-policy">{% translate "Cookie Policy" %}</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link p-3" href="/legal-notice">{% translate "Legal Notice" %}</a>
-    </li>
-  </ul>
-
+  {% render_footer_menu %}
   <p class="opacity-50 d-inline">
     &copy; {% now "Y" %} {{ site_options.brand_name }}. {% translate "All rights reserved" %}.</p>
 </div>

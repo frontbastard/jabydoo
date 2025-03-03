@@ -21,7 +21,7 @@
                   {{ child.name }}
                 </a>
                 {% if child.children.all %}
-                  {% include "includes/menu.html" with menu_items=child.children.all %}
+                  {% include "includes/menu/main_menu.html" with menu_items=child.children.all %}
                 {% endif %}
               </li>
             {% endfor %}

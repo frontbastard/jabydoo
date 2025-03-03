@@ -5,9 +5,32 @@ from parler.models import TranslatableModel, TranslatedFields
 from menu.managers import MenuItemManager
 
 
+def get_default_menu():
+    menu, created = Menu.objects.get_or_create(name="Main Menu")
+    return menu.id
+
+
+class Menu(models.Model):
+    """Model to define different menus (e.g., Main, Footer, Sidebar)."""
+    name = models.CharField(max_length=100, unique=True)
+
+    def delete(self, *args, **kwargs):
+        raise ValueError("Deleting menus is not allowed.")
+
+    def __str__(self):
+        return self.name
+
+
 class MenuItem(MPTTModel, TranslatableModel):
+    """Menu item that belongs to a specific Menu."""
     translations = TranslatedFields(
         name=models.CharField(max_length=100),
+    )
+    menu = models.ForeignKey(
+        Menu,
+        on_delete=models.CASCADE,
+        related_name="items",
+        default=get_default_menu
     )
     url = models.CharField(max_length=200)
     parent = TreeForeignKey(

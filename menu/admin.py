@@ -1,17 +1,15 @@
-from django.db import models
-from django.forms import Textarea, TextInput
+from django.contrib import admin
+from django.forms import TextInput
+from mptt.admin import DraggableMPTTAdmin
 from mptt.forms import MPTTAdminForm
+from parler.admin import TranslatableAdmin
 from parler.admin import TranslatableModelForm
+
+from .models import MenuItem, Menu
 
 
 class MenuItemAdminForm(MPTTAdminForm, TranslatableModelForm):
     pass
-
-
-from django.contrib import admin
-from parler.admin import TranslatableAdmin
-from mptt.admin import DraggableMPTTAdmin
-from .models import MenuItem
 
 
 class MenuItemForm(TranslatableModelForm):
@@ -24,6 +22,30 @@ class MenuItemForm(TranslatableModelForm):
         }
 
 
+class MenuItemInline(admin.TabularInline):
+    model = MenuItem
+    form = MenuItemForm
+    extra = 0
+    fields = ["name", "url", "parent", "order"]
+    widgets = {
+        "name": TextInput(attrs={"style": "width: 100%;"}),
+        "url": TextInput(attrs={"style": "width: 100%;"}),
+    }
+    mptt_level_indent = 20
+
+    def get_prepopulated_fields(self, request, obj=None):
+        return {"url": ("name",)}
+
+
+@admin.register(Menu)
+class MenuAdmin(admin.ModelAdmin):
+    inlines = [MenuItemInline]
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+
+@admin.register(MenuItem)
 class MenuItemAdmin(TranslatableAdmin, DraggableMPTTAdmin):
     form = MenuItemForm
     fields = ["name", "url", "parent", "order"]
@@ -34,6 +56,3 @@ class MenuItemAdmin(TranslatableAdmin, DraggableMPTTAdmin):
 
     def get_prepopulated_fields(self, request, obj=None):
         return {"url": ("name",)}
-
-
-admin.site.register(MenuItem, MenuItemAdmin)

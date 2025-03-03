@@ -1,9 +1,16 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_migrate
 from django.dispatch import receiver
 from django.utils.text import slugify
 
-from menu.models import MenuItem
+from menu.models import MenuItem, Menu
 from pages.models import Page
+
+
+@receiver(post_migrate)
+def create_default_menus(sender, **kwargs):
+    if sender.name == "menu":
+        Menu.objects.get_or_create(name="Main Menu")
+        Menu.objects.get_or_create(name="Footer Menu")
 
 
 @receiver(post_save, sender=MenuItem)
