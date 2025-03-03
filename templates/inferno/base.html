@@ -24,17 +24,17 @@
 </header>
 
 <main class="main">
-  <div class="container">
+  <div class="container position-relative">
     <div class="row">
       <article class="content-wrapper col-xl-10">
         {% block content %}
         {% endblock %}
       </article>
 
-      <aside class="aside-right col-xl-2">
-        {% get_menu "Main Menu" as MENU_ITEMS %}
-        {% if MENU_ITEMS %}
-          {% include "includes/menu/main_menu.html" with menu_items=MENU_ITEMS %}
+      <aside class="aside col-xl-2">
+        {% get_menu "Main Menu" as MENU %}
+        {% if MENU.items %}
+          {% include "includes/menu/main_menu.html" with menu=MENU %}
         {% endif %}
         {% if PARTNERS %}
           {% include "includes/partners.html" with partners=PARTNERS %}

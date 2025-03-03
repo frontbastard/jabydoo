@@ -1,9 +1,7 @@
-{% load  menu_tags %}
-
 <nav class="navbar navbar-expand-xl p-0">
   <div class="collapse navbar-collapse justify-content-center order-3 order-xl-0" id="navbarNav">
     <ul class="navbar-nav">
-      {% for item in menu_items %}
+      {% for item in menu.items %}
         {% if not item.parent %}
           <li class="nav-item {% if item.children.all %}dropdown{% endif %}">
             <a

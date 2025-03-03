@@ -19,9 +19,9 @@
       <span></span>
     </button>
 
-    {% get_menu "Main Menu" as MENU_ITEMS %}
-    {% if MENU_ITEMS %}
-      {% include "includes/menu/main_menu.html" with menu_items=MENU_ITEMS %}
+    {% get_menu "Main Menu" as MENU %}
+    {% if MENU.items %}
+      {% include "includes/menu/main_menu.html" with menu=MENU %}
     {% endif %}
 
 

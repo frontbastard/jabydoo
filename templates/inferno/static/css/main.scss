@@ -177,6 +177,16 @@ body {
       }
     }
   }
+
+  .navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    @include media("xl") {
+      position: static;
+    }
+  }
 }
 
 .content-wrapper {
