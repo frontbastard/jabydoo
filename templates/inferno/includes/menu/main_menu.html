@@ -1,0 +1,35 @@
+{% load menu_filter %}
+
+<nav class="navbar navbar-expand-xl p-0">
+  <div class="collapse navbar-collapse justify-content-center order-3 order-xl-0" id="navbarNav">
+    <ul class="navbar-nav">
+      {% for item in menu_items %}
+        <li class="nav-item {% if item.children.all %}dropdown{% endif %}">
+          <a
+            class="nav-link {% if item.children.all %}dropdown-toggle{% endif %}"
+            href="{{ item.url|add_language_prefix:language_code }}"
+            {% if item.children.all %}id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false"{% endif %}>
+            {{ item.name }}
+          </a>
+
+          {% if item.children.all %}
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              {% for child in item.children.all %}
+                <li>
+                  <a class="dropdown-item"
+                     href="{{ child.url|add_language_prefix:language_code }}">
+                    {{ child.name }}
+                  </a>
+                  {% if child.children.all %}
+                    {% include "includes/menu/main_menu.html" with menu_items=child.children.all %}
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</nav>
