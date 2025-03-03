@@ -1,0 +1,25 @@
+{% load i18n menu_tags %}
+
+<nav class="navbar navbar-expand-xl p-0">
+  <div class="container">
+    <a class="navbar-brand" href="{% url 'pages:home' %}">
+      {% if site_options.sponsor_logo %}
+        <img
+          src="{{ site_options.sponsor_logo }}"
+          alt="{{ header_image.default_alt_text }}"
+          width="130" height="63" loading="lazy">
+      {% else %}
+        <div class="py-3">{{ site_options.brand_name }}</div>
+      {% endif %}
+    </a>
+
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span></span>
+    </button>
+
+
+    {% include "includes/language_switcher.html" %}
+  </div>
+</nav>

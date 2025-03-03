@@ -1,0 +1,7 @@
+{% load i18n static menu_tags %}
+
+<div class="container py-5 text-center">
+  {% render_footer_menu %}
+  <p class="opacity-50 d-inline">
+    &copy; {% now "Y" %} {{ site_options.brand_name }}. {% translate "All rights reserved" %}.</p>
+</div>

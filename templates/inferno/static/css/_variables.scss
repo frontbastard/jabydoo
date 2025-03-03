@@ -1,0 +1,40 @@
+
+:root {
+  /***
+    Generate styles that replace XXX with values whose ranges are specified after the keyword "PARAMS:".
+    Do not enter any comments.
+  ***/
+  /* Main colours
+    Update the colours below by taking --primary-colour at random. Select the other colours
+    (--secondary-colour, --accent-colour) automatically so that they contrast well and meet the rules of UI/UX design.
+  */
+  --primary-color: XXX; /* PARAMS: main color */
+  --secondary-color: XXX; /* PARAMS: black text color on it should be readable easily, it also can be white */
+  --accent-color: XXX;
+
+
+  /* Text colours */
+  --text-color: XXX;
+
+  /* Backgrounds */
+  --bg-color: var(--secondary-color);
+
+  /* Fonts */
+  --font-family-base: XXX; /* PARAMS: use random standard system font */
+  --font-size-base: XXX; /* PARAMS: from 1.2rem to 1.8rem */
+  --text-color-base: XXX; /* PARAMS: colour must be light if --secondary-colour is dark, and vice versa. */
+
+  /* Borders and indents */
+  --border-radius: XXX; /* PARAMS: none, from 0 to 1rem */
+
+  /* Transform */
+  --skew-x: XXX; /* PARAMS: from 0 to -20deg */
+
+  /* ------------------ */
+
+  /* Elements */
+  --navbar-brand-size: XXX; /* PARAMS: from 2.5rem to 3.5rem */
+  --nav-item-px: XXX; /* PARAMS: from 1rem to 2rem */
+  --nav-item-py: XXX; /* PARAMS: from 0rem to 0.5rem */
+  --nav-text-color: XXX; /* PARAMS: should not blend in with the --primary-color */
+}
