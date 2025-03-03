@@ -13,12 +13,16 @@
       {% endif %}
     </a>
 
-    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+    <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span></span>
     </button>
 
-    {% render_main_menu %}
+    {% get_menu "Main Menu" as MENU_ITEMS %}
+    {% if MENU_ITEMS %}
+      {% include "includes/menu/main_menu.html" with menu_items=MENU_ITEMS %}
+    {% endif %}
 
 
     {% include "includes/language_switcher.html" %}

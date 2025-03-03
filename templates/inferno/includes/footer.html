@@ -1,7 +1,10 @@
 {% load i18n static menu_tags %}
 
 <div class="container py-5 text-center">
-  {% render_footer_menu %}
+  {% get_menu "Footer Menu" as MENU_ITEMS %}
+  {% if MENU_ITEMS %}
+    {% include "includes/menu/footer_menu.html" with menu_items=MENU_ITEMS %}
+  {% endif %}
   <p class="opacity-50 d-inline">
     &copy; {% now "Y" %} {{ site_options.brand_name }}. {% translate "All rights reserved" %}.</p>
 </div>

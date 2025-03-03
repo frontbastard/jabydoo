@@ -4,7 +4,6 @@ from parler.managers import TranslatableManager, TranslatableQuerySet
 
 
 class MenuItemQuerySet(TranslatableQuerySet, TreeQuerySet):
-
     def as_manager(cls):
         # make sure creating managers from querysets works.
         manager = MenuItemManager.from_queryset(cls)()
@@ -17,3 +16,7 @@ class MenuItemQuerySet(TranslatableQuerySet, TreeQuerySet):
 
 class MenuItemManager(TreeManager, TranslatableManager):
     _queryset_class = MenuItemQuerySet
+
+    def get_menu(self, menu_name, language_code="en"):
+        """Get the hierarchy of items for the specified menu."""
+        return self.filter(menu__name=menu_name).language(language_code)
