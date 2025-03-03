@@ -26,17 +26,21 @@
 <main class="main">
   <div class="container position-relative">
     <div class="row">
-      <article class="content-wrapper col-xl-10">
+      <article class="content-wrapper col-xl-9">
         {% block content %}
         {% endblock %}
       </article>
 
-      <aside class="aside col-xl-2">
+      <aside class="aside col-xl-3 px-4">
         {% get_menu "Main Menu" as MENU %}
         {% if MENU.items %}
+          <p class="h1 d-none d-xl-block py-5 m-0">{{ MENU.name }}</p>
           {% include "includes/menu/main_menu.html" with menu=MENU %}
         {% endif %}
+
         {% if PARTNERS %}
+          <hr>
+          <p class="h1 py-5 mb-0">{% translate "Partners" %}</p>
           {% include "includes/partners.html" with partners=PARTNERS %}
         {% endif %}
       </aside>

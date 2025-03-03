@@ -1,8 +1,8 @@
 {% load i18n menu_tags %}
 
 <nav class="navbar navbar-expand-xl p-0">
-  <div class="container">
-    <a class="navbar-brand" href="{% url 'pages:home' %}">
+  <div class="container justify-content-center">
+    <a class="navbar-brand me-5" href="{% url 'pages:home' %}">
       {% if site_options.sponsor_logo %}
         <img
           src="{{ site_options.sponsor_logo }}"

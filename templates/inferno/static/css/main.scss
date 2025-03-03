@@ -5,12 +5,25 @@
 body {
   background: var(--bg-color);
   font-size: var(--font-size-base);
-  font-family: var(--font-family-base);
+  font-family: Georgia, "Times New Roman", Times, serif;
   color: var(--text-color-base);
+  overflow-x: hidden;
 }
 
 .header {
+  position: relative;
   background-color: var(--primary-color);
+
+  &:after {
+    content: "";
+    background: linear-gradient(0deg, transparent, #00000061);
+    position: absolute;
+    top: 100%;
+    left: 0;
+    height: 100px;
+    right: 0;
+    z-index: -1;
+  }
 }
 
 .navbar {
@@ -60,32 +73,15 @@ body {
   .nav-item {
     position: relative;
     margin: .1rem;
-    padding: var(--nav-item-py) var(--nav-item-px);
+    padding: var(--nav-item-py) var(--nav-item-px) var(--nav-item-py) .5rem;
+    font-size: 2rem;
 
-    &:before {
-      @include media("xl") {
-        content: '';
-        background: #fff;
-        opacity: 0.15;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        transform: skewX(var(--skew-x));
-        border-radius: var(--border-radius);
-        transition: opacity .3s ease;
-      }
+    &::marker {
+      content: '\21a0';
     }
 
-    &:hover {
-      &:before {
-        opacity: 1;
-      }
-
-      .nav-link {
-        color: #000;
-      }
+    .nav-link {
+      display: inline-block;
     }
   }
 
@@ -130,7 +126,7 @@ body {
 
     &:before,
     &:after {
-      content: '';
+      content: "";
       transition: all .3s ease;
     }
 
@@ -146,6 +142,10 @@ body {
   }
 }
 
+.main {
+  background-color: rgba(#b4b4b4, .2);
+}
+
 .aside {
   &-list {
     &,
@@ -158,10 +158,6 @@ body {
       padding: .5rem 0;
       border: none;
       transition: color .3s ease;
-
-      + .list-group-item {
-        border-top: .1rem solid rgba(#000, .4);
-      }
 
       &:hover {
         color: var(--accent-color);
@@ -182,17 +178,41 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    width: 100%;
 
     @include media("xl") {
       position: static;
+    }
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: -999rem;
+      right: -999rem;
+      top: 0;
+      height: 100%;
+      background: var(--primary-color);
+      opacity: 0.8;
+
+      @include media("xl") {
+        content: unset;
+      }
+    }
+
+    .nav-item {
+      &::marker {
+        color: var(--accent-color);
+      }
     }
   }
 }
 
 .content-wrapper {
-  .content {
-    background-color: rgba(#b4b4b4, .2);
+  a {
+    color: var(--text-color-base);
+  }
 
+  .content {
     .container {
       padding: 0 !important;
     }

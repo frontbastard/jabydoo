@@ -1,7 +1,5 @@
 {% load i18n %}
-
-<h2 class="h1 py-5 mb-0">{% translate "Partners" %}</h2>
-<div class="aside-list list-group">
+<div class="aside-list list-group mb-5">
   {% for partner in partners %}
     <a href="{{ partner.url }}"
        class="list-group-item list-group-item-action text-break d-flex justify-content-between"

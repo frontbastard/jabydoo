@@ -1,35 +1,35 @@
 <nav class="navbar navbar-expand-xl p-0">
-  <div class="collapse navbar-collapse justify-content-center order-3 order-xl-0" id="navbarNav">
-    <ul class="navbar-nav">
-      {% for item in menu.items %}
-        {% if not item.parent %}
-          <li class="nav-item {% if item.children.all %}dropdown{% endif %}">
-            <a
-              class="nav-link {% if item.children.all %}dropdown-toggle{% endif %}"
-              href="{{ item.url }}"
-              {% if item.children.all %}id="navbarDropdown" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false"{% endif %}>
-              {{ item.name }}
-            </a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <div class="d-flex justify-content-center">
+      <ul class="py-5 py-xl-0">
+        {% for item in menu.items %}
+          {% if not item.parent %}
+            <li class="nav-item">
+              <a
+                class="nav-link"
+                href="{{ item.url }}">
+                {{ item.name }}
+              </a>
 
-            {% if item.children.all %}
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                {% for child in item.children.all %}
-                  <li>
-                    <a class="dropdown-item"
-                       href="{{ child.url }}">
-                      {{ child.name }}
-                    </a>
-                    {% if child.children.all %}
-                      {% include "includes/menu/main_menu.html" with menu_items=child.children.all %}
-                    {% endif %}
-                  </li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-          </li>
-        {% endif %}
-      {% endfor %}
-    </ul>
+              {% if item.children.all %}
+                <ul>
+                  {% for child in item.children.all %}
+                    <li class="nav-item">
+                      <a class="nav-link"
+                         href="{{ child.url }}">
+                        {{ child.name }}
+                      </a>
+                      {% if child.children.all %}
+                        {% include "includes/menu/main_menu.html" with menu_items=child.children.all %}
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endif %}
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
   </div>
 </nav>
