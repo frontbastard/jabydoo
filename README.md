@@ -14,10 +14,10 @@
 ## Deployment
 - `cd /var/www/`
 - `git clone git@github.com:frontbastard/jabydoo.git [DOMAIN_NAME]`
+- `git checkout deploy`
 - `cd [DOMAIN_NAME]`
 - customize .env `nano .env`
   - SITE_DOMAIN
-  - SITE_TYPE
   - ENVIRONMENT
   - DJANGO_DEBUG
 - `chmod +x deploy.sh`
