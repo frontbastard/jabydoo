@@ -18,6 +18,7 @@ body {
   position: relative;
   border-bottom: .1rem solid var(--text-color-base);
   background-color: var(--primary-color);
+  padding: 1rem 0;
 }
 
 .navbar {
@@ -69,10 +70,6 @@ body {
     margin: .1rem;
     padding: var(--nav-item-py) var(--nav-item-px) var(--nav-item-py) .5rem;
     font-size: 2rem;
-
-    .nav-link {
-      display: inline-block;
-    }
   }
 
   .navbar-toggler {
