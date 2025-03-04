@@ -9,14 +9,15 @@
 body {
   background: var(--bg-color);
   font-size: var(--font-size-base);
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: var(--font-family-base);
   color: var(--text-color-base);
   overflow-x: hidden;
 }
 
 .header {
   position: relative;
-  border-bottom: 2px solid var(--text-color-base);
+  border-bottom: .1rem solid var(--text-color-base);
+  background-color: var(--primary-color);
 }
 
 .navbar {
@@ -27,11 +28,11 @@ body {
 
   .nav-link {
     position: relative;
-    color: var(--nav-text-color);
+    color: var(--text-color-base);
     transition: color .3s ease;
 
     &:hover {
-      color: var(--accent-color);
+      color: var(--primary-color);
     }
   }
 
@@ -145,7 +146,7 @@ body {
       transition: color .3s ease;
 
       &:hover {
-        color: var(--accent-color);
+        color: var(--primary-color);
 
         .icon {
           transform: translateX(.5rem);
@@ -186,7 +187,7 @@ body {
 
     .nav-item {
       &::marker {
-        color: var(--accent-color);
+        color: var(--primary-color);
       }
     }
   }
@@ -210,7 +211,7 @@ body {
   ol,
   ul {
     li::marker {
-      color: var(--accent-color);
+      color: var(--primary-color);
       font-weight: bold;
     }
   }
@@ -232,7 +233,7 @@ body {
       &:before {
         content: '\2022';
         font-size: 1.7rem;
-        color: var(--accent-color);
+        color: var(--primary-color);
         position: absolute;
         left: 0;
         top: 0;
