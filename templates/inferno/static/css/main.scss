@@ -73,7 +73,10 @@ body {
   }
 
   .navbar-toggler {
-    position: relative;
+    position: absolute;
+    right: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
     height: 2.5rem;
     width: 3rem;
     padding: 0;
