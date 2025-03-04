@@ -14,8 +14,8 @@
 ## Deployment
 - `cd /var/www/`
 - `git clone git@github.com:frontbastard/jabydoo.git [DOMAIN_NAME]`
-- `git checkout deploy`
 - `cd [DOMAIN_NAME]`
+- `git checkout deploy`
 - customize .env `nano .env`
   - SITE_DOMAIN
   - ENVIRONMENT
