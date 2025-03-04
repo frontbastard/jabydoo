@@ -2,6 +2,10 @@
 @import "variables";
 @import "static/css/general";
 
+:root {
+  --primary-color: 56, 56, 56;
+}
+
 body {
   background: var(--bg-color);
   font-size: var(--font-size-base);
@@ -12,18 +16,7 @@ body {
 
 .header {
   position: relative;
-  background-color: var(--primary-color);
-
-  &:after {
-    content: "";
-    background: linear-gradient(0deg, transparent, #00000061);
-    position: absolute;
-    top: 100%;
-    left: 0;
-    height: 100px;
-    right: 0;
-    z-index: -1;
-  }
+  border-bottom: 2px solid var(--text-color-base);
 }
 
 .navbar {
@@ -75,10 +68,6 @@ body {
     margin: .1rem;
     padding: var(--nav-item-py) var(--nav-item-px) var(--nav-item-py) .5rem;
     font-size: 2rem;
-
-    &::marker {
-      content: '\21a0';
-    }
 
     .nav-link {
       display: inline-block;
@@ -142,10 +131,6 @@ body {
   }
 }
 
-.main {
-  background-color: rgba(#b4b4b4, .2);
-}
-
 .aside {
   &-list {
     &,
@@ -191,8 +176,8 @@ body {
       right: -999rem;
       top: 0;
       height: 100%;
-      background: var(--primary-color);
-      opacity: 0.8;
+      background: var(--secondary-color);
+      opacity: 0.9;
 
       @include media("xl") {
         content: unset;
