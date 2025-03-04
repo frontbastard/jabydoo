@@ -21,8 +21,8 @@ services:
       - .env
     depends_on:
       - db
-      - redis
-      - celery
+#      - redis
+#      - celery
     restart: always
 
   db:
@@ -33,24 +33,24 @@ services:
       - .env
     restart: always
 
-  redis:
-    image: redis:alpine
-    restart: always
-
-  celery:
-    build: .
-    command: celery -A site_service worker --loglevel=info
-    depends_on:
-      - redis
-    restart: always
-
-  celery-beat:
-    build: .
-    command: celery -A site_service beat --loglevel=info
-    depends_on:
-      - redis
-      - celery
-    restart: always
+#  redis:
+#    image: redis:alpine
+#    restart: always
+#
+#  celery:
+#    build: .
+#    command: celery -A site_service worker --loglevel=info
+#    depends_on:
+#      - redis
+#    restart: always
+#
+#  celery-beat:
+#    build: .
+#    command: celery -A site_service beat --loglevel=info
+#    depends_on:
+#      - redis
+#      - celery
+#    restart: always
 
 volumes:
   postgres_data:
